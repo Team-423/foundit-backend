@@ -1,14 +1,15 @@
-const connectDB = require("../src/connection");
 const request = require("supertest");
 const app = require("../src/app");
 const mongoose = require("mongoose");
 const endpointsJson = require("../endpoints.json");
 const setupDB = require("../src/index");
 
-beforeAll(() => {
-  setupDB();
+beforeEach(async () => {
+  await setupDB();
 });
-afterAll(() => mongoose.connection.close());
+afterAll(async () => {
+  await mongoose.connection.close();
+});
 
 describe("GET /api", () => {
   test("200: Responds with an object detailing the documentation for each endpoint", () => {
