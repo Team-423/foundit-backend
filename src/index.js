@@ -119,13 +119,12 @@ async function setupDB() {
     );
   } catch (err) {
     console.error(err);
-  } finally {
-    await mongoose.connection.close();
+    throw err;
   }
 }
 
 if (require.main === module) {
-  setupDB();
+  setupDB().finally(() => mongoose.connection.close());
 }
 
 module.exports = setupDB;
