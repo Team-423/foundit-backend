@@ -1,15 +1,15 @@
-import mongoose from "mongoose";
-import Item from "./db/models/items.js";
-import User from "./db/models/users.js";
+const mongoose = require("mongoose");
+const Item = require("./db/models/items.js");
+const User = require("./db/models/users.js");
+const connectDB = require("./connection.js");
 
 async function setupDB() {
-  await mongoose.connect(
-    "mongodb+srv://Found-it:TYxg5Cefh8Ba5RTN@cluster0.no4pkro.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  );
+  await connectDB();
 
   try {
     await User.deleteMany({});
     await Item.deleteMany({});
+
     const createdUser = await User.create({
       username: "johndoe",
       email: "johndoe@example.com",
@@ -117,8 +117,6 @@ async function setupDB() {
     const item = await Item.findOne({ item_name: "Black Wallet" }).populate(
       "author"
     );
-
-    console.log(item);
   } catch (err) {
     console.error(err);
   } finally {
@@ -126,4 +124,8 @@ async function setupDB() {
   }
 }
 
-setupDB();
+if (require.main === module) {
+  setupDB();
+}
+
+module.exports = setupDB;
