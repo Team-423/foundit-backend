@@ -115,7 +115,6 @@ async function setupDB() {
 
     await Item.insertMany(items);
     const item = await Item.find().populate("author", "username");
-    console.log(item);
   } catch (err) {
     console.error(err);
     throw err;
