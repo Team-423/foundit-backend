@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 
 const ENV = process.env.NODE_ENV || "development";
 
-dotenv.config({ path: path.resolve(__dirname, `../.env.${ENV}`) });
+dotenv.config({ path: path.resolve(__dirname, `../../.env.${ENV}`) });
 
 const MONGO_URI = process.env.MONGO_URI;
 

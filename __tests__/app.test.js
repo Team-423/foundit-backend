@@ -1,8 +1,8 @@
 const request = require("supertest");
-const app = require("../src/app");
+const app = require("../src/app.js");
 const mongoose = require("mongoose");
 const endpointsJson = require("../endpoints.json");
-const setupDB = require("../src/index");
+const setupDB = require("../src/db/seeding/seed");
 
 beforeEach(async () => {
   await setupDB();
