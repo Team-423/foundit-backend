@@ -1,5 +1,47 @@
 {
   "GET /api": {
     "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "GET /api/items": {
+    "description": "serves up an array of all items",
+    "exampleResponse": [
+      {
+        "_id": "683f0f142a5885e53c257c8a",
+        "item_name": "Black Wallet",
+        "author": { "_id": "683f0f142a5885e53c257c85", "username": "johndoe" },
+        "category": "Accessories",
+        "description": "Leather wallet containing ID and credit cards",
+        "created_at": "2025-05-01T10:30:00.000Z",
+        "location": "Central Library",
+        "colour": "Black",
+        "size": "Small",
+        "brand": "Fossil",
+        "material": "Leather",
+        "resolved": false,
+        "found": false,
+        "lost": true,
+        "__v": 0
+      },
+      {
+        "_id": "683f0f142a5885e53c257c8b",
+        "item_name": "Silver iPhone 13",
+        "author": {
+          "_id": "683f0f142a5885e53c257c86",
+          "username": "janesmith "
+        },
+        "category": "Electronics",
+        "description": "Phone with cracked screen and red case",
+        "created_at": "2025-04-20T14:45:00.000Z",
+        "location": "Campus Cafeteria",
+        "colour": "Silver",
+        "size": "Medium",
+        "brand": "Apple",
+        "material": "Metal/Glass",
+        "resolved": true,
+        "found": true,
+        "lost": false,
+        "__v": 0
+      }
+    ]
   }
 }

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const connectDB = require("../../db/connection");
 const { Schema, SchemaTypes, model } = mongoose;
 
 const itemSchema = new Schema({
@@ -56,4 +57,14 @@ const itemSchema = new Schema({
 
 const Item = model("Item", itemSchema);
 
-module.exports = Item;
+const selectItems = async () => {
+  try {
+    await connectDB();
+    const items = await Item.find().populate("author", "username");
+    return items;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+module.exports = { Item, selectItems }; //for Item we cannot use exports., mind the syntax
