@@ -13,4 +13,13 @@ app.get("/api/items/:item_id", getItemById);
 app.all("/*splat", (req, res) => {
   res.status(404).send({ msg: "Path not found!" });
 });
+
+app.use((err, req, res, next) => {
+  if (err.status && err.msg) {
+    res.status(err.status).send({msg:err.msg})
+  } else {
+    next(err)
+  }
+})
+
 module.exports = app;

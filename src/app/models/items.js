@@ -67,4 +67,24 @@ const selectItems = async () => {
   }
 };
 
-module.exports = { Item, selectItems }; //for Item we cannot use exports., mind the syntax
+// GET /api/items/:item_id
+const selectItemById = async (item_id) => {
+  if (!mongoose.Types.ObjectId.isValid(item_id)) {
+    throw {
+      status: 400,
+      msg: "Bad request: invalid format!",
+    };
+  }
+  try {
+    const itemById = await Item.findById(item_id).populate(
+      "author",
+      "username"
+    );
+    return itemById;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+module.exports = { Item, selectItems, selectItemById }; //for Item we cannot use exports., mind the syntax

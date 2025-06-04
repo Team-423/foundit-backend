@@ -1,18 +1,17 @@
-const Item = require("../models/items");
-const mongoose = require("mongoose");
+const { selectItemById } = require("../models/items");
 
+// GET /api/items/:item_id
 exports.getItemById = async (req, res, next) => {
   const { item_id } = req.params;
 
   try {
-    const itemById = await Item.findById(item_id);
-
+    const itemById = await selectItemById(item_id);
     if (!itemById) {
-      return res.status(404).send({ msg: "Item not found" });
+      return res.status(404).send({ msg: "Item not found!" });
     }
+
     res.status(200).send({ itemById });
-  } catch (error) {
-    return res.status(400).send({ msg: "Bad request: invalid format" });
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };

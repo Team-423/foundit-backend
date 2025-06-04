@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "seed": "node ./src/db/seeding/seed.js",
-    "test": "jest"
+    "test": "npx jest --runInBand"
   },
   "keywords": [],
   "author": "",
