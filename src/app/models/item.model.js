@@ -80,9 +80,14 @@ const selectItemById = async (item_id) => {
       "author",
       "username"
     );
+    if (!itemById) {
+      throw {
+        status: 404,
+        msg: "Item not found!",
+      };
+    }
     return itemById;
   } catch (err) {
-    console.error(err);
     throw err;
   }
 };
@@ -122,9 +127,14 @@ const selectItemByIdToUpdate = async (
   }
   try {
     const updatedItem = await Item.findOneAndUpdate(query, update, options);
+    if (!updatedItem) {
+      throw {
+        status: 404,
+        msg: "Item not found!",
+      };
+    }
     return updatedItem;
   } catch (err) {
-    console.error(err);
     throw err;
   }
 };

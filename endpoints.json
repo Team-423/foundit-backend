@@ -63,5 +63,33 @@
       "lost": true,
       "__v": 0
     }
+  },
+  "PATCH /api/items/:item_id": {
+    "description": "Updates item info for one or more properties for the selected item_id, returns the updated item object",
+    "exampleRequest": {
+      "item_name": "iphone",
+      "category": "Electronics",
+      "description": "iphone 16 with a phone case",
+      "location": "City Centre",
+      "colour": "Silver",
+      "size": "small",
+      "brand": "Apple",
+      "material": "Metal and Glass"
+    },
+    "exampleResponse": {
+      "_id": "683f805f894c689cbb55b2e6",
+      "item_name": "iphone",
+      "category": "Electronics",
+      "description": "iphone 16 with a phone case",
+      "location": "City Centre",
+      "colour": "Silver",
+      "size": "small",
+      "brand": "Apple",
+      "material": "Metal and Glass",
+      "resolved": false,
+      "found": false,
+      "lost": true,
+      "__v": 0
+    }
   }
 }

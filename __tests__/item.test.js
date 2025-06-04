@@ -193,21 +193,130 @@ describe.only("PATCH /api/items/:item_id", () => {
   });
   //400: type error for item_name
   test("400: when passed an invalid item_name", () => {
-    const patchBody = { item_name: 123 };
-    return request(app)
-      .patch(`/api/items/notAValidID`)
-      .send(patchBody)
-      .expect(400)
-      .then((response) => {
-        expect(response.body.msg).toBe("Bad request: invalid format!");
-      });
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        item_name: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
   });
   //400: type error for category
-
+  test("400: when passed an invalid category", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        category: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
   //400: type error for description
+  test("400: when passed an invalid description", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        description: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
   //400: type error for location
+  test("400: when passed an invalid location", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        location: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
   //400: type error for colour
+  test("400: when passed an invalid colour", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        colour: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
   //400: type error for size
+  test("400: when passed an invalid size", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        size: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
   //400: type error for brand
+  test("400: when passed an invalid brand", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        brand: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
   //400: type error for material
+  test("400: when passed an invalid material", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        material: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
 });

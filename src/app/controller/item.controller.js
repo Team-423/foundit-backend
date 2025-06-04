@@ -20,9 +20,6 @@ exports.getItemById = async (req, res, next) => {
 
   try {
     const itemById = await selectItemById(item_id);
-    if (!itemById) {
-      return res.status(404).send({ msg: "Item not found!" });
-    }
 
     res.status(200).send({ itemById });
   } catch (err) {
@@ -44,6 +41,13 @@ exports.updateItemById = async (req, res, next) => {
     material,
   } = req.body;
 
+  const itemInfo = Object.values(req.body);
+  itemInfo.forEach((value) => {
+    if (typeof value !== "string") {
+      return res.status(400).send({ msg: "Bad request: invalid format!" });
+    }
+  });
+
   try {
     const updatedItem = await selectItemByIdToUpdate(
       item_id,
@@ -56,9 +60,6 @@ exports.updateItemById = async (req, res, next) => {
       brand,
       material
     );
-    if (!updatedItem) {
-      return res.status(404).send({ msg: "Item not found!" });
-    }
     res.status(200).send({ updatedItem });
   } catch (err) {
     next(err);
