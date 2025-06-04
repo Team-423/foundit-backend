@@ -1,4 +1,10 @@
-const { selectItemById, selectItems, removeItemById } = require("../models/item.model");
+const {
+  selectItemById,
+  selectItems,
+  insertItem,
+  removeItemById
+} = require("../models/item.model");
+
 
 // GET /api/items/
 exports.getItems = async (req, res, next) => {
@@ -26,6 +32,19 @@ exports.getItemById = async (req, res, next) => {
   }
 };
 
+
+// POST /api/items
+exports.postItem = async (req, res, next) => {
+  const postedItem = req.body;
+  
+  try {
+    const newItem = await insertItem(postedItem);
+    res.status(201).send({ newItem });
+  } catch (err) {
+    next(err);
+  }
+};
+
 // DELETE /api/items/:item_id
 exports.deleteItemById = async (req, res, next) => {
   const { item_id } = req.params;
@@ -40,3 +59,4 @@ exports.deleteItemById = async (req, res, next) => {
     next(err);
   }
 }
+
