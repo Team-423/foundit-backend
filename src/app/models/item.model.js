@@ -113,6 +113,13 @@ const selectItemByIdToUpdate = async (
     },
   };
   const options = { new: true };
+
+  if (!mongoose.Types.ObjectId.isValid(item_id)) {
+    throw {
+      status: 400,
+      msg: "Bad request: invalid format!",
+    };
+  }
   try {
     const updatedItem = await Item.findOneAndUpdate(query, update, options);
     return updatedItem;

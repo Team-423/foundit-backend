@@ -121,6 +121,35 @@ describe.only("PATCH /api/items/:item_id", () => {
         });
     });
   });
+  test("200: Responds with the same infomation but only one updated property", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        item_name: "iphone",
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(200)
+        .then(({ body }) => {
+          const item = body.updatedItem;
+          expect(item).toMatchObject({
+            _id: itemId,
+            item_name: "iphone",
+            category: "Accessories",
+            description: "Leather wallet containing ID and credit cards",
+            location: "Central Library",
+            colour: "Black",
+            size: "Small",
+            brand: "Fossil",
+            material: "Leather",
+            resolved: expect.any(Boolean),
+            found: expect.any(Boolean),
+            lost: expect.any(Boolean),
+          });
+        });
+    });
+  });
   //404: no item with the item_id
   test("404: when passed a valid item_id but does not exist in the db", () => {
     const nonExistentId = new mongoose.Types.ObjectId().toString();
@@ -143,8 +172,38 @@ describe.only("PATCH /api/items/:item_id", () => {
       });
   });
   //400: not valid item id
+  test("400: when passed an invalid item_id", () => {
+    const patchBody = {
+      item_name: "iphone",
+      category: "Electronics",
+      description: "iphone 16 with a phone case",
+      location: "City Centre",
+      colour: "Silver",
+      size: "small",
+      brand: "Apple",
+      material: "Metal and Glass",
+    };
+    return request(app)
+      .patch(`/api/items/notAValidID`)
+      .send(patchBody)
+      .expect(400)
+      .then((response) => {
+        expect(response.body.msg).toBe("Bad request: invalid format!");
+      });
+  });
   //400: type error for item_name
+  test("400: when passed an invalid item_name", () => {
+    const patchBody = { item_name: 123 };
+    return request(app)
+      .patch(`/api/items/notAValidID`)
+      .send(patchBody)
+      .expect(400)
+      .then((response) => {
+        expect(response.body.msg).toBe("Bad request: invalid format!");
+      });
+  });
   //400: type error for category
+
   //400: type error for description
   //400: type error for location
   //400: type error for colour
