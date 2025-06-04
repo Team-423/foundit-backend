@@ -63,5 +63,20 @@
       "lost": true,
       "__v": 0
     }
-  }
+  },
+  "GET api/users/:userId": {
+    "description": "Responds wwith a single user object for the given userID",
+    "exampleResponse": {
+      "user": {
+        "_id": "665f3f501234abcd5678ef90",
+        "username": "johndoe",
+        "email": "johndoe@example.com",
+        "points": 120
+      }
+    }
+  },
+  "DELETE /api/items/:itemId": {
+  "description": "Deletes an item by Id",
+  "exampleRequest": "/api/items/683f805f894c689cbb55b2e6"
+}
 }

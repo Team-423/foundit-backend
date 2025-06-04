@@ -83,3 +83,31 @@ describe("GET /api/items/:item_id", () => {
       });
   });
 });
+
+describe("DELETE /api/items/:itemId",  () => {
+  test("204: deletes an item when given a valid id", async () => {
+    const testItem = await Item.findOne();
+    const itemId = testItem._id.toString();
+    await request(app).delete(`/api/items/${itemId}`).expect(204)
+    const check = await Item.findById(itemId);
+  expect(check).toBeNull();
+  })
+  test("404: returns not found when deleting non-existent items", async () => {
+     const nonExistentId = new mongoose.Types.ObjectId().toString();
+    return request(app)
+      .delete(`/api/items/${nonExistentId}`)
+      .expect(404)
+      .then(({ body }) => {
+        expect(body).toEqual({ msg: "Item not found!" });
+      });
+  })
+    test("400: returns bad request for invalid ID", async () => {
+
+    return request(app)
+      .delete("/api/items/invalidIdFormat")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body).toEqual({ msg: "Bad request: invalid format!" });
+      });
+  });
+})

@@ -2,7 +2,7 @@ const request = require("supertest");
 const app = require("../src/app.js");
 const mongoose = require("mongoose");
 const setupDB = require("../src/db/seeding/seed");
-const User = require("../src/app/models/user.model.js");
+const { User } = require("../src/app/models/user.model.js");
 
 beforeEach(() => setupDB());
 afterAll(() => mongoose.connection.close());
