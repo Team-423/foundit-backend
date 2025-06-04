@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const { Item } = require("../../app/models/items.js");
-const User = require("../../app/models/users.js");
+const { Item } = require("../../app/models/item.model.js");
+const User = require("../../app/models/user.model.js");
 const connectDB = require("../connection.js");
 
 async function setupDB() {

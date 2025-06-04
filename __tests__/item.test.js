@@ -2,12 +2,37 @@ const request = require("supertest");
 const app = require("../src/app.js");
 const mongoose = require("mongoose");
 const setupDB = require("../src/db/seeding/seed.js");
-const { Item } = require("../src/app/models/items.js");
+const { Item } = require("../src/app/models/item.model.js");
 
 beforeEach(() => setupDB());
 afterAll(() => mongoose.connection.close());
 
-describe("GET /items/:item_id", () => {
+describe("GET /api/items", () => {
+  test("200: Responds with an array of all items with required properties", () => {
+    return request(app)
+      .get("/api/items")
+      .expect(200)
+      .then((items) => {
+        expect(items._body.length).toBeGreaterThan(0);
+        items._body.forEach((item) => {
+          expect(item).toEqual(
+            expect.objectContaining({
+              item_name: expect.any(String),
+              author: expect.any(Object),
+              category: expect.any(String),
+              description: expect.any(String),
+              created_at: expect.any(String),
+              location: expect.any(String),
+              found: expect.any(Boolean),
+              lost: expect.any(Boolean),
+            })
+          );
+        });
+      });
+  });
+});
+
+describe("GET /api/items/:item_id", () => {
   test("200: Responds with a single item when given a valid id", () => {
     return Item.find().then((testItems) => {
       const itemId = testItems[0]._id.toString();

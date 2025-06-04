@@ -1,4 +1,14 @@
-const { selectItemById } = require("../models/items");
+const { selectItemById, selectItems } = require("../models/item.model");
+
+// GET /api/items/
+exports.getItems = async (req, res, next) => {
+  try {
+    const items = await selectItems();
+    res.status(200).send(items);
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 // GET /api/items/:item_id
 exports.getItemById = async (req, res, next) => {
