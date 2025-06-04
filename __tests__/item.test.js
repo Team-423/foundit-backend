@@ -85,6 +85,234 @@ describe("GET /api/items/:item_id", () => {
   });
 });
 
+
+describe("PATCH /api/items/:item_id", () => {
+  test("200: Responds with the updated item properties of the selected item_id", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        item_name: "iphone",
+        category: "Electronics",
+        description: "iphone 16 with a phone case",
+        location: "City Centre",
+        colour: "Silver",
+        size: "small",
+        brand: "Apple",
+        material: "Metal and Glass",
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(200)
+        .then(({ body }) => {
+          const item = body.updatedItem;
+          expect(item).toMatchObject({
+            _id: itemId,
+            item_name: "iphone",
+            category: "Electronics",
+            description: "iphone 16 with a phone case",
+            location: "City Centre",
+            colour: "Silver",
+            size: "small",
+            brand: "Apple",
+            material: "Metal and Glass",
+            resolved: expect.any(Boolean),
+            found: expect.any(Boolean),
+            lost: expect.any(Boolean),
+          });
+        });
+    });
+  });
+  test("200: Responds with the same infomation but only one updated property", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        item_name: "iphone",
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(200)
+        .then(({ body }) => {
+          const item = body.updatedItem;
+          expect(item).toMatchObject({
+            _id: itemId,
+            item_name: "iphone",
+            category: "Accessories",
+            description: "Leather wallet containing ID and credit cards",
+            location: "Central Library",
+            colour: "Black",
+            size: "Small",
+            brand: "Fossil",
+            material: "Leather",
+            resolved: expect.any(Boolean),
+            found: expect.any(Boolean),
+            lost: expect.any(Boolean),
+          });
+        });
+    });
+  });
+  test("404: when passed a valid item_id but does not exist in the db", () => {
+    const nonExistentId = new mongoose.Types.ObjectId().toString();
+    const patchBody = {
+      item_name: "iphone",
+      category: "Electronics",
+      description: "iphone 16 with a phone case",
+      location: "City Centre",
+      colour: "Silver",
+      size: "small",
+      brand: "Apple",
+      material: "Metal and Glass",
+    };
+    return request(app)
+      .patch(`/api/items/${nonExistentId}`)
+      .send(patchBody)
+      .expect(404)
+      .then((response) => {
+        expect(response.body.msg).toBe("Item not found!");
+      });
+  });
+  test("400: when passed an invalid item_id", () => {
+    const patchBody = {
+      item_name: "iphone",
+      category: "Electronics",
+      description: "iphone 16 with a phone case",
+      location: "City Centre",
+      colour: "Silver",
+      size: "small",
+      brand: "Apple",
+      material: "Metal and Glass",
+    };
+    return request(app)
+      .patch(`/api/items/notAValidID`)
+      .send(patchBody)
+      .expect(400)
+      .then((response) => {
+        expect(response.body.msg).toBe("Bad request: invalid format!");
+      });
+  });
+  test("400: when passed an invalid item_name", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        item_name: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+  test("400: when passed an invalid category", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        category: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+  test("400: when passed an invalid description", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        description: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+  test("400: when passed an invalid location", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        location: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+  test("400: when passed an invalid colour", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        colour: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+  test("400: when passed an invalid size", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        size: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+  test("400: when passed an invalid brand", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        brand: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+  test("400: when passed an invalid material", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        material: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+});
+
 describe("POST /api/items", () => {
   test("201: Post a new item and responds with newly created item", () => {
     return User.find().then((users) => {
@@ -174,3 +402,4 @@ describe("DELETE /api/items/:itemId",  () => {
       });
   });
 })
+

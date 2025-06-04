@@ -80,13 +80,64 @@ const selectItemById = async (item_id) => {
       "author",
       "username"
     );
+    if (!itemById) {
+      throw {
+        status: 404,
+        msg: "Item not found!",
+      };
+    }
     return itemById;
   } catch (err) {
-    console.error(err);
     throw err;
   }
 };
 
+// PATCH /api/items/:item_id
+const selectItemByIdToUpdate = async (
+  item_id,
+  item_name,
+  category,
+  description,
+  location,
+  colour,
+  size,
+  brand,
+  material
+) => {
+  const query = { _id: item_id };
+  const update = {
+    $set: {
+      item_name,
+      category,
+      description,
+      location,
+      colour,
+      size,
+      brand,
+      material,
+    },
+  };
+  const options = { new: true };
+  
+   if (!mongoose.Types.ObjectId.isValid(item_id)) {
+    throw {
+      status: 400,
+      msg: "Bad request: invalid format!",
+    };
+  }
+  try{
+  const updatedItem = await Item.findOneAndUpdate(query, update, options);
+    if (!updatedItem) {
+      throw {
+        status: 404,
+        msg: "Item not found!",
+      };
+    }
+    return updatedItem;
+  } catch (err) {
+        throw err;
+  }
+};
 
 // POST /api/items
 const insertItem = async (postedItem) => {
@@ -110,6 +161,9 @@ const insertItem = async (postedItem) => {
   try {
     return Item.create(postedItem);
   } catch (err) {
+    throw err;
+  }
+};
 
 // DELETE /api/items/:item_id
 const removeItemById = async (item_id) => {
@@ -124,10 +178,11 @@ const removeItemById = async (item_id) => {
     return deleteItem;
   } catch (err) {
     console.error(err);
-
     throw err;
   }
 };
 
-module.exports = { Item, selectItems, selectItemById, insertItem, removeItemById }; //for Item we cannot use exports., mind the syntax
+
+module.exports = { Item, selectItems, selectItemById, insertItem, removeItemById, selectItemByIdToUpdate }; //for Item we cannot use exports., mind the syntax
+
 
