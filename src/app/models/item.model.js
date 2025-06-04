@@ -87,4 +87,30 @@ const selectItemById = async (item_id) => {
   }
 };
 
-module.exports = { Item, selectItems, selectItemById }; //for Item we cannot use exports., mind the syntax
+// POST /api/items
+const insertItem = async (postedItem) => {
+  const { item_name, author, description, category, location, found, lost } =
+    postedItem;
+
+  if (
+    !item_name ||
+    !author ||
+    !description ||
+    !category ||
+    !location ||
+    typeof found !== "boolean" ||
+    typeof lost !== "boolean"
+  ) {
+    throw {
+      status: 400,
+      msg: "Missing required fields!",
+    };
+  }
+  try {
+    return Item.create(postedItem);
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { Item, selectItems, selectItemById, insertItem }; //for Item we cannot use exports., mind the syntax

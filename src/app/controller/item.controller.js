@@ -1,4 +1,8 @@
-const { selectItemById, selectItems } = require("../models/item.model");
+const {
+  selectItemById,
+  selectItems,
+  insertItem,
+} = require("../models/item.model");
 
 // GET /api/items/
 exports.getItems = async (req, res, next) => {
@@ -21,6 +25,18 @@ exports.getItemById = async (req, res, next) => {
     }
 
     res.status(200).send({ itemById });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// POST /api/items
+exports.postItem = async (req, res, next) => {
+  const postedItem = req.body;
+  
+  try {
+    const newItem = await insertItem(postedItem);
+    res.status(201).send({ newItem });
   } catch (err) {
     next(err);
   }
