@@ -3,7 +3,7 @@ const app = require("../src/app.js");
 const mongoose = require("mongoose");
 const setupDB = require("../src/db/seeding/seed.js");
 const { Item } = require("../src/app/models/item.model.js");
-const User = require("../src/app/models/user.model.js");
+const { User } = require("../src/app/models/user.model.js");
 
 beforeEach(() => setupDB());
 afterAll(() => mongoose.connection.close());
@@ -84,7 +84,6 @@ describe("GET /api/items/:item_id", () => {
       });
   });
 });
-
 
 describe("PATCH /api/items/:item_id", () => {
   test("200: Responds with the updated item properties of the selected item_id", () => {
@@ -375,25 +374,24 @@ describe("POST /api/items", () => {
     });
   });
 });
-describe("DELETE /api/items/:itemId",  () => {
+describe("DELETE /api/items/:itemId", () => {
   test("204: deletes an item when given a valid id", async () => {
     const testItem = await Item.findOne();
     const itemId = testItem._id.toString();
-    await request(app).delete(`/api/items/${itemId}`).expect(204)
+    await request(app).delete(`/api/items/${itemId}`).expect(204);
     const check = await Item.findById(itemId);
-  expect(check).toBeNull();
-  })
+    expect(check).toBeNull();
+  });
   test("404: returns not found when deleting non-existent items", async () => {
-     const nonExistentId = new mongoose.Types.ObjectId().toString();
+    const nonExistentId = new mongoose.Types.ObjectId().toString();
     return request(app)
       .delete(`/api/items/${nonExistentId}`)
       .expect(404)
       .then(({ body }) => {
         expect(body).toEqual({ msg: "Item not found!" });
       });
-  })
-    test("400: returns bad request for invalid ID", async () => {
-
+  });
+  test("400: returns bad request for invalid ID", async () => {
     return request(app)
       .delete("/api/items/invalidIdFormat")
       .expect(400)
@@ -401,5 +399,4 @@ describe("DELETE /api/items/:itemId",  () => {
         expect(body).toEqual({ msg: "Bad request: invalid format!" });
       });
   });
-})
-
+});

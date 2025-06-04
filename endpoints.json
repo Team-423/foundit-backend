@@ -86,10 +86,10 @@
       "colour": "Silver",
       "size": "small",
       "brand": "Apple",
-      "material": "Metal and Glass",
-
-
-    "GET api/users/:userId": {
+      "material": "Metal and Glass"
+    }
+  },
+  "GET api/users/:userId": {
     "description": "Responds wwith a single user object for the given userID",
     "exampleResponse": {
       "user": {
@@ -100,12 +100,12 @@
       }
     }
   },
-  
+
   "DELETE /api/items/:itemId": {
-  "description": "Deletes an item by Id",
-  "exampleRequest": "/api/items/683f805f894c689cbb55b2e6"
-},
-  
+    "description": "Deletes an item by Id",
+    "exampleRequest": "/api/items/683f805f894c689cbb55b2e6"
+  },
+
   "POST /api/items": {
     "description": "Posts a new item and saves it to the database. Request body must include required item details and a valid author id",
     "exampleRequest": {
