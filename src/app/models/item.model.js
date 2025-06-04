@@ -87,4 +87,39 @@ const selectItemById = async (item_id) => {
   }
 };
 
-module.exports = { Item, selectItems, selectItemById }; //for Item we cannot use exports., mind the syntax
+// PATCH /api/items/:item_id
+const selectItemByIdToUpdate = async (
+  item_id,
+  item_name,
+  category,
+  description,
+  location,
+  colour,
+  size,
+  brand,
+  material
+) => {
+  const query = { _id: item_id };
+  const update = {
+    $set: {
+      item_name,
+      category,
+      description,
+      location,
+      colour,
+      size,
+      brand,
+      material,
+    },
+  };
+  const options = { new: true };
+  try {
+    const updatedItem = await Item.findOneAndUpdate(query, update, options);
+    return updatedItem;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+module.exports = { Item, selectItems, selectItemById, selectItemByIdToUpdate }; //for Item we cannot use exports., mind the syntax

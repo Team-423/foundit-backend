@@ -83,3 +83,42 @@ describe("GET /api/items/:item_id", () => {
       });
   });
 });
+
+describe("PATCH /api/items/:item_id", () => {
+  test("200: Responds with the updated item properties of the selected item_id", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        item_name: "iphone",
+        category: "Electronics",
+        description: "iphone 16 with a phone case",
+        location: "City Centre",
+        colour: "Silver",
+        size: "small",
+        brand: "Apple",
+        material: "Metal and Glass",
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}`)
+        .send(patchBody)
+        .expect(200)
+        .then(({ body }) => {
+          const item = body.updatedItem;
+          expect(item).toMatchObject({
+            _id: itemId,
+            item_name: "iphone",
+            category: "Electronics",
+            description: "iphone 16 with a phone case",
+            location: "City Centre",
+            colour: "Silver",
+            size: "small",
+            brand: "Apple",
+            material: "Metal and Glass",
+            resolved: expect.any(Boolean),
+            found: expect.any(Boolean),
+            lost: expect.any(Boolean),
+          });
+        });
+    });
+  });
+});
