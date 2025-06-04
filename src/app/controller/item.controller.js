@@ -2,7 +2,11 @@ const {
   selectItemById,
   selectItems,
   selectItemByIdToUpdate,
+  insertItem,
+  removeItemById
 } = require("../models/item.model");
+
+
 
 // GET /api/items/
 exports.getItems = async (req, res, next) => {
@@ -26,6 +30,7 @@ exports.getItemById = async (req, res, next) => {
     next(err);
   }
 };
+
 
 // PATCH /api/items/:item_id
 exports.updateItemById = async (req, res, next) => {
@@ -61,7 +66,38 @@ exports.updateItemById = async (req, res, next) => {
       material
     );
     res.status(200).send({ updatedItem });
+      } catch (err) {
+    next(err);
+  }
+};
+
+
+// POST /api/items
+exports.postItem = async (req, res, next) => {
+  const postedItem = req.body;
+  
+  try {
+    const newItem = await insertItem(postedItem);
+    res.status(201).send({ newItem });
   } catch (err) {
     next(err);
   }
 };
+
+
+// DELETE /api/items/:item_id
+exports.deleteItemById = async (req, res, next) => {
+  const { item_id } = req.params;
+    try {
+    const deleteItem = await removeItemById(item_id);
+    if (!deleteItem) {
+      return res.status(404).send({ msg: "Item not found!" });
+    }
+
+    return res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+}
+
+

@@ -64,6 +64,7 @@
       "__v": 0
     }
   },
+
   "PATCH /api/items/:item_id": {
     "description": "Updates item info for one or more properties for the selected item_id, returns the updated item object",
     "exampleRequest": {
@@ -86,6 +87,54 @@
       "size": "small",
       "brand": "Apple",
       "material": "Metal and Glass",
+
+
+    "GET api/users/:userId": {
+    "description": "Responds wwith a single user object for the given userID",
+    "exampleResponse": {
+      "user": {
+        "_id": "665f3f501234abcd5678ef90",
+        "username": "johndoe",
+        "email": "johndoe@example.com",
+        "points": 120
+      }
+    }
+  },
+  
+  "DELETE /api/items/:itemId": {
+  "description": "Deletes an item by Id",
+  "exampleRequest": "/api/items/683f805f894c689cbb55b2e6"
+},
+  
+  "POST /api/items": {
+    "description": "Posts a new item and saves it to the database. Request body must include required item details and a valid author id",
+    "exampleRequest": {
+      "item_name": "Black Wallet",
+      "author": { "_id": "683f805f894c689cbb55b2e1", "username": "johndoe" },
+      "category": "Accessories",
+      "description": "Leather wallet containing ID and credit cards",
+      "created_at": "2025-05-01T10:30:00.000Z",
+      "location": "Central Library",
+      "colour": "Black",
+      "size": "Small",
+      "brand": "Fossil",
+      "material": "Leather",
+      "resolved": false,
+      "found": false,
+      "lost": true
+    },
+    "exampleResponse": {
+      "_id": "683f805f894c689cbb55b2e6",
+      "item_name": "Black Wallet",
+      "author": { "_id": "683f805f894c689cbb55b2e1", "username": "johndoe" },
+      "category": "Accessories",
+      "description": "Leather wallet containing ID and credit cards",
+      "created_at": "2025-05-01T10:30:00.000Z",
+      "location": "Central Library",
+      "colour": "Black",
+      "size": "Small",
+      "brand": "Fossil",
+      "material": "Leather",
       "resolved": false,
       "found": false,
       "lost": true,
