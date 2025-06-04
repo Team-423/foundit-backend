@@ -84,7 +84,7 @@ describe("GET /api/items/:item_id", () => {
   });
 });
 
-describe("PATCH /api/items/:item_id", () => {
+describe.only("PATCH /api/items/:item_id", () => {
   test("200: Responds with the updated item properties of the selected item_id", () => {
     return Item.find().then((testItems) => {
       const itemId = testItems[0]._id.toString();
@@ -121,4 +121,34 @@ describe("PATCH /api/items/:item_id", () => {
         });
     });
   });
+  //404: no item with the item_id
+  test("404: when passed a valid item_id but does not exist in the db", () => {
+    const nonExistentId = new mongoose.Types.ObjectId().toString();
+    const patchBody = {
+      item_name: "iphone",
+      category: "Electronics",
+      description: "iphone 16 with a phone case",
+      location: "City Centre",
+      colour: "Silver",
+      size: "small",
+      brand: "Apple",
+      material: "Metal and Glass",
+    };
+    return request(app)
+      .patch(`/api/items/${nonExistentId}`)
+      .send(patchBody)
+      .expect(404)
+      .then((response) => {
+        expect(response.body.msg).toBe("Item not found!");
+      });
+  });
+  //400: not valid item id
+  //400: type error for item_name
+  //400: type error for category
+  //400: type error for description
+  //400: type error for location
+  //400: type error for colour
+  //400: type error for size
+  //400: type error for brand
+  //400: type error for material
 });

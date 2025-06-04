@@ -56,6 +56,9 @@ exports.updateItemById = async (req, res, next) => {
       brand,
       material
     );
+    if (!updatedItem) {
+      return res.status(404).send({ msg: "Item not found!" });
+    }
     res.status(200).send({ updatedItem });
   } catch (err) {
     next(err);
