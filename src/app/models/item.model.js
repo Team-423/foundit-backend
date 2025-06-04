@@ -87,6 +87,7 @@ const selectItemById = async (item_id) => {
   }
 };
 
+
 // POST /api/items
 const insertItem = async (postedItem) => {
   const { item_name, author, description, category, location, found, lost } =
@@ -109,8 +110,24 @@ const insertItem = async (postedItem) => {
   try {
     return Item.create(postedItem);
   } catch (err) {
+
+// DELETE /api/items/:item_id
+const removeItemById = async (item_id) => {
+  if (!mongoose.Types.ObjectId.isValid(item_id)) {
+    throw {
+      status: 400,
+      msg: "Bad request: invalid format!",
+    };
+  }
+  try {
+    const deleteItem = await Item.findByIdAndDelete(item_id)
+    return deleteItem;
+  } catch (err) {
+    console.error(err);
+
     throw err;
   }
 };
 
-module.exports = { Item, selectItems, selectItemById, insertItem }; //for Item we cannot use exports., mind the syntax
+module.exports = { Item, selectItems, selectItemById, insertItem, removeItemById }; //for Item we cannot use exports., mind the syntax
+

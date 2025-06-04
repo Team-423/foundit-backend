@@ -64,6 +64,24 @@
       "__v": 0
     }
   },
+
+    "GET api/users/:userId": {
+    "description": "Responds wwith a single user object for the given userID",
+    "exampleResponse": {
+      "user": {
+        "_id": "665f3f501234abcd5678ef90",
+        "username": "johndoe",
+        "email": "johndoe@example.com",
+        "points": 120
+      }
+    }
+  },
+  
+  "DELETE /api/items/:itemId": {
+  "description": "Deletes an item by Id",
+  "exampleRequest": "/api/items/683f805f894c689cbb55b2e6"
+},
+  
   "POST /api/items": {
     "description": "Posts a new item and saves it to the database. Request body must include required item details and a valid author id",
     "exampleRequest": {
