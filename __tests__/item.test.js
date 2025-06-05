@@ -406,3 +406,86 @@ describe("DELETE /api/items/:itemId", () => {
       });
   });
 });
+
+describe("GET /api/items/categories", () => {
+  test("200: Responds with an array of all available categories", async () => {
+    const { body } = await request(app)
+      .get("/api/items/categories")
+      .expect(200);
+
+    expect(body).toHaveProperty("categories");
+    expect(Array.isArray(body.categories)).toBe(true);
+    expect(body.categories.length).toBeGreaterThan(0);
+
+    body.categories.forEach((category) => {
+      expect(typeof category).toBe("string");
+      expect(category.length).toBeGreaterThan(0);
+    });
+
+    expect(body.categories).toEqual(
+      expect.arrayContaining([
+        "Accessories",
+        "Electronics",
+        "Bags",
+        "Jewelry",
+        "Clothing",
+        "Keys",
+        "Other",
+      ])
+    );
+    expect(body.categories.sort()).toEqual(
+      [
+        "Accessories",
+        "Bags",
+        "Clothing",
+        "Electronics",
+        "Jewelry",
+        "Keys",
+        "Other",
+      ].sort()
+    );
+  });
+
+  test("200: Responds with an array where all categories are unique", async () => {
+    const { body } = await request(app)
+      .get("/api/items/categories")
+      .expect(200);
+
+    const categories = body.categories;
+    const uniqueCategories = new Set(categories);
+    expect(uniqueCategories.size).toBe(categories.length);
+  });
+
+  test("200: Responds with an array of categories sorted alphabetically", async () => {
+    const { body } = await request(app)
+      .get("/api/items/categories")
+      .expect(200);
+
+    const categories = body.categories;
+    const sortedCategories = [...categories].sort();
+    expect(categories).toEqual(sortedCategories);
+  });
+
+  test("404: Responds with 'Path not found' for unsupported methods on this endpoint", async () => {
+    const { body } = await request(app)
+      .post("/api/items/categories")
+      .expect(404);
+    expect(body).toEqual({ msg: "Path not found" });
+
+    const { body: patchBody } = await request(app)
+      .patch("/api/items/categories")
+      .send({})
+      .expect(404);
+    expect(patchBody).toEqual({ msg: "Path not found" });
+  });
+
+  test("200: Responds with a body containing only the 'categories' property", async () => {
+    const { body } = await request(app)
+      .get("/api/items/categories")
+      .expect(200);
+
+    expect(Object.keys(body).length).toBe(1);
+    expect(body).toHaveProperty("categories");
+    expect(Array.isArray(body.categories)).toBe(true);
+  });
+});
