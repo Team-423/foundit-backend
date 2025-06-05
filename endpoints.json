@@ -97,6 +97,29 @@
       "material": "Metal and Glass"
     }
   },
+  "PATCH /api/items/:item_id/resolved": {
+    "description": "Updates item resolved status to true for the selected item_id, returns the updated item object",
+    "exampleRequest": {
+      "resolved": true
+    },
+    "exampleResponse": {
+      "_id": "683f805f894c689cbb55b2e6",
+      "item_name": "Black Wallet",
+      "author": { "_id": "683f805f894c689cbb55b2e1", "username": "johndoe" },
+      "category": "Accessories",
+      "description": "Leather wallet containing ID and credit cards",
+      "created_at": "2025-05-01T10:30:00.000Z",
+      "location": "Central Library",
+      "colour": "Black",
+      "size": "Small",
+      "brand": "Fossil",
+      "material": "Leather",
+      "resolved": true,
+      "found": false,
+      "lost": true,
+      "__v": 0
+    }
+  },
   "GET api/users/:userId": {
     "description": "Responds with a single user object for the given userID",
     "exampleResponse": {

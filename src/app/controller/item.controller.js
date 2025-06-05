@@ -4,6 +4,8 @@ const {
   selectItemByIdToUpdate,
   insertItem,
   removeItemById,
+
+  updateItemResolvedById,
 } = require("../models/item.model");
 
 // GET /api/items/
@@ -37,6 +39,7 @@ exports.getItemById = async (req, res, next) => {
 
 // PATCH /api/items/:item_id
 exports.updateItemById = async (req, res, next) => {
+  // rename to patchItemById for consistency in controller?
   const { item_id } = req.params;
   const {
     item_name,
@@ -68,6 +71,26 @@ exports.updateItemById = async (req, res, next) => {
       brand,
       material
     );
+    res.status(200).send({ updatedItem });
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+// PATCH /api/items/:item_id/resolved
+exports.patchItemResolvedById = async (req, res, next) => {
+  const { item_id } = req.params;
+  const { resolved } = req.body;
+
+  if (typeof resolved !== "boolean") {
+    return res
+      .status(400)
+      .send({ msg: "Bad request: 'resolved' must be a boolean value!" });
+  }
+
+  try {
+    const updatedItem = await updateItemResolvedById(item_id, resolved);
     res.status(200).send({ updatedItem });
   } catch (err) {
     next(err);
