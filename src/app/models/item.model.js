@@ -41,6 +41,9 @@ const itemSchema = new Schema({
   material: {
     type: String,
   },
+  img_url: {
+    type: String,
+  },
   resolved: {
     type: Boolean,
     default: false,
@@ -118,15 +121,15 @@ const selectItemByIdToUpdate = async (
     },
   };
   const options = { new: true };
-  
-   if (!mongoose.Types.ObjectId.isValid(item_id)) {
+
+  if (!mongoose.Types.ObjectId.isValid(item_id)) {
     throw {
       status: 400,
       msg: "Bad request: invalid format!",
     };
   }
-  try{
-  const updatedItem = await Item.findOneAndUpdate(query, update, options);
+  try {
+    const updatedItem = await Item.findOneAndUpdate(query, update, options);
     if (!updatedItem) {
       throw {
         status: 404,
@@ -135,7 +138,7 @@ const selectItemByIdToUpdate = async (
     }
     return updatedItem;
   } catch (err) {
-        throw err;
+    throw err;
   }
 };
 
@@ -174,7 +177,7 @@ const removeItemById = async (item_id) => {
     };
   }
   try {
-    const deleteItem = await Item.findByIdAndDelete(item_id)
+    const deleteItem = await Item.findByIdAndDelete(item_id);
     return deleteItem;
   } catch (err) {
     console.error(err);
@@ -182,7 +185,11 @@ const removeItemById = async (item_id) => {
   }
 };
 
-
-module.exports = { Item, selectItems, selectItemById, insertItem, removeItemById, selectItemByIdToUpdate }; //for Item we cannot use exports., mind the syntax
-
-
+module.exports = {
+  Item,
+  selectItems,
+  selectItemById,
+  insertItem,
+  removeItemById,
+  selectItemByIdToUpdate,
+}; //for Item we cannot use exports., mind the syntax

@@ -27,7 +27,7 @@
         "item_name": "Silver iPhone 13",
         "author": {
           "_id": "683f0f142a5885e53c257c86",
-          "username": "janesmith "
+          "username": "janesmith"
         },
         "category": "Electronics",
         "description": "Phone with cracked screen and red case",
@@ -64,7 +64,6 @@
       "__v": 0
     }
   },
-
   "PATCH /api/items/:item_id": {
     "description": "Updates item info for one or more properties for the selected item_id, returns the updated item object",
     "exampleRequest": {
@@ -90,7 +89,7 @@
     }
   },
   "GET api/users/:userId": {
-    "description": "Responds wwith a single user object for the given userID",
+    "description": "Responds with a single user object for the given userID",
     "exampleResponse": {
       "user": {
         "_id": "665f3f501234abcd5678ef90",
@@ -100,14 +99,21 @@
       }
     }
   },
-
   "DELETE /api/items/:itemId": {
     "description": "Deletes an item by Id",
     "exampleRequest": "/api/items/683f805f894c689cbb55b2e6"
   },
-
   "POST /api/items": {
     "description": "Posts a new item and saves it to the database. Request body must include required item details and a valid author id",
+    "requiredFields": {
+      "item_name": "string",
+      "author": "object (must contain valid MongoDB ObjectId)",
+      "category": "string",
+      "description": "string",
+      "location": "string",
+      "found": "boolean",
+      "lost": "boolean"
+    },
     "exampleRequest": {
       "item_name": "Black Wallet",
       "author": { "_id": "683f805f894c689cbb55b2e1", "username": "johndoe" },

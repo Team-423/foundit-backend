@@ -9,7 +9,7 @@ afterAll(() => mongoose.connection.close());
 
 describe("GET /api/users/:userId", () => {
   test("200: returns user by id", () => {
-    return User.findOne({ username: "johndoe" }).then((testUser) => {
+    return User.findOne({ username: "test_user_1" }).then((testUser) => {
       return request(app)
         .get(`/api/users/${testUser._id}`)
         .expect(200)

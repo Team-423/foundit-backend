@@ -61,8 +61,7 @@ describe("GET /api/items/:item_id", () => {
         });
     });
   });
-
-  test("404: When ID is valid but item doesn't exist", async () => {
+  test("404: When ID is valid but item doesn't exist", () => {
     const nonExistentId = new mongoose.Types.ObjectId().toString();
     // will log: "new ObjectId('683f62a3190bb5bc3512af25')" if toString() not applied
     return request(app)
@@ -72,7 +71,6 @@ describe("GET /api/items/:item_id", () => {
         expect(body).toEqual({ msg: "Item not found!" });
       });
   });
-
   test("400: Responds with 'Bad request: invalid format!' when given invalid item format", () => {
     const invalidIdFormat = "notavalidid";
 
@@ -137,13 +135,13 @@ describe("PATCH /api/items/:item_id", () => {
           expect(item).toMatchObject({
             _id: itemId,
             item_name: "iphone",
-            category: "Accessories",
-            description: "Leather wallet containing ID and credit cards",
-            location: "Central Library",
-            colour: "Black",
-            size: "Small",
-            brand: "Fossil",
-            material: "Leather",
+            category: "TEST_ACCESSORY",
+            description: "Test description for item 1",
+            location: "TEST_LOCATION_1",
+            colour: "TestBlack",
+            size: "TestSmall",
+            brand: "TestBrand1",
+            material: "TestMaterial1",
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
@@ -317,16 +315,16 @@ describe("POST /api/items", () => {
     return User.find().then((users) => {
       const testUser = users[0];
       const testItem = {
-        item_name: "test item",
+        item_name: "test_item",
         author: testUser._id,
-        category: "test category",
-        description: "test description",
+        category: "test_category",
+        description: "test_description",
         created_at: "2025-05-01T10:30:00.000Z",
-        location: "test location",
-        colour: "test color",
-        size: "test size",
-        brand: "test brand",
-        material: "Leather",
+        location: "test_location",
+        colour: "test_colour",
+        size: "test_size",
+        brand: "test_brand",
+        material: "test_material",
         resolved: false,
         found: false,
         lost: true,
@@ -339,16 +337,23 @@ describe("POST /api/items", () => {
         .then((result) => {
           const { newItem } = result.body;
           expect(newItem).toMatchObject({
-            item_name: "test item",
-            _id: expect.any(String),
-            description: "test description",
-            category: "test category",
+            item_name: "test_item",
+            author: testUser._id.toString(),
+            category: "test_category",
+            description: "test_description",
+            location: "test_location",
+            colour: "test_colour",
+            size: "test_size",
+            brand: "test_brand",
+            material: "test_material",
             resolved: false,
+            found: false,
+            lost: true,
           });
         });
     });
   });
-  test("400:Item posted is missing a required field", () => {
+  test("400: Item posted is missing two required fields - 'category' & 'location'", () => {
     return User.find().then((users) => {
       const testUser = users[0];
       const incompleteTestItem = {
@@ -374,6 +379,7 @@ describe("POST /api/items", () => {
     });
   });
 });
+
 describe("DELETE /api/items/:itemId", () => {
   test("204: deletes an item when given a valid id", async () => {
     const testItem = await Item.findOne();
