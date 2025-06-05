@@ -4,16 +4,23 @@ const {
   selectItemByIdToUpdate,
   insertItem,
   removeItemById,
+
   updateItemResolvedById,
 } = require("../models/item.model");
 
 // GET /api/items/
 exports.getItems = async (req, res, next) => {
   try {
-    const items = await selectItems();
+    const items = await selectItems(req.query);
+    if (items.length === 0) {
+      throw {
+        status: 404,
+        msg: "No results!"
+      }
+    }
     res.status(200).send(items);
   } catch (err) {
-    console.error(err);
+    next(err)
   }
 };
 
@@ -70,6 +77,7 @@ exports.updateItemById = async (req, res, next) => {
   }
 };
 
+
 // PATCH /api/items/:item_id/resolved
 exports.patchItemResolvedById = async (req, res, next) => {
   const { item_id } = req.params;
@@ -92,6 +100,7 @@ exports.patchItemResolvedById = async (req, res, next) => {
 // POST /api/items
 exports.postItem = async (req, res, next) => {
   const postedItem = req.body;
+
   try {
     const newItem = await insertItem(postedItem);
     res.status(201).send({ newItem });
