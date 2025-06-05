@@ -5,6 +5,7 @@ const setupDB = require("../src/db/seeding/seed.js");
 const { Item } = require("../src/app/models/item.model.js");
 const { User } = require("../src/app/models/user.model.js");
 const { Brand } = require("../src/app/models/brand.model.js");
+const { Location } = require("../src/app/models/location.model.js");
 
 beforeEach(() => setupDB());
 afterAll(() => mongoose.connection.close());
@@ -24,7 +25,8 @@ describe("GET /api/items", () => {
               category: expect.any(String),
               description: expect.any(String),
               created_at: expect.any(String),
-              location: expect.any(String),
+              location: expect.any(Object),
+              brand: expect.any(Object),
               found: expect.any(Boolean),
               lost: expect.any(Boolean),
             })
@@ -50,7 +52,7 @@ describe("GET /api/items/:item_id", () => {
             item_name: expect.any(String),
             description: expect.any(String),
             category: expect.any(String),
-            location: expect.any(String),
+            location: expect.any(Object),
             colour: expect.any(String),
             size: expect.any(String),
             material: expect.any(String),
@@ -86,41 +88,51 @@ describe("GET /api/items/:item_id", () => {
 
 describe("PATCH /api/items/:item_id", () => {
   test("200: Responds with the updated item properties of the selected item_id", () => {
-    return Item.find().then((testItems) => {
+    return Promise.all([
+      Item.find(),
+      Brand.find(),
+      Location.findOne({ location_name: "TEST_LOCATION_1" }),
+    ]).then(([testItems, testBrands, locationDoc]) => {
       const itemId = testItems[0]._id.toString();
+      const brandId = testBrands[0]._id.toString();
+      const locationId = locationDoc._id.toString();
+
       const patchBody = {
         item_name: "iphone",
         category: "Electronics",
         description: "iphone 16 with a phone case",
-        location: "City Centre",
+        location: locationId,
         colour: "Silver",
         size: "small",
         material: "Metal and Glass",
+        brand: brandId,
       };
+
       return request(app)
         .patch(`/api/items/${itemId}`)
         .send(patchBody)
         .expect(200)
         .then(({ body }) => {
           const item = body.updatedItem;
+
           expect(item).toMatchObject({
             _id: itemId,
             item_name: "iphone",
             category: "Electronics",
             description: "iphone 16 with a phone case",
-            location: "City Centre",
+            location: locationId,
             colour: "Silver",
             size: "small",
             material: "Metal and Glass",
+            brand: brandId,
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
           });
-          expect(typeof item.brand === "string" || item.brand === null);
         });
     });
   });
-  test("200: Responds with the same infomation but only one updated property", () => {
+  test("200: Responds with the same information but only one updated property", () => {
     return Item.find().then((testItems) => {
       const itemId = testItems[0]._id.toString();
       const patchBody = {
@@ -137,7 +149,6 @@ describe("PATCH /api/items/:item_id", () => {
             item_name: "iphone",
             category: "TEST_ACCESSORY",
             description: "Test description for item 1",
-            location: "TEST_LOCATION_1",
             colour: "TestBlack",
             size: "TestSmall",
             material: "TestMaterial1",
@@ -146,27 +157,36 @@ describe("PATCH /api/items/:item_id", () => {
             lost: expect.any(Boolean),
           });
           expect(typeof item.brand === "string" || item.brand === null);
+          expect(typeof item.location === "string" || item.location === null);
         });
     });
   });
   test("404: when passed a valid item_id but does not exist in the db", () => {
     const nonExistentId = new mongoose.Types.ObjectId().toString();
-    const patchBody = {
-      item_name: "iphone",
-      category: "Electronics",
-      description: "iphone 16 with a phone case",
-      location: "City Centre",
-      colour: "Silver",
-      size: "small",
-      material: "Metal and Glass",
-    };
-    return request(app)
-      .patch(`/api/items/${nonExistentId}`)
-      .send(patchBody)
-      .expect(404)
-      .then((response) => {
-        expect(response.body.msg).toBe("Item not found!");
-      });
+
+    return Location.findOne({ location_name: "TEST_LOCATION_1" }).then(
+      (locationDoc) => {
+        const locationId = locationDoc._id.toString();
+
+        const patchBody = {
+          item_name: "iphone",
+          category: "Electronics",
+          description: "iphone 16 with a phone case",
+          location: locationId,
+          colour: "Silver",
+          size: "small",
+          material: "Metal and Glass",
+        };
+
+        return request(app)
+          .patch(`/api/items/${nonExistentId}`)
+          .send(patchBody)
+          .expect(404)
+          .then((response) => {
+            expect(response.body.msg).toBe("Item not found!");
+          });
+      }
+    );
   });
   test("400: when passed an invalid item_id", () => {
     const patchBody = {
@@ -311,17 +331,19 @@ describe("PATCH /api/items/:item_id", () => {
 
 describe("POST /api/items", () => {
   test("201: Post a new item and responds with newly created item", () => {
-    return User.find().then((users) => {
-      return Brand.find().then((brands) => {
-        const testBrand = brands[0];
+    return Promise.all([User.find(), Brand.find(), Location.find()]).then(
+      ([users, brands, locations]) => {
         const testUser = users[0];
+        const testBrand = brands[0];
+        const testLocation = locations[0];
+
         const testItem = {
           item_name: "test_item",
           author: testUser._id,
           category: "test_category",
           description: "test_description",
           created_at: "2025-05-01T10:30:00.000Z",
-          location: "test_location",
+          location: testLocation._id,
           colour: "test_colour",
           size: "test_size",
           brand: testBrand._id,
@@ -337,23 +359,24 @@ describe("POST /api/items", () => {
           .expect(201)
           .then((result) => {
             const { newItem } = result.body;
+
             expect(newItem).toMatchObject({
               item_name: "test_item",
               author: testUser._id.toString(),
               category: "test_category",
               description: "test_description",
-              location: "test_location",
+              location: testLocation._id.toString(),
               colour: "test_colour",
               size: "test_size",
               material: "test_material",
+              brand: testBrand._id.toString(),
               resolved: false,
               found: false,
               lost: true,
             });
-            expect(typeof newItem.brand === "string" || newItem.brand === null);
           });
-      });
-    });
+      }
+    );
   });
   test("400: Item posted is missing two required fields - 'category' & 'location'", () => {
     return User.find().then((users) => {

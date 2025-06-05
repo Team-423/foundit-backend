@@ -1,9 +1,13 @@
-const generateTestItems = (userTable, brandTable) => {
+const generateTestItems = (userTable, brandTable, locationTable) => {
   const getBrandId = (brandName) => {
-    const brandDoc = brandTable.find((brand) => {
-      brand.brand_name === brandName;
-    });
+    const brandDoc = brandTable.find((brand) => brand.brand_name === brandName);
     return brandDoc ? brandDoc._id : null;
+  };
+  const getLocationId = (locationName) => {
+    const locationDoc = locationTable.find(
+      (location) => location.location_name === locationName
+    );
+    return locationDoc ? locationDoc._id : null;
   };
 
   return [
@@ -13,7 +17,7 @@ const generateTestItems = (userTable, brandTable) => {
       category: "TEST_ACCESSORY",
       description: "Test description for item 1",
       created_at: new Date("2025-01-01T10:00:00Z"),
-      location: "TEST_LOCATION_1",
+      location: getLocationId("TEST_LOCATION_1"),
       colour: "TestBlack",
       size: "TestSmall",
       brand: getBrandId("Test_Brand_1"),
@@ -29,7 +33,7 @@ const generateTestItems = (userTable, brandTable) => {
       category: "TEST_ELECTRONICS",
       description: "Test description for item 2",
       created_at: new Date("2025-01-02T10:00:00Z"),
-      location: "TEST_LOCATION_2",
+      location: getLocationId("TEST_LOCATION_2"),
       colour: "TestSilver",
       size: "TestMedium",
       brand: getBrandId("Test_Brand_2"),
@@ -45,7 +49,7 @@ const generateTestItems = (userTable, brandTable) => {
       category: "TEST_ACCESSORY",
       description: "Test description for item 3",
       created_at: new Date("2025-01-03T10:00:00Z"),
-      location: "TEST_LOCATION_3",
+      location: getLocationId("TEST_LOCATION_3"),
       colour: "TestBlue",
       size: "TestMedium",
       brand: getBrandId("Test_Brand_3"),
@@ -61,7 +65,7 @@ const generateTestItems = (userTable, brandTable) => {
       category: "TEST_BAGS",
       description: "Test description for item 4",
       created_at: new Date("2025-01-04T10:00:00Z"),
-      location: "TEST_LOCATION_4",
+      location: getLocationId("TEST_LOCATION_4"),
       colour: "TestRed",
       size: "TestLarge",
       brand: getBrandId("Test_Brand_4"),
@@ -77,7 +81,7 @@ const generateTestItems = (userTable, brandTable) => {
       category: "TEST_JEWELRY",
       description: "Test description for item 5",
       created_at: new Date("2025-01-05T10:00:00Z"),
-      location: "TEST_LOCATION_5",
+      location: getLocationId("TEST_LOCATION_5"),
       colour: "TestGold",
       size: "TestTiny",
       brand: getBrandId("Test_Brand_5"),

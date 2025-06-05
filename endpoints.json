@@ -163,5 +163,19 @@
         "brand_name": "Sony"
       }
     ]
+  },
+  "GET /api/items/locations": {
+    "description": "Responds with an array containing all the listed locations from the database.",
+    "exampleResponse": {
+      "locations": [
+        { "location_name": "Other" },
+        { "location_name": "London" },
+        { "location_name": "Birmingham" },
+        { "location_name": "Manchester" },
+        { "location_name": "Coventry" },
+        { "location_name": "Glasgow" },
+        { "location_name": "Liverpool" }
+      ]
+    }
   }
 }

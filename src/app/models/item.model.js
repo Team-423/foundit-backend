@@ -26,7 +26,8 @@ const itemSchema = new Schema({
     immutable: true,
   },
   location: {
-    type: String,
+    type: SchemaTypes.ObjectId,
+    ref: "Location",
     required: true,
   },
   colour: {
@@ -67,7 +68,8 @@ const selectItems = async () => {
     await connectDB();
     const items = await Item.find()
       .populate("author", "username")
-      .populate("brand", "brand_name");
+      .populate("brand", "brand_name")
+      .populate("location", "location_name");
     return items;
   } catch (err) {
     console.error(err);
@@ -85,7 +87,8 @@ const selectItemById = async (item_id) => {
   try {
     const itemById = await Item.findById(item_id)
       .populate("author", "username")
-      .populate("brand", "brand_name");
+      .populate("brand", "brand_name")
+      .populate("location", "location_name");
     if (!itemById) {
       throw {
         status: 404,
