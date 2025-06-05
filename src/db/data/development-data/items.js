@@ -1,4 +1,9 @@
-const generateDevItems = (userTable) => {
+const generateDevItems = (userTable, brandTable) => {
+  const getBrandId = (brandName) => {
+    const brandDoc = brandTable.find((brand) => brand.brand_name === brandName);
+    return brandDoc ? brandDoc._id : null;
+  };
+
   return [
     {
       item_name: "Black Wallet",
@@ -9,7 +14,7 @@ const generateDevItems = (userTable) => {
       location: "Central Library",
       colour: "Black",
       size: "Small",
-      brand: "Fossil",
+      brand: getBrandId("Fossil"),
       material: "Leather",
       img_url:
         "https://cdn.pixabay.com/photo/2020/03/28/13/26/wallet-4977021_1280.jpg",
@@ -26,7 +31,7 @@ const generateDevItems = (userTable) => {
       location: "Campus Cafeteria",
       colour: "Silver",
       size: "Medium",
-      brand: "Apple",
+      brand: getBrandId("Apple"),
       material: "Metal/Glass",
       img_url:
         "https://cdn.pixabay.com/photo/2021/09/25/17/43/iphone-13-6655520_1280.jpg",
@@ -43,7 +48,7 @@ const generateDevItems = (userTable) => {
       location: "Building A Lobby",
       colour: "Blue",
       size: "Medium",
-      brand: "Totes",
+      brand: getBrandId("Totes"),
       material: "Nylon",
       img_url:
         "https://cdn.pixabay.com/photo/2018/01/16/23/10/umbrella-3087101_1280.jpg",
@@ -60,7 +65,7 @@ const generateDevItems = (userTable) => {
       location: "Gym",
       colour: "Red",
       size: "Large",
-      brand: "Nike",
+      brand: getBrandId("Nike"),
       material: "Polyester",
       img_url:
         "https://cdn.pixabay.com/photo/2015/08/10/20/14/handbag-883110_1280.jpg",
@@ -77,8 +82,10 @@ const generateDevItems = (userTable) => {
       location: "Restroom near Cafeteria",
       colour: "Gold",
       size: "Small",
-      brand: "Unknown",
+      brand: getBrandId("Unknown"), // likely returns null
       material: "Gold",
+      img_url:
+        "https://cdn.pixabay.com/photo/2018/04/04/18/28/golden-3290604_640.jpg",
       resolved: true,
       found: true,
       lost: false,
@@ -92,9 +99,10 @@ const generateDevItems = (userTable) => {
       location: "Lecture Hall 3",
       colour: "Grey",
       size: "Medium",
-      brand: "H&M",
+      brand: getBrandId("H&M"),
       material: "Cotton",
-      img_url: "https://cdn.pixabay.com/photo/2018/04/04/18/28/golden-3290604_640.jpg",
+      img_url:
+        "https://cdn.pixabay.com/photo/2018/04/04/18/28/golden-3290604_640.jpg",
       resolved: false,
       found: true,
       lost: false,
@@ -108,9 +116,10 @@ const generateDevItems = (userTable) => {
       location: "Library Study Room 2",
       colour: "Black",
       size: "Small",
-      brand: "Samsung",
+      brand: getBrandId("Samsung"),
       material: "Plastic",
-      img_url: "https://cdn.pixabay.com/photo/2016/03/19/23/03/handsfree-1267605_640.jpg",
+      img_url:
+        "https://cdn.pixabay.com/photo/2016/03/19/23/03/handsfree-1267605_640.jpg",
       resolved: false,
       found: false,
       lost: true,
@@ -124,9 +133,10 @@ const generateDevItems = (userTable) => {
       location: "Student Union",
       colour: "Brown",
       size: "One Size",
-      brand: "Uniqlo",
+      brand: getBrandId("Uniqlo"),
       material: "Wool",
-      img_url: "https://cdn.pixabay.com/photo/2016/01/04/21/12/dog-1121623_640.jpg",
+      img_url:
+        "https://cdn.pixabay.com/photo/2016/01/04/21/12/dog-1121623_640.jpg",
       resolved: true,
       found: true,
       lost: false,
@@ -140,9 +150,10 @@ const generateDevItems = (userTable) => {
       location: "Main Canteen",
       colour: "Blue",
       size: "Large",
-      brand: "Hydro Flask",
+      brand: getBrandId("Hydro Flask"),
       material: "Metal",
-      img_url: "https://cdn.pixabay.com/photo/2015/08/21/00/18/water-bottle-898332_640.jpg",
+      img_url:
+        "https://cdn.pixabay.com/photo/2015/08/21/00/18/water-bottle-898332_640.jpg",
       resolved: false,
       found: true,
       lost: false,
@@ -156,9 +167,10 @@ const generateDevItems = (userTable) => {
       location: "Bike Rack Area",
       colour: "Silver",
       size: "Small",
-      brand: "Yale",
+      brand: getBrandId("Yale"),
       material: "Metal",
-      img_url: "https://cdn.pixabay.com/photo/2017/03/16/08/35/key-2148476_640.jpg",
+      img_url:
+        "https://cdn.pixabay.com/photo/2017/03/16/08/35/key-2148476_640.jpg",
       resolved: false,
       found: false,
       lost: true,

@@ -36,7 +36,8 @@ const itemSchema = new Schema({
     type: String,
   },
   brand: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "Brand",
   },
   material: {
     type: String,
@@ -60,10 +61,13 @@ const itemSchema = new Schema({
 
 const Item = model("Item", itemSchema);
 
+// GET /api/items
 const selectItems = async () => {
   try {
     await connectDB();
-    const items = await Item.find().populate("author", "username");
+    const items = await Item.find()
+      .populate("author", "username")
+      .populate("brand", "brand_name");
     return items;
   } catch (err) {
     console.error(err);
@@ -79,10 +83,9 @@ const selectItemById = async (item_id) => {
     };
   }
   try {
-    const itemById = await Item.findById(item_id).populate(
-      "author",
-      "username"
-    );
+    const itemById = await Item.findById(item_id)
+      .populate("author", "username")
+      .populate("brand", "brand_name");
     if (!itemById) {
       throw {
         status: 404,

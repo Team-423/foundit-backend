@@ -1,4 +1,11 @@
-const generateTestItems = (userTable) => {
+const generateTestItems = (userTable, brandTable) => {
+  const getBrandId = (brandName) => {
+    const brandDoc = brandTable.find((brand) => {
+      brand.brand_name === brandName;
+    });
+    return brandDoc ? brandDoc._id : null;
+  };
+
   return [
     {
       item_name: "TEST_ITEM_1_WALLET",
@@ -9,7 +16,7 @@ const generateTestItems = (userTable) => {
       location: "TEST_LOCATION_1",
       colour: "TestBlack",
       size: "TestSmall",
-      brand: "TestBrand1",
+      brand: getBrandId("Test_Brand_1"),
       material: "TestMaterial1",
       img_url: "test_item_img_url1",
       resolved: false,
@@ -25,7 +32,7 @@ const generateTestItems = (userTable) => {
       location: "TEST_LOCATION_2",
       colour: "TestSilver",
       size: "TestMedium",
-      brand: "TestBrand2",
+      brand: getBrandId("Test_Brand_2"),
       material: "TestMaterial2",
       img_url: "test_item_img_url2",
       resolved: true,
@@ -41,7 +48,7 @@ const generateTestItems = (userTable) => {
       location: "TEST_LOCATION_3",
       colour: "TestBlue",
       size: "TestMedium",
-      brand: "TestBrand3",
+      brand: getBrandId("Test_Brand_3"),
       material: "TestMaterial3",
       img_url: "test_item_img_url3",
       resolved: false,
@@ -57,7 +64,7 @@ const generateTestItems = (userTable) => {
       location: "TEST_LOCATION_4",
       colour: "TestRed",
       size: "TestLarge",
-      brand: "TestBrand4",
+      brand: getBrandId("Test_Brand_4"),
       material: "TestMaterial4",
       img_url: "test_item_img_url4",
       resolved: false,
@@ -73,7 +80,7 @@ const generateTestItems = (userTable) => {
       location: "TEST_LOCATION_5",
       colour: "TestGold",
       size: "TestTiny",
-      brand: "TestBrand5",
+      brand: getBrandId("Test_Brand_5"),
       material: "TestMaterial5",
       img_url: "test_item_img_url5",
       resolved: true,
