@@ -4,6 +4,15 @@
   },
   "GET /api/items": {
     "description": "serves up an array of all items",
+    "Queries": {
+      "item_name": "filter items using user input of name they want to search",
+      "category": "filter items using category input via dropdown for items",
+      "location": "filter items based on location",
+      "colour": "filter items based on colour",
+      "brand": "filter items based on brand",
+      "size": "filter items based on size",
+      "material": "filter items based on material"
+    },
     "exampleResponse": [
       {
         "_id": "683f0f142a5885e53c257c8a",
