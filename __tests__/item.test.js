@@ -8,10 +8,12 @@ const { User } = require("../src/app/models/user.model.js");
 beforeEach(() => setupDB());
 afterAll(() => mongoose.connection.close());
 
-describe.only("GET /api/items", () => {
+describe("GET /api/items", () => {
   test("200: Responds with test item 2 when filtered with item_name=phone", () => {
     return request(app)
-      .get("/api/items?item_name=phone&category=TEST_ELECTRONICS&location=TEST_LOCATION_2")
+      .get(
+        "/api/items?item_name=phone&category=TEST_ELECTRONICS&location=TEST_LOCATION_2"
+      )
       .expect(200)
       .then((items) => {
         expect(items._body[0]).toEqual(
@@ -31,9 +33,11 @@ describe.only("GET /api/items", () => {
   });
   test("200: Responds with test item 3 when filtered with category=TEST_ACCESSORY", () => {
     return request(app)
-      .get("/api/items?item_name=umbrella&location=TEST_LOCATION_3&category=TEST_ACCESSORY")
+      .get(
+        "/api/items?item_name=umbrella&location=TEST_LOCATION_3&category=TEST_ACCESSORY"
+      )
       .expect(200)
-      .then((items) => {       
+      .then((items) => {
         expect(items._body[0]).toEqual(
           expect.objectContaining({
             item_name: "TEST_ITEM_3_UMBRELLA",
@@ -54,7 +58,9 @@ describe.only("GET /api/items", () => {
   });
   test("200: Responds with test 3 when filtered with material=MATERIAL3", () => {
     return request(app)
-      .get("/api/items?item_name=umbrella&location=TEST_LOCATION_3&category=TEST_ACCESSORY&material=MATERIAL3")
+      .get(
+        "/api/items?item_name=umbrella&location=TEST_LOCATION_3&category=TEST_ACCESSORY&material=MATERIAL3"
+      )
       .expect(200)
       .then((items) => {
         expect(items._body[0]).toEqual(
@@ -73,6 +79,26 @@ describe.only("GET /api/items", () => {
             lost: false,
           })
         );
+      });
+  });
+  test("404: Responds with no results if item_name has no match", () => {
+    return request(app)
+      .get(
+        "/api/items?item_name=notAnItem&location=TEST_LOCATION_3&category=TEST_ACCESSORY"
+      )
+      .expect(404)
+      .then((items) => {
+        expect(items.body).toEqual({ msg: "No results!" });
+      });
+  });
+  test("400: Responds with Missing required fields if name, location or category are missing", () => {
+    return request(app)
+      .get(
+        "/api/items?item_name=umbrella&category=TEST_ACCESSORY"
+      )
+      .expect(400)
+      .then((items) => {
+        expect(items.body).toEqual({ msg: "Missing required fields" });
       });
   });
 });

@@ -10,9 +10,15 @@ const {
 exports.getItems = async (req, res, next) => {
   try {
     const items = await selectItems(req.query);
+    if (items.length === 0) {
+      throw {
+        status: 404,
+        msg: "No results!"
+      }
+    }
     res.status(200).send(items);
   } catch (err) {
-    console.error(err);
+    next(err)
   }
 };
 

@@ -90,7 +90,7 @@ const selectItems = async (filters = {}) => {
       .populate("author", "username");
     return items;
   } catch (err) {
-    console.error(err);
+    throw(err);
   }
 };
 
