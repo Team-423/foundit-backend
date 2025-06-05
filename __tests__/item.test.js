@@ -310,6 +310,81 @@ describe("PATCH /api/items/:item_id", () => {
   });
 });
 
+describe("PATCH /api/items/:itemId/resolved", () => {
+  test("200: Responds with patched item object with its resolved status as true", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      expect(testItems[0].resolved).toBe(false); // if resolved status is already true, test with another item
+      const patchBody = {
+        resolved: true,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}/resolved`)
+        .send(patchBody)
+        .expect(200)
+        .then(({ body }) => {
+          const item = body.updatedItem;
+          expect(item).toMatchObject({
+            _id: itemId,
+            item_name: expect.any(String),
+            category: expect.any(String),
+            description: expect.any(String),
+            location: expect.any(String),
+            colour: expect.any(String),
+            size: expect.any(String),
+            brand: expect.any(String),
+            material: expect.any(String),
+            resolved: true,
+            found: expect.any(Boolean),
+            lost: expect.any(Boolean),
+          });
+        });
+    });
+  });
+  test("400: Responds with error message when the request body value is not a boolean", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        resolved: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}/resolved`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe(
+            "Bad request: 'resolved' must be a boolean value!"
+          );
+        });
+    });
+  });
+  test("400: Responds with error message when passed an invalid ID", () => {
+    const patchBody = {
+      resolved: true,
+    };
+    return request(app)
+      .patch(`/api/items/notAValidID/resolved`)
+      .send(patchBody)
+      .expect(400)
+      .then((response) => {
+        expect(response.body.msg).toBe("Bad request: invalid ID format!");
+      });
+  });
+  test("404: Responds with error message when item_id is valid but does not exist in the database", () => {
+    const nonExistentId = new mongoose.Types.ObjectId().toString();
+    const patchBody = {
+      resolved: true,
+    };
+    return request(app)
+      .patch(`/api/items/${nonExistentId}/resolved`)
+      .send(patchBody)
+      .expect(404)
+      .then((response) => {
+        expect(response.body.msg).toBe("Item not found!");
+      });
+  });
+});
+
 describe("POST /api/items", () => {
   test("201: Post a new item and responds with newly created item", () => {
     return User.find().then((users) => {

@@ -72,6 +72,8 @@ const selectItems = async () => {
 
 // GET /api/items/:item_id
 const selectItemById = async (item_id) => {
+  // rename to updateItemById?
+  // "select" implies a read-only operation, not an update
   if (!mongoose.Types.ObjectId.isValid(item_id)) {
     throw {
       status: 400,
@@ -142,6 +144,36 @@ const selectItemByIdToUpdate = async (
   }
 };
 
+// PATCH /api/items/:item_id
+const updateItemResolvedById = async (item_id, resolved) => {
+  const query = { _id: item_id };
+  const update = {
+    $set: {
+      resolved,
+    },
+  };
+  const options = { new: true };
+
+  if (!mongoose.Types.ObjectId.isValid(item_id)) {
+    throw {
+      status: 400,
+      msg: "Bad request: invalid ID format!",
+    };
+  }
+  try {
+    const updatedItem = await Item.findOneAndUpdate(query, update, options);
+    if (!updatedItem) {
+      throw {
+        status: 404,
+        msg: "Item not found!",
+      };
+    }
+    return updatedItem;
+  } catch (err) {
+    throw err;
+  }
+};
+
 // POST /api/items
 const insertItem = async (postedItem) => {
   const { item_name, author, description, category, location, found, lost } =
@@ -192,4 +224,5 @@ module.exports = {
   insertItem,
   removeItemById,
   selectItemByIdToUpdate,
+  updateItemResolvedById,
 }; //for Item we cannot use exports., mind the syntax
