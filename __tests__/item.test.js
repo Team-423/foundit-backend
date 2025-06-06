@@ -10,26 +10,96 @@ beforeEach(() => setupDB());
 afterAll(() => mongoose.connection.close());
 
 describe("GET /api/items", () => {
-  test("200: Responds with an array of all items with required properties", () => {
+  test("200: Responds with test item 2 when filtered with item_name=phone", () => {
     return request(app)
-      .get("/api/items")
+      .get(
+        "/api/items?item_name=phone&category=TEST_ELECTRONICS&location=TEST_LOCATION_2"
+      )
       .expect(200)
       .then((items) => {
-        expect(items._body.length).toBeGreaterThan(0);
-        items._body.forEach((item) => {
-          expect(item).toEqual(
-            expect.objectContaining({
-              item_name: expect.any(String),
-              author: expect.any(Object),
-              category: expect.any(String),
-              description: expect.any(String),
-              created_at: expect.any(String),
-              location: expect.any(String),
-              found: expect.any(Boolean),
-              lost: expect.any(Boolean),
-            })
-          );
-        });
+        expect(items._body[0]).toEqual(
+          expect.objectContaining({
+            item_name: "TEST_ITEM_2_PHONE",
+            category: "TEST_ELECTRONICS",
+            description: "Test description for item 2",
+            location: "TEST_LOCATION_2",
+            colour: "TestSilver",
+            size: "TestMedium",
+            brand: "TestBrand2",
+            material: "TestMaterial2",
+            img_url: "test_item_img_url2",
+          })
+        );
+      });
+  });
+  test("200: Responds with test item 3 when filtered with category=TEST_ACCESSORY", () => {
+    return request(app)
+      .get(
+        "/api/items?item_name=umbrella&location=TEST_LOCATION_3&category=TEST_ACCESSORY"
+      )
+      .expect(200)
+      .then((items) => {
+        expect(items._body[0]).toEqual(
+          expect.objectContaining({
+            item_name: "TEST_ITEM_3_UMBRELLA",
+            category: "TEST_ACCESSORY",
+            description: "Test description for item 3",
+            location: "TEST_LOCATION_3",
+            colour: "TestBlue",
+            size: "TestMedium",
+            brand: "TestBrand3",
+            material: "TestMaterial3",
+            img_url: "test_item_img_url3",
+            resolved: false,
+            found: true,
+            lost: false,
+          })
+        );
+      });
+  });
+  test("200: Responds with test 3 when filtered with material=MATERIAL3", () => {
+    return request(app)
+      .get(
+        "/api/items?item_name=umbrella&location=TEST_LOCATION_3&category=TEST_ACCESSORY&material=MATERIAL3"
+      )
+      .expect(200)
+      .then((items) => {
+        expect(items._body[0]).toEqual(
+          expect.objectContaining({
+            item_name: "TEST_ITEM_3_UMBRELLA",
+            category: "TEST_ACCESSORY",
+            description: "Test description for item 3",
+            location: "TEST_LOCATION_3",
+            colour: "TestBlue",
+            size: "TestMedium",
+            brand: "TestBrand3",
+            material: "TestMaterial3",
+            img_url: "test_item_img_url3",
+            resolved: false,
+            found: true,
+            lost: false,
+          })
+        );
+      });
+  });
+  test("404: Responds with no results if item_name has no match", () => {
+    return request(app)
+      .get(
+        "/api/items?item_name=notAnItem&location=TEST_LOCATION_3&category=TEST_ACCESSORY"
+      )
+      .expect(404)
+      .then((items) => {
+        expect(items.body).toEqual({ msg: "No results!" });
+      });
+  });
+  test("400: Responds with Missing required fields if name, location or category are missing", () => {
+    return request(app)
+      .get(
+        "/api/items?item_name=umbrella&category=TEST_ACCESSORY"
+      )
+      .expect(400)
+      .then((items) => {
+        expect(items.body).toEqual({ msg: "Missing required fields" });
       });
   });
 });
@@ -306,6 +376,81 @@ describe("PATCH /api/items/:item_id", () => {
           expect(response.body.msg).toBe("Bad request: invalid format!");
         });
     });
+  });
+});
+
+describe("PATCH /api/items/:itemId/resolved", () => {
+  test("200: Responds with patched item object with its resolved status as true", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      expect(testItems[0].resolved).toBe(false); // if resolved status is already true, test with another item
+      const patchBody = {
+        resolved: true,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}/resolved`)
+        .send(patchBody)
+        .expect(200)
+        .then(({ body }) => {
+          const item = body.updatedItem;
+          expect(item).toMatchObject({
+            _id: itemId,
+            item_name: expect.any(String),
+            category: expect.any(String),
+            description: expect.any(String),
+            location: expect.any(String),
+            colour: expect.any(String),
+            size: expect.any(String),
+            brand: expect.any(String),
+            material: expect.any(String),
+            resolved: true,
+            found: expect.any(Boolean),
+            lost: expect.any(Boolean),
+          });
+        });
+    });
+  });
+  test("400: Responds with error message when the request body value is not a boolean", () => {
+    return Item.find().then((testItems) => {
+      const itemId = testItems[0]._id.toString();
+      const patchBody = {
+        resolved: 999,
+      };
+      return request(app)
+        .patch(`/api/items/${itemId}/resolved`)
+        .send(patchBody)
+        .expect(400)
+        .then((response) => {
+          expect(response.body.msg).toBe(
+            "Bad request: 'resolved' must be a boolean value!"
+          );
+        });
+    });
+  });
+  test("400: Responds with error message when passed an invalid ID", () => {
+    const patchBody = {
+      resolved: true,
+    };
+    return request(app)
+      .patch(`/api/items/notAValidID/resolved`)
+      .send(patchBody)
+      .expect(400)
+      .then((response) => {
+        expect(response.body.msg).toBe("Bad request: invalid ID format!");
+      });
+  });
+  test("404: Responds with error message when item_id is valid but does not exist in the database", () => {
+    const nonExistentId = new mongoose.Types.ObjectId().toString();
+    const patchBody = {
+      resolved: true,
+    };
+    return request(app)
+      .patch(`/api/items/${nonExistentId}/resolved`)
+      .send(patchBody)
+      .expect(404)
+      .then((response) => {
+        expect(response.body.msg).toBe("Item not found!");
+      });
   });
 });
 
