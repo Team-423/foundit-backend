@@ -3,6 +3,7 @@ const app = require("../src/app.js");
 const mongoose = require("mongoose");
 const setupDB = require("../src/db/seeding/seed");
 const { User } = require("../src/app/models/user.model.js");
+const { Item } = require("../src/app/models/item.model.js");
 
 beforeEach(() => setupDB());
 afterAll(() => mongoose.connection.close());
@@ -181,5 +182,74 @@ describe("PATCH /api/users/:userId", () => {
           expect(body.msg).toBe("Bad request: invalid format!");
         });
     });
+  });
+});
+
+describe("GET /api/users/:userId/items", () => {
+  test("200: returns items for a valid userId", async () => {
+    const testUser = await User.create({
+      username: "test_user_1",
+      email: "test1@example.com",
+    });
+
+    await Item.insertMany([
+      {
+        item_name: "Lost Key",
+        category: "Personal",
+        description: "A silver key",
+        location: "Park",
+        found: false,
+        lost: true,
+        author: testUser._id,
+      },
+      {
+        item_name: "Found Wallet",
+        category: "Personal",
+        description: "A black leather wallet",
+        location: "Street",
+        found: true,
+        lost: false,
+        author: testUser._id,
+      },
+    ]);
+
+    const res = await request(app)
+      .get(`/api/users/${testUser._id}/items`)
+      .expect(200);
+
+    expect(res.body.items).toBeDefined();
+    expect(Array.isArray(res.body.items)).toBe(true);
+    expect(res.body.items).toHaveLength(2);
+    res.body.items.forEach((item) => {
+      expect(item.author._id.toString()).toBe(testUser._id.toString());
+      expect(item).toHaveProperty("item_name");
+      expect(item).toHaveProperty("category");
+      expect(item).toHaveProperty("description");
+      expect(item).toHaveProperty("location");
+      expect(item).toHaveProperty("found");
+      expect(item).toHaveProperty("lost");
+    });
+  });
+
+  test("404: returns error if no items exist for the user", () => {
+    return User.findOne({ username: "test_user_1" }).then((testUser) => {
+      return Item.deleteMany({ author: testUser._id }).then(() => {
+        return request(app)
+          .get(`/api/users/${testUser._id}/items`)
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).toBe("No items found for this user!");
+          });
+      });
+    });
+  });
+
+  test("400: returns error if userId is invalid", () => {
+    return request(app)
+      .get("/api/users/invalid-Id/items")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad request: invalid user ID!");
+      });
   });
 });

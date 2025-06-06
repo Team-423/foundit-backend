@@ -79,10 +79,7 @@ const selectItemById = async (item_id) => {
     };
   }
   try {
-    const itemById = await Item.findById(item_id).populate(
-      "author",
-      "username"
-    );
+    const itemById = await Item.findById(item_id);
     if (!itemById) {
       throw {
         status: 404,
@@ -192,4 +189,4 @@ module.exports = {
   insertItem,
   removeItemById,
   selectItemByIdToUpdate,
-}; //for Item we cannot use exports., mind the syntax
+};

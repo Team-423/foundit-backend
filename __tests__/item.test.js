@@ -5,8 +5,13 @@ const setupDB = require("../src/db/seeding/seed.js");
 const { Item } = require("../src/app/models/item.model.js");
 const { User } = require("../src/app/models/user.model.js");
 
-beforeEach(() => setupDB());
-afterAll(() => mongoose.connection.close());
+beforeEach(async () => {
+  await setupDB();
+});
+
+afterAll(async () => {
+  await mongoose.connection.close();
+});
 
 describe("GET /api/items", () => {
   test("200: Responds with an array of all items with required properties", () => {

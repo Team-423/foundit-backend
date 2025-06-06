@@ -10,6 +10,7 @@ const {
 const {
   getUserById,
   updateUserById,
+  getItemsByUserId,
 } = require("./app/controller/user.controller.js");
 const app = express();
 
@@ -18,6 +19,7 @@ app.get("/api", getEndPoints);
 app.get("/api/users/:userId", getUserById);
 app.get("/api/items", getItems);
 app.get("/api/items/:item_id", getItemById);
+app.get("/api/users/:userId/items", getItemsByUserId);
 
 app.patch("/api/items/:item_id", updateItemById);
 app.patch("/api/users/:userId", updateUserById);
@@ -29,14 +31,6 @@ app.delete("/api/items/:item_id", deleteItemById);
 app.all("/*splat", (req, res) => {
   res.status(404).send({ msg: "Path not found!" });
 });
-
-// app.use((err, req, res, next) => {
-//   if (err.name) {
-//     return res.status(400).send({ msg: "Invalid user ID" });
-//   } else {
-//     next(err);
-//   }
-// });
 
 app.use((err, req, res, next) => {
   if (err.status && err.msg) {

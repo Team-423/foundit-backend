@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
+const { Item } = require("./item.model.js");
 
 const userSchema = new Schema({
   username: {
@@ -75,4 +76,34 @@ const selectUserByIdToUpdate = async (
   }
 };
 
-module.exports = { User, selectUserById, selectUserByIdToUpdate };
+// GET /api/users/:userId/items
+const selectItemsByUserId = async (userId) => {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw {
+      status: 400,
+      msg: "Bad request: invalid user ID!",
+    };
+  }
+  try {
+    const items = await Item.find({ author: userId }).populate(
+      "author",
+      "username _id"
+    );
+    if (!items || items.length === 0) {
+      throw {
+        status: 404,
+        msg: "No items found for this user!",
+      };
+    }
+    return items;
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = {
+  User,
+  selectUserById,
+  selectUserByIdToUpdate,
+  selectItemsByUserId,
+};
