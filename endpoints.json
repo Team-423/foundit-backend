@@ -146,5 +146,48 @@
       "lost": true,
       "__v": 0
     }
+  },
+  "PATCH /api/users/:userId": {
+    "description": "Updates one or more fields of a user specified by userId. Supports partial updates.",
+    "exampleRequest": {
+      "username": "newUsername",
+      "email": "newemail@example.com",
+      "img_url": "http://example.com/avatar.png",
+      "points": 200
+    },
+    "exampleResponse": {
+      "user": {
+        "_id": "665f3f501234abcd5678ef90",
+        "username": "newUsername",
+        "email": "newemail@example.com",
+        "img_url": "http://example.com/avatar.png",
+        "points": 200
+      }
+    }
+  },
+  "GET /api/users/:userId/items": {
+    "description": "Returns all items for the specified userId",
+    "parameters": {
+      "userId": "string (MongoDB ObjectId format)"
+    },
+    "exampleResponse": [
+      {
+        "_id": "683f0f142a5885e53c257c8a",
+        "item_name": "Black Wallet",
+        "author": { "_id": "683f0f142a5885e53c257c85", "username": "johndoe" },
+        "category": "Accessories",
+        "description": "Leather wallet containing ID and credit cards",
+        "created_at": "2025-05-01T10:30:00.000Z",
+        "location": "Central Library",
+        "colour": "Black",
+        "size": "Small",
+        "brand": "Fossil",
+        "material": "Leather",
+        "resolved": false,
+        "found": false,
+        "lost": true,
+        "__v": 0
+      }
+    ]
   }
 }
