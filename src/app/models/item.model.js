@@ -63,21 +63,48 @@ const itemSchema = new Schema({
 const Item = model("Item", itemSchema);
 
 // GET /api/items
-const selectItems = async () => {
+const selectItems = async (filters = {}) => {
   try {
     await connectDB();
     const items = await Item.find()
       .populate("author", "username")
       .populate("brand", "brand_name")
       .populate("location", "location_name");
+    let query = {};
+
+    if (!filters.item_name || !filters.location || !filters.category) {
+      throw {
+        status: 400,
+        msg: "Missing required fields",
+      };
+    }
+    const exactMatchFields = ["colour", "brand", "location", "category"];
+    const regexFields = ["item_name", "size", "material"];
+
+    for (const field of exactMatchFields) {
+      if (filters[field]) {
+        query[field] = filters[field];
+      }
+    }
+
+    for (const field of regexFields) {
+      if (filters[field]) {
+        query[field] = { $regex: filters[field], $options: "i" };
+      }
+    }
+    const items = await Item.find(query)
+      .sort({ created_at: -1 })
+      .populate("author", "username");
     return items;
   } catch (err) {
-    console.error(err);
+    throw(err);
   }
 };
 
 // GET /api/items/:item_id
 const selectItemById = async (item_id) => {
+  // rename to updateItemById?
+  // "select" implies a read-only operation, not an update
   if (!mongoose.Types.ObjectId.isValid(item_id)) {
     throw {
       status: 400,
@@ -148,6 +175,36 @@ const selectItemByIdToUpdate = async (
   }
 };
 
+// PATCH /api/items/:item_id
+const updateItemResolvedById = async (item_id, resolved) => {
+  const query = { _id: item_id };
+  const update = {
+    $set: {
+      resolved,
+    },
+  };
+  const options = { new: true };
+
+  if (!mongoose.Types.ObjectId.isValid(item_id)) {
+    throw {
+      status: 400,
+      msg: "Bad request: invalid ID format!",
+    };
+  }
+  try {
+    const updatedItem = await Item.findOneAndUpdate(query, update, options);
+    if (!updatedItem) {
+      throw {
+        status: 404,
+        msg: "Item not found!",
+      };
+    }
+    return updatedItem;
+  } catch (err) {
+    throw err;
+  }
+};
+
 // POST /api/items
 const insertItem = async (postedItem) => {
   const { item_name, author, description, category, location, found, lost } =
@@ -198,4 +255,5 @@ module.exports = {
   insertItem,
   removeItemById,
   selectItemByIdToUpdate,
+  updateItemResolvedById,
 }; //for Item we cannot use exports., mind the syntax
