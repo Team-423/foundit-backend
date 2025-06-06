@@ -4,6 +4,15 @@
   },
   "GET /api/items": {
     "description": "serves up an array of all items",
+    "Queries": {
+      "item_name": "filter items using user input of name they want to search",
+      "category": "filter items using category input via dropdown for items",
+      "location": "filter items based on location",
+      "colour": "filter items based on colour",
+      "brand": "filter items based on brand",
+      "size": "filter items based on size",
+      "material": "filter items based on material"
+    },
     "exampleResponse": [
       {
         "_id": "683f0f142a5885e53c257c8a",
@@ -102,6 +111,29 @@
       "material": "Metal and Glass"
     }
   },
+  "PATCH /api/items/:item_id/resolved": {
+    "description": "Updates item resolved status to true for the selected item_id, returns the updated item object",
+    "exampleRequest": {
+      "resolved": true
+    },
+    "exampleResponse": {
+      "_id": "683f805f894c689cbb55b2e6",
+      "item_name": "Black Wallet",
+      "author": { "_id": "683f805f894c689cbb55b2e1", "username": "johndoe" },
+      "category": "Accessories",
+      "description": "Leather wallet containing ID and credit cards",
+      "created_at": "2025-05-01T10:30:00.000Z",
+      "location": "Central Library",
+      "colour": "Black",
+      "size": "Small",
+      "brand": "Fossil",
+      "material": "Leather",
+      "resolved": true,
+      "found": false,
+      "lost": true,
+      "__v": 0
+    }
+  },
   "GET api/users/:userId": {
     "description": "Responds with a single user object for the given userID",
     "exampleResponse": {
@@ -159,6 +191,37 @@
       "found": false,
       "lost": true,
       "__v": 0
+    }
+  },
+  "GET /api/items/brands": {
+    "description": "Responds with an array containing all the listed brands from the database.",
+    "exampleResponse": [
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf87",
+        "brand_name": "Apple"
+      },
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf88",
+        "brand_name": "Samsung"
+      },
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf89",
+        "brand_name": "Sony"
+      }
+    ]
+  },
+  "GET /api/items/locations": {
+    "description": "Responds with an array containing all the listed locations from the database.",
+    "exampleResponse": {
+      "locations": [
+        { "location_name": "Other" },
+        { "location_name": "London" },
+        { "location_name": "Birmingham" },
+        { "location_name": "Manchester" },
+        { "location_name": "Coventry" },
+        { "location_name": "Glasgow" },
+        { "location_name": "Liverpool" }
+      ]
     }
   }
 }

@@ -26,17 +26,20 @@ const itemSchema = new Schema({
     immutable: true,
   },
   location: {
-    type: String,
+    type: SchemaTypes.ObjectId,
+    ref: "Location",
     required: true,
   },
   colour: {
-    type: String,
+    type: SchemaTypes.ObjectId,
+    ref: "Colour",
   },
   size: {
     type: String,
   },
   brand: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "Brand",
   },
   material: {
     type: String,
@@ -60,18 +63,50 @@ const itemSchema = new Schema({
 
 const Item = model("Item", itemSchema);
 
-const selectItems = async () => {
+// GET /api/items
+const selectItems = async (filters = {}) => {
   try {
     await connectDB();
-    const items = await Item.find().populate("author", "username");
+
+    let query = {};
+
+    if (!filters.item_name || !filters.location || !filters.category) {
+      throw {
+        status: 400,
+        msg: "Missing required fields",
+      };
+    }
+    const exactMatchFields = ["colour", "brand", "location", "category"];
+    const regexFields = ["item_name", "size", "material"];
+
+    for (const field of exactMatchFields) {
+      if (filters[field]) {
+        query[field] = filters[field];
+      }
+    }
+
+    for (const field of regexFields) {
+      if (filters[field]) {
+        query[field] = { $regex: filters[field], $options: "i" };
+      }
+    }
+    const items = await Item.find(query)
+      .sort({ created_at: -1 })
+      .populate("author", "username")
+      .populate("brand", "brand_name")
+      .populate("location", "location_name")
+      .populate("colour", "colour");
+
     return items;
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };
 
 // GET /api/items/:item_id
 const selectItemById = async (item_id) => {
+  // rename to updateItemById?
+  // "select" implies a read-only operation, not an update
   if (!mongoose.Types.ObjectId.isValid(item_id)) {
     throw {
       status: 400,
@@ -79,10 +114,11 @@ const selectItemById = async (item_id) => {
     };
   }
   try {
-    const itemById = await Item.findById(item_id).populate(
-      "author",
-      "username"
-    );
+    const itemById = await Item.findById(item_id)
+      .populate("author", "username")
+      .populate("brand", "brand_name")
+      .populate("location", "location_name")
+      .populate("colour", "colour");
     if (!itemById) {
       throw {
         status: 404,
@@ -126,6 +162,36 @@ const selectItemByIdToUpdate = async (
     throw {
       status: 400,
       msg: "Bad request: invalid format!",
+    };
+  }
+  try {
+    const updatedItem = await Item.findOneAndUpdate(query, update, options);
+    if (!updatedItem) {
+      throw {
+        status: 404,
+        msg: "Item not found!",
+      };
+    }
+    return updatedItem;
+  } catch (err) {
+    throw err;
+  }
+};
+
+// PATCH /api/items/:item_id
+const updateItemResolvedById = async (item_id, resolved) => {
+  const query = { _id: item_id };
+  const update = {
+    $set: {
+      resolved,
+    },
+  };
+  const options = { new: true };
+
+  if (!mongoose.Types.ObjectId.isValid(item_id)) {
+    throw {
+      status: 400,
+      msg: "Bad request: invalid ID format!",
     };
   }
   try {
@@ -192,4 +258,5 @@ module.exports = {
   insertItem,
   removeItemById,
   selectItemByIdToUpdate,
+  updateItemResolvedById,
 }; //for Item we cannot use exports., mind the syntax
