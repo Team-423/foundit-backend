@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const setupDB = require("../src/db/seeding/seed");
 const { User } = require("../src/app/models/user.model.js");
 const { Item } = require("../src/app/models/item.model.js");
+const { Category } = require("../src/app/models/category.model.js");
+const { Location } = require("../src/app/models/location.model.js");
 
 beforeEach(() => setupDB());
 afterAll(() => mongoose.connection.close());
@@ -191,22 +193,26 @@ describe("GET /api/users/:userId/items", () => {
       username: "test_user_1",
       email: "test1@example.com",
     });
+    const testCategories = await Category.find();
+    const testCategory = testCategories[0]._id;
+    const testLocations = await Location.find();
+    const testLocation = testLocations[0]._id;
 
     await Item.insertMany([
       {
         item_name: "Lost Key",
-        category: "Personal",
+        category: testCategory,
         description: "A silver key",
-        location: "Park",
+        location: testLocation,
         found: false,
         lost: true,
         author: testUser._id,
       },
       {
         item_name: "Found Wallet",
-        category: "Personal",
+        category: testCategory,
         description: "A black leather wallet",
-        location: "Street",
+        location: testLocation,
         found: true,
         lost: false,
         author: testUser._id,

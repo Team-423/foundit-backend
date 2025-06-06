@@ -57,13 +57,13 @@
     "description": "serves up an array of all available item categories",
     "exampleResponse": {
       "categories": [
-        "Accessories",
-        "Bags",
-        "Clothing",
-        "Electronics",
-        "Jewelry",
-        "Keys",
-        "Other"
+        { "category_name": "Accessories" },
+        { "category_name": "Bags" },
+        { "category_name": "Clothing" },
+        { "category_name": "Electronics" },
+        { "category_name": "Jewelry" },
+        { "category_name": "Keys" },
+        { "category_name": "Other" }
       ]
     }
   },
@@ -234,36 +234,37 @@
         "lost": true,
         "__v": 0
       }
-    ]
-  "GET /api/items/brands": {
-    "description": "Responds with an array containing all the listed brands from the database.",
-    "exampleResponse": [
-      {
-        "_id": "665f8bd0c2b69d2b7ad8cf87",
-        "brand_name": "Apple"
-      },
-      {
-        "_id": "665f8bd0c2b69d2b7ad8cf88",
-        "brand_name": "Samsung"
-      },
-      {
-        "_id": "665f8bd0c2b69d2b7ad8cf89",
-        "brand_name": "Sony"
-      }
-    ]
-  },
-  "GET /api/items/locations": {
-    "description": "Responds with an array containing all the listed locations from the database.",
-    "exampleResponse": {
-      "locations": [
-        { "location_name": "Other" },
-        { "location_name": "London" },
-        { "location_name": "Birmingham" },
-        { "location_name": "Manchester" },
-        { "location_name": "Coventry" },
-        { "location_name": "Glasgow" },
-        { "location_name": "Liverpool" }
+    ],
+    "GET /api/items/brands": {
+      "description": "Responds with an array containing all the listed brands from the database.",
+      "exampleResponse": [
+        {
+          "_id": "665f8bd0c2b69d2b7ad8cf87",
+          "brand_name": "Apple"
+        },
+        {
+          "_id": "665f8bd0c2b69d2b7ad8cf88",
+          "brand_name": "Samsung"
+        },
+        {
+          "_id": "665f8bd0c2b69d2b7ad8cf89",
+          "brand_name": "Sony"
+        }
       ]
+    },
+    "GET /api/items/locations": {
+      "description": "Responds with an array containing all the listed locations from the database.",
+      "exampleResponse": {
+        "locations": [
+          { "location_name": "Other" },
+          { "location_name": "London" },
+          { "location_name": "Birmingham" },
+          { "location_name": "Manchester" },
+          { "location_name": "Coventry" },
+          { "location_name": "Glasgow" },
+          { "location_name": "Liverpool" }
+        ]
+      }
     }
   }
 }

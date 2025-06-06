@@ -96,7 +96,8 @@ const selectItems = async (filters = {}) => {
       .populate("author", "username")
       .populate("brand", "brand_name")
       .populate("location", "location_name")
-      .populate("colour", "colour");
+      .populate("colour", "colour")
+      .populate("category", "category_name");
 
     return items;
   } catch (err) {
@@ -115,12 +116,13 @@ const selectItemById = async (item_id) => {
     };
   }
   try {
-
     const itemById = await Item.findById(item_id)
       .populate("author", "username")
       .populate("brand", "brand_name")
       .populate("location", "location_name")
-      .populate("colour", "colour");
+      .populate("colour", "colour")
+      .populate("colour", "colour")
+      .populate("category", "category_name");
 
     if (!itemById) {
       throw {
@@ -261,6 +263,5 @@ module.exports = {
   insertItem,
   removeItemById,
   selectItemByIdToUpdate,
- updateItemResolvedById,
-}; 
-
+  updateItemResolvedById,
+};
