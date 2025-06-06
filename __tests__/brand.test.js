@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../src/app.js");
 const mongoose = require("mongoose");
-const setupDB = require("../src/db/seeding/seed");
+const setupDB = require("../src/db/seeding/seed.js");
 const { Brand } = require("../src/app/models/brand.model.js");
 
 beforeEach(() => setupDB());

@@ -1,7 +1,14 @@
-const generateDevItems = (userTable, brandTable) => {
+const generateDevItems = (userTable, brandTable, locationTable) => {
   const getBrandId = (brandName) => {
     const brandDoc = brandTable.find((brand) => brand.brand_name === brandName);
     return brandDoc ? brandDoc._id : null;
+  };
+
+  const getLocationId = (locationName) => {
+    const locationDoc = locationTable.find(
+      (location) => location.location_name === locationName
+    );
+    return locationDoc ? locationDoc._id : null;
   };
 
   return [
@@ -11,7 +18,7 @@ const generateDevItems = (userTable, brandTable) => {
       category: "Accessories",
       description: "Leather wallet containing ID and credit cards",
       created_at: new Date("2025-05-01T10:30:00Z"),
-      location: "Central Library",
+      location: getLocationId("Manchester"),
       colour: "Black",
       size: "Small",
       brand: getBrandId("Fossil"),
@@ -28,7 +35,7 @@ const generateDevItems = (userTable, brandTable) => {
       category: "Electronics",
       description: "Phone with cracked screen and red case",
       created_at: new Date("2025-04-20T14:45:00Z"),
-      location: "Campus Cafeteria",
+      location: getLocationId("Liverpool"),
       colour: "Silver",
       size: "Medium",
       brand: getBrandId("Apple"),
@@ -45,7 +52,7 @@ const generateDevItems = (userTable, brandTable) => {
       category: "Accessories",
       description: "Compact foldable umbrella with floral pattern",
       created_at: new Date("2025-03-28T09:15:00Z"),
-      location: "Building A Lobby",
+      location: getLocationId("Leeds"),
       colour: "Blue",
       size: "Medium",
       brand: getBrandId("Totes"),
@@ -62,7 +69,7 @@ const generateDevItems = (userTable, brandTable) => {
       category: "Bags",
       description: "Red Nike backpack with gym clothes and water bottle",
       created_at: new Date("2025-05-15T08:00:00Z"),
-      location: "Gym",
+      location: getLocationId("Sheffield"),
       colour: "Red",
       size: "Large",
       brand: getBrandId("Nike"),
@@ -79,10 +86,10 @@ const generateDevItems = (userTable, brandTable) => {
       category: "Jewelry",
       description: "Simple gold band with initials engraved inside",
       created_at: new Date("2025-04-01T13:20:00Z"),
-      location: "Restroom near Cafeteria",
+      location: getLocationId("Birmingham"),
       colour: "Gold",
       size: "Small",
-      brand: getBrandId("Unknown"), // likely returns null
+      brand: getBrandId("Unknown"),
       material: "Gold",
       img_url:
         "https://cdn.pixabay.com/photo/2018/04/04/18/28/golden-3290604_640.jpg",
@@ -96,7 +103,7 @@ const generateDevItems = (userTable, brandTable) => {
       category: "Clothing",
       description: "Grey zip-up hoodie left on lecture hall seat",
       created_at: new Date("2025-04-28T12:00:00Z"),
-      location: "Lecture Hall 3",
+      location: getLocationId("Newcastle"),
       colour: "Grey",
       size: "Medium",
       brand: getBrandId("H&M"),
@@ -113,7 +120,7 @@ const generateDevItems = (userTable, brandTable) => {
       category: "Electronics",
       description: "Black case containing wireless earbuds",
       created_at: new Date("2025-04-30T09:30:00Z"),
-      location: "Library Study Room 2",
+      location: getLocationId("Bristol"),
       colour: "Black",
       size: "Small",
       brand: getBrandId("Samsung"),
@@ -130,7 +137,7 @@ const generateDevItems = (userTable, brandTable) => {
       category: "Clothing",
       description: "Knitted wool scarf with tassels",
       created_at: new Date("2025-05-02T17:00:00Z"),
-      location: "Student Union",
+      location: getLocationId("Nottingham"),
       colour: "Brown",
       size: "One Size",
       brand: getBrandId("Uniqlo"),
@@ -147,7 +154,7 @@ const generateDevItems = (userTable, brandTable) => {
       category: "Accessories",
       description: "Blue metal bottle with 'Team NC' sticker",
       created_at: new Date("2025-04-18T08:50:00Z"),
-      location: "Main Canteen",
+      location: getLocationId("Coventry"),
       colour: "Blue",
       size: "Large",
       brand: getBrandId("Hydro Flask"),
@@ -164,7 +171,7 @@ const generateDevItems = (userTable, brandTable) => {
       category: "Other",
       description: "Set of 3 keys with Manchester City keychain",
       created_at: new Date("2025-04-25T13:10:00Z"),
-      location: "Bike Rack Area",
+      location: getLocationId("York"),
       colour: "Silver",
       size: "Small",
       brand: getBrandId("Yale"),
