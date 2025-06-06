@@ -13,7 +13,8 @@ const itemSchema = new Schema({
     required: true,
   },
   category: {
-    type: String,
+    type: SchemaTypes.ObjectId,
+    ref: "Category",
     required: true,
   },
   description: {

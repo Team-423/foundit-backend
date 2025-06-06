@@ -1,5 +1,5 @@
 const devBrandList = [
-  { brand_name: "Other" },
+  { brand_name: "Other/Unknown" },
   { brand_name: "Apple" },
   { brand_name: "Samsung" },
   { brand_name: "Sony" },
@@ -50,6 +50,9 @@ const devBrandList = [
   { brand_name: "Casio" },
   { brand_name: "Ray-Ban" },
   { brand_name: "Oakley" },
+  { brand_name: "Yale" },
+  { brand_name: "Hydro Flask" },
+  { brand_name: "Totes" },
 ];
 
 module.exports = devBrandList;

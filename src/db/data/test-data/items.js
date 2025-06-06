@@ -2,7 +2,8 @@ const generateTestItems = (
   userTable,
   brandTable,
   locationTable,
-  colourTable
+  colourTable,
+  categoryTable
 ) => {
   const getBrandId = (brandName) => {
     const brandDoc = brandTable.find((brand) => brand.brand_name === brandName);
@@ -22,11 +23,18 @@ const generateTestItems = (
     return colourDoc ? colourDoc._id : null;
   };
 
+  const getCategoryId = (categoryName) => {
+    const categoryDoc = categoryTable.find((category) => {
+      return category.category_name === categoryName;
+    });
+    return categoryDoc ? categoryDoc._id : null;
+  };
+
   return [
     {
       item_name: "TEST_ITEM_1_WALLET",
       author: userTable[0]._id,
-      category: "TEST_ACCESSORY",
+      category: getCategoryId("Test_category_1"),
       description: "Test description for item 1",
       created_at: new Date("2025-01-01T10:00:00Z"),
       location: getLocationId("TEST_LOCATION_1"),
@@ -42,7 +50,7 @@ const generateTestItems = (
     {
       item_name: "TEST_ITEM_2_PHONE",
       author: userTable[1]._id,
-      category: "TEST_ELECTRONICS",
+      category: getCategoryId("Test_category_2"),
       description: "Test description for item 2",
       created_at: new Date("2025-01-02T10:00:00Z"),
       location: getLocationId("TEST_LOCATION_2"),
@@ -58,7 +66,7 @@ const generateTestItems = (
     {
       item_name: "TEST_ITEM_3_UMBRELLA",
       author: userTable[2]._id,
-      category: "TEST_ACCESSORY",
+      category: getCategoryId("Test_category_3"),
       description: "Test description for item 3",
       created_at: new Date("2025-01-03T10:00:00Z"),
       location: getLocationId("TEST_LOCATION_3"),
@@ -74,7 +82,7 @@ const generateTestItems = (
     {
       item_name: "TEST_ITEM_4_BACKPACK",
       author: userTable[3]._id,
-      category: "TEST_BAGS",
+      category: getCategoryId("Test_category_4"),
       description: "Test description for item 4",
       created_at: new Date("2025-01-04T10:00:00Z"),
       location: getLocationId("TEST_LOCATION_4"),
@@ -90,7 +98,7 @@ const generateTestItems = (
     {
       item_name: "TEST_ITEM_5_RING",
       author: userTable[0]._id,
-      category: "TEST_JEWELRY",
+      category: getCategoryId("Test_category_5"),
       description: "Test description for item 5",
       created_at: new Date("2025-01-05T10:00:00Z"),
       location: getLocationId("TEST_LOCATION_5"),

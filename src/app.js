@@ -6,7 +6,6 @@ const {
   updateItemById,
   postItem,
   deleteItemById,
-  getCategories,
   patchItemResolvedById,
 } = require("./app/controller/item.controller.js");
 const {
@@ -16,6 +15,7 @@ const {
 const { getColours } = require("./app/controller/colour.controller.js");
 const { getAllBrands } = require("./app/controller/brand.controller.js");
 const { getAllLocations } = require("./app/controller/location.controller.js");
+const { getCategories } = require("./app/controller/category.controller.js");
 const app = express();
 
 app.use(express.json());
