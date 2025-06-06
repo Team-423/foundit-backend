@@ -53,6 +53,20 @@
       }
     ]
   },
+  "GET /api/items/categories": {
+    "description": "serves up an array of all available item categories",
+    "exampleResponse": {
+      "categories": [
+        "Accessories",
+        "Bags",
+        "Clothing",
+        "Electronics",
+        "Jewelry",
+        "Keys",
+        "Other"
+      ]
+    }
+  },
   "GET /api/items/:item_id": {
     "description": "Serves a single item object that corresponds to the queried item_id",
     "exampleResponse": {

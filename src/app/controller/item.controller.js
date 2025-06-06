@@ -4,8 +4,9 @@ const {
   selectItemByIdToUpdate,
   insertItem,
   removeItemById,
-  updateItemResolvedById,
+  updateItemResolvedById
 } = require("../models/item.model");
+const categoriesData = require("../../db/data/test-data/categories");
 
 // GET /api/items/
 exports.getItems = async (req, res, next) => {
@@ -20,6 +21,15 @@ exports.getItems = async (req, res, next) => {
     res.status(200).send(items);
   } catch (err) {
     next(err)
+  }
+};
+
+// GET /api/items/categories
+exports.getCategories = async (req, res, next) => {
+  try {
+    res.status(200).send({ categories: categoriesData });
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -97,7 +107,7 @@ exports.patchItemResolvedById = async (req, res, next) => {
 // POST /api/items
 exports.postItem = async (req, res, next) => {
   const postedItem = req.body;
-  
+
   try {
     const newItem = await insertItem(postedItem);
     res.status(201).send({ newItem });
