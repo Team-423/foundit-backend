@@ -16,6 +16,8 @@ const userSchema = new Schema({
   points: Number,
 });
 
+// GET /api/users/:userId
+
 const User = model("User", userSchema);
 const selectUserById = async (userId) => {
   if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -33,4 +35,44 @@ const selectUserById = async (userId) => {
   }
 };
 
-module.exports = { User, selectUserById };
+// Patch /api/users/:userId
+
+const selectUserByIdToUpdate = async (
+  userId,
+  username,
+  email,
+  img_url,
+  points
+) => {
+  const query = { _id: userId };
+  const update = {
+    $set: {
+      username,
+      email,
+      img_url,
+      points,
+    },
+  };
+  const options = { new: true };
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw {
+      status: 400,
+      msg: "Invalid user ID",
+    };
+  }
+  try {
+    const updatedUser = await User.findOneAndUpdate(query, update, options);
+    if (!updatedUser) {
+      throw {
+        status: 404,
+        msg: "User not found!",
+      };
+    }
+    return updatedUser;
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { User, selectUserById, selectUserByIdToUpdate };

@@ -39,3 +39,147 @@ describe("GET /api/users/:userId", () => {
       });
   });
 });
+
+describe("PATCH /api/users/:userId", () => {
+  test("200: Responds with the updated user fields for valid userId", () => {
+    return User.find().then((users) => {
+      const userId = users[0]._id.toString();
+      const patchBody = {
+        username: "UpdatedName",
+        email: "updated@email.com",
+        img_url: "http://example.com/img.png",
+        points: 150,
+      };
+
+      return request(app)
+        .patch(`/api/users/${userId}`)
+        .send(patchBody)
+        .expect(200)
+        .then(({ body }) => {
+          const user = body.user;
+          expect(user).toMatchObject({
+            _id: userId,
+            username: "UpdatedName",
+            email: "updated@email.com",
+            img_url: "http://example.com/img.png",
+            points: 150,
+          });
+        });
+    });
+  });
+
+  test("200: Responds with same user but with one field updated", () => {
+    return User.find().then((users) => {
+      const userId = users[0]._id.toString();
+      const patchBody = {
+        username: "OnlyUsernameChanged",
+      };
+
+      return request(app)
+        .patch(`/api/users/${userId}`)
+        .send(patchBody)
+        .expect(200)
+        .then(({ body }) => {
+          const user = body.user;
+          expect(user.username).toBe("OnlyUsernameChanged");
+        });
+    });
+  });
+
+  test("404: Valid userId but user does not exist", () => {
+    const fakeId = new mongoose.Types.ObjectId().toString();
+    const patchBody = {
+      username: "GhostUser",
+    };
+
+    return request(app)
+      .patch(`/api/users/${fakeId}`)
+      .send(patchBody)
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("User not found!");
+      });
+  });
+
+  test("400: Invalid userId format", () => {
+    const patchBody = {
+      username: "InvalidIDUser",
+    };
+
+    return request(app)
+      .patch(`/api/users/notAValidId`)
+      .send(patchBody)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid user ID");
+      });
+  });
+
+  test("400: Invalid username (not a string)", () => {
+    return User.find().then((users) => {
+      const userId = users[0]._id.toString();
+      const patchBody = {
+        username: 123,
+      };
+
+      return request(app)
+        .patch(`/api/users/${userId}`)
+        .send(patchBody)
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+
+  test("400: Invalid email (not a string)", () => {
+    return User.find().then((users) => {
+      const userId = users[0]._id.toString();
+      const patchBody = {
+        email: 999,
+      };
+
+      return request(app)
+        .patch(`/api/users/${userId}`)
+        .send(patchBody)
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+
+  test("400: Invalid img_url (not a string)", () => {
+    return User.find().then((users) => {
+      const userId = users[0]._id.toString();
+      const patchBody = {
+        img_url: 123,
+      };
+
+      return request(app)
+        .patch(`/api/users/${userId}`)
+        .send(patchBody)
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+
+  test("400: Invalid points (not a number)", () => {
+    return User.find().then((users) => {
+      const userId = users[0]._id.toString();
+      const patchBody = {
+        points: "lots",
+      };
+
+      return request(app)
+        .patch(`/api/users/${userId}`)
+        .send(patchBody)
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).toBe("Bad request: invalid format!");
+        });
+    });
+  });
+});

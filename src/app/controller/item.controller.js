@@ -4,7 +4,6 @@ const {
   selectItemByIdToUpdate,
   insertItem,
   removeItemById,
-
   updateItemResolvedById,
 } = require("../models/item.model");
 
@@ -27,7 +26,6 @@ exports.getItems = async (req, res, next) => {
 // GET /api/items/:item_id
 exports.getItemById = async (req, res, next) => {
   const { item_id } = req.params;
-
   try {
     const itemById = await selectItemById(item_id);
 
@@ -77,7 +75,6 @@ exports.updateItemById = async (req, res, next) => {
   }
 };
 
-
 // PATCH /api/items/:item_id/resolved
 exports.patchItemResolvedById = async (req, res, next) => {
   const { item_id } = req.params;
@@ -100,7 +97,7 @@ exports.patchItemResolvedById = async (req, res, next) => {
 // POST /api/items
 exports.postItem = async (req, res, next) => {
   const postedItem = req.body;
-
+  
   try {
     const newItem = await insertItem(postedItem);
     res.status(201).send({ newItem });
