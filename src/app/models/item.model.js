@@ -121,7 +121,6 @@ const selectItemById = async (item_id) => {
       .populate("brand", "brand_name")
       .populate("location", "location_name")
       .populate("colour", "colour")
-      .populate("colour", "colour")
       .populate("category", "category_name");
 
     if (!itemById) {

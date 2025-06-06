@@ -35,7 +35,7 @@ describe("GET /api/items", () => {
               expect(item).toMatchObject({
                 item_name: expect.any(String),
                 author: expect.any(Object),
-                category: expect.any(String),
+                category: expect.any(Object),
                 description: expect.any(String),
                 created_at: expect.any(String),
                 location: expect.any(Object),
@@ -46,7 +46,7 @@ describe("GET /api/items", () => {
             });
             expect(items._body[0]).toMatchObject({
               item_name: "TEST_ITEM_2_PHONE",
-              category: categoryId,
+              category: expect.any(Object),
               description: "Test description for item 2",
               location: expect.any(Object),
               colour: expect.any(Object),
@@ -75,7 +75,7 @@ describe("GET /api/items", () => {
         .then((items) => {
           expect(items._body[0]).toMatchObject({
             item_name: "TEST_ITEM_3_UMBRELLA",
-            category: expect.any(String),
+            category: expect.any(Object),
             description: "Test description for item 3",
             location: expect.any(Object),
             colour: expect.any(Object),
@@ -107,7 +107,7 @@ describe("GET /api/items", () => {
           expect(items._body[0]).toEqual(
             expect.objectContaining({
               item_name: "TEST_ITEM_3_UMBRELLA",
-              category: expect.any(String),
+              category: expect.any(Object),
               description: "Test description for item 3",
               location: expect.any(Object),
               colour: expect.any(Object),
@@ -165,7 +165,7 @@ describe("GET /api/items/:item_id", () => {
             _id: itemId,
             item_name: expect.any(String),
             description: expect.any(String),
-            category: expect.any(String),
+            category: expect.any(Object),
             location: expect.any(Object),
             colour: expect.any(Object),
             size: expect.any(String),
