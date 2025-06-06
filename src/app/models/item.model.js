@@ -60,10 +60,16 @@ const itemSchema = new Schema({
 
 const Item = model("Item", itemSchema);
 
+// GET /api/items?
 const selectItems = async (filters = {}) => {
   try {
     await connectDB();
-    let query = {};
+    const orConditions = [];
+    const exactMatchFields = ["colour", "brand", "location", "category"];
+    const regexFields = ["size", "material"];
+    const mainQuery = {
+      item_name: { $regex: filters.item_name, $options: "i" },
+    };
 
     if (!filters.item_name || !filters.location || !filters.category) {
       throw {
@@ -71,26 +77,28 @@ const selectItems = async (filters = {}) => {
         msg: "Missing required fields",
       };
     }
-    const exactMatchFields = ["colour", "brand", "location", "category"];
-    const regexFields = ["item_name", "size", "material"];
 
     for (const field of exactMatchFields) {
       if (filters[field]) {
-        query[field] = filters[field];
+        orConditions.push({ [field]: filters[field] });
+      }
+    }
+    for (const field of regexFields) {
+      if (filters[field]) {
+        orConditions.push({
+          [field]: { $regex: filters[field], $options: "i" },
+        });
       }
     }
 
-    for (const field of regexFields) {
-      if (filters[field]) {
-        query[field] = { $regex: filters[field], $options: "i" };
-      }
-    }
-    const items = await Item.find(query)
+    const finalQuery = { $and: [mainQuery, { $or: orConditions }] };
+
+    const items = await Item.find(finalQuery)
       .sort({ created_at: -1 })
       .populate("author", "username");
     return items;
   } catch (err) {
-    throw(err);
+    throw err;
   }
 };
 

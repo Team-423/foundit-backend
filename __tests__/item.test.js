@@ -56,7 +56,7 @@ describe("GET /api/items", () => {
         );
       });
   });
-  test("200: Responds with test 3 when filtered with material=MATERIAL3", () => {
+  test("200: Responds with test item 3 when filtered with material=MATERIAL3", () => {
     return request(app)
       .get(
         "/api/items?item_name=umbrella&location=TEST_LOCATION_3&category=TEST_ACCESSORY&material=MATERIAL3"
@@ -81,6 +81,25 @@ describe("GET /api/items", () => {
         );
       });
   });
+  test("200: Responds with 2 items when filtered with just the minimum queries", () => {
+    return request(app)
+      .get(
+        "/api/items?item_name=ring&location=TEST_LOCATION_5&category=TEST_JEWELRY"
+      )
+      .expect(200)
+      .then((items) => {
+        expect(items.body.length).toBe(2);
+        items.body.forEach((item) => {
+          expect(item).toEqual(
+            expect.objectContaining({
+              category: "TEST_JEWELRY",
+              colour: "TestGold",
+            })
+          );
+        });
+      });
+  });
+
   test("404: Responds with no results if item_name has no match", () => {
     return request(app)
       .get(
@@ -93,9 +112,7 @@ describe("GET /api/items", () => {
   });
   test("400: Responds with Missing required fields if name, location or category are missing", () => {
     return request(app)
-      .get(
-        "/api/items?item_name=umbrella&category=TEST_ACCESSORY"
-      )
+      .get("/api/items?item_name=umbrella&category=TEST_ACCESSORY")
       .expect(400)
       .then((items) => {
         expect(items.body).toEqual({ msg: "Missing required fields" });
