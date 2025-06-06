@@ -8,8 +8,13 @@ const { Brand } = require("../src/app/models/brand.model.js");
 const { Location } = require("../src/app/models/location.model.js");
 const { Colour } = require("../src/app/models/colour.model.js");
 
-beforeEach(() => setupDB());
-afterAll(() => mongoose.connection.close());
+beforeEach(async () => {
+  await setupDB();
+});
+
+afterAll(async () => {
+  await mongoose.connection.close();
+});
 
 describe("GET /api/items", () => {
   test("200: Responds with test item 2 when filtered with item_name=phone", () => {

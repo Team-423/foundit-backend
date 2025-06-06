@@ -11,6 +11,7 @@ const {
 const {
   getUserById,
   updateUserById,
+  getItemsByUserId,
 } = require("./app/controller/user.controller.js");
 const { getColours } = require("./app/controller/colour.controller.js");
 const { getAllBrands } = require("./app/controller/brand.controller.js");
@@ -27,6 +28,7 @@ app.get("/api/items/brands", getAllBrands);
 app.get("/api/items/locations", getAllLocations);
 app.get("/api/items/colours", getColours);
 app.get("/api/items/:item_id", getItemById);
+app.get("/api/users/:userId/items", getItemsByUserId);
 
 app.patch("/api/items/:item_id", updateItemById);
 app.patch("/api/users/:userId", updateUserById);
