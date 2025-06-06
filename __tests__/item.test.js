@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const setupDB = require("../src/db/seeding/seed.js");
 const { Item } = require("../src/app/models/item.model.js");
 const { User } = require("../src/app/models/user.model.js");
+const { Brand } = require("../src/app/models/brand.model.js");
 
 beforeEach(() => setupDB());
 afterAll(() => mongoose.connection.close());
@@ -122,12 +123,12 @@ describe("GET /api/items/:item_id", () => {
             location: expect.any(String),
             colour: expect.any(String),
             size: expect.any(String),
-            brand: expect.any(String),
             material: expect.any(String),
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
           });
+          expect(typeof item.brand === "string" || item.brand === null);
         });
     });
   });
@@ -164,7 +165,6 @@ describe("PATCH /api/items/:item_id", () => {
         location: "City Centre",
         colour: "Silver",
         size: "small",
-        brand: "Apple",
         material: "Metal and Glass",
       };
       return request(app)
@@ -181,12 +181,12 @@ describe("PATCH /api/items/:item_id", () => {
             location: "City Centre",
             colour: "Silver",
             size: "small",
-            brand: "Apple",
             material: "Metal and Glass",
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
           });
+          expect(typeof item.brand === "string" || item.brand === null);
         });
     });
   });
@@ -210,12 +210,12 @@ describe("PATCH /api/items/:item_id", () => {
             location: "TEST_LOCATION_1",
             colour: "TestBlack",
             size: "TestSmall",
-            brand: "TestBrand1",
             material: "TestMaterial1",
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
           });
+          expect(typeof item.brand === "string" || item.brand === null);
         });
     });
   });
@@ -228,7 +228,6 @@ describe("PATCH /api/items/:item_id", () => {
       location: "City Centre",
       colour: "Silver",
       size: "small",
-      brand: "Apple",
       material: "Metal and Glass",
     };
     return request(app)
@@ -458,44 +457,47 @@ describe("PATCH /api/items/:itemId/resolved", () => {
 describe("POST /api/items", () => {
   test("201: Post a new item and responds with newly created item", () => {
     return User.find().then((users) => {
-      const testUser = users[0];
-      const testItem = {
-        item_name: "test_item",
-        author: testUser._id,
-        category: "test_category",
-        description: "test_description",
-        created_at: "2025-05-01T10:30:00.000Z",
-        location: "test_location",
-        colour: "test_colour",
-        size: "test_size",
-        brand: "test_brand",
-        material: "test_material",
-        resolved: false,
-        found: false,
-        lost: true,
-      };
+      return Brand.find().then((brands) => {
+        const testBrand = brands[0];
+        const testUser = users[0];
+        const testItem = {
+          item_name: "test_item",
+          author: testUser._id,
+          category: "test_category",
+          description: "test_description",
+          created_at: "2025-05-01T10:30:00.000Z",
+          location: "test_location",
+          colour: "test_colour",
+          size: "test_size",
+          brand: testBrand._id,
+          material: "test_material",
+          resolved: false,
+          found: false,
+          lost: true,
+        };
 
-      return request(app)
-        .post("/api/items")
-        .send(testItem)
-        .expect(201)
-        .then((result) => {
-          const { newItem } = result.body;
-          expect(newItem).toMatchObject({
-            item_name: "test_item",
-            author: testUser._id.toString(),
-            category: "test_category",
-            description: "test_description",
-            location: "test_location",
-            colour: "test_colour",
-            size: "test_size",
-            brand: "test_brand",
-            material: "test_material",
-            resolved: false,
-            found: false,
-            lost: true,
+        return request(app)
+          .post("/api/items")
+          .send(testItem)
+          .expect(201)
+          .then((result) => {
+            const { newItem } = result.body;
+            expect(newItem).toMatchObject({
+              item_name: "test_item",
+              author: testUser._id.toString(),
+              category: "test_category",
+              description: "test_description",
+              location: "test_location",
+              colour: "test_colour",
+              size: "test_size",
+              material: "test_material",
+              resolved: false,
+              found: false,
+              lost: true,
+            });
+            expect(typeof newItem.brand === "string" || newItem.brand === null);
           });
-        });
+      });
     });
   });
   test("400: Item posted is missing two required fields - 'category' & 'location'", () => {

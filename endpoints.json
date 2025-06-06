@@ -178,5 +178,22 @@
       "lost": true,
       "__v": 0
     }
+  },
+  "GET /api/items/brands": {
+    "description": "Responds with an array containing all the listed brands from the database.",
+    "exampleResponse": [
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf87",
+        "brand_name": "Apple"
+      },
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf88",
+        "brand_name": "Samsung"
+      },
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf89",
+        "brand_name": "Sony"
+      }
+    ]
   }
 }

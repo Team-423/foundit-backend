@@ -14,7 +14,7 @@ const {
 } = require("./app/controller/user.controller.js");
 const { getUserById } = require("./app/controller/user.controller.js");
 const { getColours } = require("./app/controller/colour.controller.js");
-
+const { getAllBrands } = require("./app/controller/brand.controller.js");
 const app = express();
 
 app.use(express.json());
