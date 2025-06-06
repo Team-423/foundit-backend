@@ -6,114 +6,137 @@ const { Item } = require("../src/app/models/item.model.js");
 const { User } = require("../src/app/models/user.model.js");
 const { Brand } = require("../src/app/models/brand.model.js");
 const { Location } = require("../src/app/models/location.model.js");
+const { Colour } = require("../src/app/models/colour.model.js");
 
 beforeEach(() => setupDB());
 afterAll(() => mongoose.connection.close());
 
 describe("GET /api/items", () => {
   test("200: Responds with test item 2 when filtered with item_name=phone", () => {
-    return request(app)
-      .get(
-        "/api/items?item_name=phone&category=TEST_ELECTRONICS&location=TEST_LOCATION_2"
-      )
-      .expect(200)
-      .then((items) => {
-        expect(items._body.length).toBeGreaterThan(0);
-        items._body.forEach((item) => {
-          expect(item).toEqual(
-            expect.objectContaining({
-              item_name: expect.any(String),
-              author: expect.any(Object),
-              category: expect.any(String),
-              description: expect.any(String),
-              created_at: expect.any(String),
-              location: expect.any(Object),
-              brand: expect.any(Object),
-              found: expect.any(Boolean),
-              lost: expect.any(Boolean),
-            })
-          );
-        });
-        expect(items._body[0]).toEqual(
-          expect.objectContaining({
-            item_name: "TEST_ITEM_2_PHONE",
-            category: "TEST_ELECTRONICS",
-            description: "Test description for item 2",
-            location: "TEST_LOCATION_2",
-            colour: "TestSilver",
-            size: "TestMedium",
-            brand: "TestBrand2",
-            material: "TestMaterial2",
-            img_url: "test_item_img_url2",
-          })
-        );
-      });
+    return Location.findOne({ location_name: "TEST_LOCATION_2" }).then(
+      (locationDoc) => {
+        const locationId = locationDoc._id.toString();
+
+        return request(app)
+          .get(
+            `/api/items?item_name=phone&category=TEST_ELECTRONICS&location=${locationId}`
+          )
+          .expect(200)
+          .then((items) => {
+            expect(items._body.length).toBeGreaterThan(0);
+            items._body.forEach((item) => {
+              expect(item).toEqual(
+                expect.objectContaining({
+                  item_name: expect.any(String),
+                  author: expect.any(Object),
+                  category: expect.any(String),
+                  description: expect.any(String),
+                  created_at: expect.any(String),
+                  location: expect.any(Object),
+                  brand: expect.any(Object),
+                  found: expect.any(Boolean),
+                  lost: expect.any(Boolean),
+                })
+              );
+            });
+            expect(items._body[0]).toEqual(
+              expect.objectContaining({
+                item_name: "TEST_ITEM_2_PHONE",
+                category: "TEST_ELECTRONICS",
+                description: "Test description for item 2",
+                location: expect.any(Object),
+                colour: expect.any(Object),
+                size: "TestMedium",
+                brand: expect.any(Object),
+                material: "TestMaterial2",
+                img_url: "test_item_img_url2",
+              })
+            );
+          });
+      }
+    );
   });
   test("200: Responds with test item 3 when filtered with category=TEST_ACCESSORY", () => {
-    return request(app)
-      .get(
-        "/api/items?item_name=umbrella&location=TEST_LOCATION_3&category=TEST_ACCESSORY"
-      )
-      .expect(200)
-      .then((items) => {
-        expect(items._body[0]).toEqual(
-          expect.objectContaining({
-            item_name: "TEST_ITEM_3_UMBRELLA",
-            category: "TEST_ACCESSORY",
-            description: "Test description for item 3",
-            location: "TEST_LOCATION_3",
-            colour: "TestBlue",
-            size: "TestMedium",
-            brand: "TestBrand3",
-            material: "TestMaterial3",
-            img_url: "test_item_img_url3",
-            resolved: false,
-            found: true,
-            lost: false,
-          })
-        );
-      });
+    return Location.findOne({ location_name: "TEST_LOCATION_3" }).then(
+      (locationDoc) => {
+        const locationId = locationDoc._id.toString();
+
+        return request(app)
+          .get(
+            `/api/items?item_name=umbrella&location=${locationId}&category=TEST_ACCESSORY`
+          )
+          .expect(200)
+          .then((items) => {
+            expect(items._body[0]).toEqual(
+              expect.objectContaining({
+                item_name: "TEST_ITEM_3_UMBRELLA",
+                category: "TEST_ACCESSORY",
+                description: "Test description for item 3",
+                location: expect.any(Object),
+                colour: expect.any(Object),
+                size: "TestMedium",
+                brand: expect.any(Object),
+                material: "TestMaterial3",
+                img_url: "test_item_img_url3",
+                resolved: false,
+                found: true,
+                lost: false,
+              })
+            );
+          });
+      }
+    );
   });
   test("200: Responds with test 3 when filtered with material=MATERIAL3", () => {
-    return request(app)
-      .get(
-        "/api/items?item_name=umbrella&location=TEST_LOCATION_3&category=TEST_ACCESSORY&material=MATERIAL3"
-      )
-      .expect(200)
-      .then((items) => {
-        expect(items._body[0]).toEqual(
-          expect.objectContaining({
-            item_name: "TEST_ITEM_3_UMBRELLA",
-            category: "TEST_ACCESSORY",
-            description: "Test description for item 3",
-            location: "TEST_LOCATION_3",
-            colour: "TestBlue",
-            size: "TestMedium",
-            brand: "TestBrand3",
-            material: "TestMaterial3",
-            img_url: "test_item_img_url3",
-            resolved: false,
-            found: true,
-            lost: false,
-          })
-        );
-      });
+    return Location.findOne({ location_name: "TEST_LOCATION_3" }).then(
+      (locationDoc) => {
+        const locationId = locationDoc._id.toString();
+
+        return request(app)
+          .get(
+            `/api/items?item_name=umbrella&location=${locationId}&category=TEST_ACCESSORY&material=MATERIAL3`
+          )
+          .expect(200)
+          .then((items) => {
+            expect(items._body[0]).toEqual(
+              expect.objectContaining({
+                item_name: "TEST_ITEM_3_UMBRELLA",
+                category: "TEST_ACCESSORY",
+                description: "Test description for item 3",
+                location: expect.any(Object),
+                colour: expect.any(Object),
+                size: "TestMedium",
+                location: expect.any(Object),
+                material: "TestMaterial3",
+                img_url: "test_item_img_url3",
+                resolved: false,
+                found: true,
+                lost: false,
+              })
+            );
+          });
+      }
+    );
   });
   test("404: Responds with no results if item_name has no match", () => {
-    return request(app)
-      .get(
-        "/api/items?item_name=notAnItem&location=TEST_LOCATION_3&category=TEST_ACCESSORY"
-      )
-      .expect(404)
-      .then((items) => {
-        expect(items.body).toEqual({ msg: "No results!" });
-      });
+    return Location.findOne({ location_name: "TEST_LOCATION_3" }).then(
+      (locationDoc) => {
+        const locationId = locationDoc._id.toString();
+
+        return request(app)
+          .get(
+            `/api/items?item_name=notAnItem&location=${locationId}&category=TEST_ACCESSORY`
+          )
+          .expect(404)
+          .then((items) => {
+            expect(items.body).toEqual({ msg: "No results!" });
+          });
+      }
+    );
   });
   test("400: Responds with Missing required fields if name, location or category are missing", () => {
     return request(app)
-      .get(
-        "/api/items?item_name=umbrella&category=TEST_ACCESSORY"
-      )
+      .get("/api/items?item_name=umbrella&category=TEST_ACCESSORY")
       .expect(400)
       .then((items) => {
         expect(items.body).toEqual({ msg: "Missing required fields" });
@@ -138,7 +161,7 @@ describe("GET /api/items/:item_id", () => {
             description: expect.any(String),
             category: expect.any(String),
             location: expect.any(Object),
-            colour: expect.any(String),
+            colour: expect.any(Object),
             size: expect.any(String),
             material: expect.any(String),
             resolved: expect.any(Boolean),
@@ -176,18 +199,20 @@ describe("PATCH /api/items/:item_id", () => {
     return Promise.all([
       Item.find(),
       Brand.find(),
-      Location.findOne({ location_name: "TEST_LOCATION_1" }),
-    ]).then(([testItems, testBrands, locationDoc]) => {
+      Colour.find(),
+      Location.find(),
+    ]).then(([testItems, testBrands, colourDoc, locationDoc]) => {
       const itemId = testItems[0]._id.toString();
       const brandId = testBrands[0]._id.toString();
-      const locationId = locationDoc._id.toString();
+      const colourId = colourDoc[0]._id.toString();
+      const locationId = locationDoc[0]._id.toString();
 
       const patchBody = {
         item_name: "iphone",
         category: "Electronics",
         description: "iphone 16 with a phone case",
         location: locationId,
-        colour: "Silver",
+        colour: colourId,
         size: "small",
         material: "Metal and Glass",
         brand: brandId,
@@ -206,7 +231,7 @@ describe("PATCH /api/items/:item_id", () => {
             category: "Electronics",
             description: "iphone 16 with a phone case",
             location: locationId,
-            colour: "Silver",
+            colour: colourId,
             size: "small",
             material: "Metal and Glass",
             brand: brandId,
@@ -234,7 +259,7 @@ describe("PATCH /api/items/:item_id", () => {
             item_name: "iphone",
             category: "TEST_ACCESSORY",
             description: "Test description for item 1",
-            colour: "TestBlack",
+            colour: expect.any(String),
             size: "TestSmall",
             material: "TestMaterial1",
             resolved: expect.any(Boolean),
@@ -249,16 +274,17 @@ describe("PATCH /api/items/:item_id", () => {
   test("404: when passed a valid item_id but does not exist in the db", () => {
     const nonExistentId = new mongoose.Types.ObjectId().toString();
 
-    return Location.findOne({ location_name: "TEST_LOCATION_1" }).then(
-      (locationDoc) => {
-        const locationId = locationDoc._id.toString();
+    return Promise.all([Colour.find(), Location.find()]).then(
+      ([colourDoc, locationDoc]) => {
+        const colourId = colourDoc[0]._id.toString();
+        const locationId = locationDoc[0]._id.toString();
 
         const patchBody = {
           item_name: "iphone",
           category: "Electronics",
           description: "iphone 16 with a phone case",
           location: locationId,
-          colour: "Silver",
+          colour: colourId,
           size: "small",
           material: "Metal and Glass",
         };
@@ -491,52 +517,56 @@ describe("PATCH /api/items/:itemId/resolved", () => {
 
 describe("POST /api/items", () => {
   test("201: Post a new item and responds with newly created item", () => {
-    return Promise.all([User.find(), Brand.find(), Location.find()]).then(
-      ([users, brands, locations]) => {
-        const testUser = users[0];
-        const testBrand = brands[0];
-        const testLocation = locations[0];
+    return Promise.all([
+      User.find(),
+      Brand.find(),
+      Location.find(),
+      Colour.find(),
+    ]).then(([users, brands, locations, colours]) => {
+      const testUser = users[0];
+      const testBrand = brands[0];
+      const testLocation = locations[0];
+      const testColour = colours[0];
 
-        const testItem = {
-          item_name: "test_item",
-          author: testUser._id,
-          category: "test_category",
-          description: "test_description",
-          created_at: "2025-05-01T10:30:00.000Z",
-          location: testLocation._id,
-          colour: "test_colour",
-          size: "test_size",
-          brand: testBrand._id,
-          material: "test_material",
-          resolved: false,
-          found: false,
-          lost: true,
-        };
+      const testItem = {
+        item_name: "test_item",
+        author: testUser._id,
+        category: "test_category",
+        description: "test_description",
+        created_at: "2025-05-01T10:30:00.000Z",
+        location: testLocation._id,
+        colour: testColour,
+        size: "test_size",
+        brand: testBrand._id,
+        material: "test_material",
+        resolved: false,
+        found: false,
+        lost: true,
+      };
 
-        return request(app)
-          .post("/api/items")
-          .send(testItem)
-          .expect(201)
-          .then((result) => {
-            const { newItem } = result.body;
+      return request(app)
+        .post("/api/items")
+        .send(testItem)
+        .expect(201)
+        .then((result) => {
+          const { newItem } = result.body;
 
-            expect(newItem).toMatchObject({
-              item_name: "test_item",
-              author: testUser._id.toString(),
-              category: "test_category",
-              description: "test_description",
-              location: testLocation._id.toString(),
-              colour: "test_colour",
-              size: "test_size",
-              material: "test_material",
-              brand: testBrand._id.toString(),
-              resolved: false,
-              found: false,
-              lost: true,
-            });
+          expect(newItem).toMatchObject({
+            item_name: "test_item",
+            author: testUser._id.toString(),
+            category: "test_category",
+            description: "test_description",
+            location: testLocation._id.toString(),
+            colour: testColour._id.toString(),
+            size: "test_size",
+            material: "test_material",
+            brand: testBrand._id.toString(),
+            resolved: false,
+            found: false,
+            lost: true,
           });
-      }
-    );
+        });
+    });
   });
   test("400: Item posted is missing two required fields - 'category' & 'location'", () => {
     return User.find().then((users) => {

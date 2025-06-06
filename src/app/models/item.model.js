@@ -31,7 +31,8 @@ const itemSchema = new Schema({
     required: true,
   },
   colour: {
-    type: String,
+    type: SchemaTypes.ObjectId,
+    ref: "Colour",
   },
   size: {
     type: String,
@@ -66,10 +67,7 @@ const Item = model("Item", itemSchema);
 const selectItems = async (filters = {}) => {
   try {
     await connectDB();
-    const items = await Item.find()
-      .populate("author", "username")
-      .populate("brand", "brand_name")
-      .populate("location", "location_name");
+
     let query = {};
 
     if (!filters.item_name || !filters.location || !filters.category) {
@@ -94,10 +92,14 @@ const selectItems = async (filters = {}) => {
     }
     const items = await Item.find(query)
       .sort({ created_at: -1 })
-      .populate("author", "username");
+      .populate("author", "username")
+      .populate("brand", "brand_name")
+      .populate("location", "location_name")
+      .populate("colour", "colour");
+
     return items;
   } catch (err) {
-    throw(err);
+    throw err;
   }
 };
 
@@ -115,7 +117,8 @@ const selectItemById = async (item_id) => {
     const itemById = await Item.findById(item_id)
       .populate("author", "username")
       .populate("brand", "brand_name")
-      .populate("location", "location_name");
+      .populate("location", "location_name")
+      .populate("colour", "colour");
     if (!itemById) {
       throw {
         status: 404,

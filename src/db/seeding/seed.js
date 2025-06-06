@@ -25,12 +25,16 @@ async function setupDB() {
     const brandTable = await Brand.insertMany(brands);
     const userTable = await User.insertMany(users);
     const locationTable = await Location.insertMany(locations);
+    const coloursTable = await Colour.insertMany(colours);
 
-    const items = await generateItems(userTable, brandTable, locationTable);
+    const items = await generateItems(
+      userTable,
+      brandTable,
+      locationTable,
+      coloursTable
+    );
 
     await Item.insertMany(items);
-
-    await Colour.insertMany(colours.map((colour) => ({ colour })));
 
     const seededItems = await Item.find()
       .populate("author", "username")

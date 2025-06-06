@@ -1,4 +1,9 @@
-const generateTestItems = (userTable, brandTable, locationTable) => {
+const generateTestItems = (
+  userTable,
+  brandTable,
+  locationTable,
+  colourTable
+) => {
   const getBrandId = (brandName) => {
     const brandDoc = brandTable.find((brand) => brand.brand_name === brandName);
     return brandDoc ? brandDoc._id : null;
@@ -10,6 +15,13 @@ const generateTestItems = (userTable, brandTable, locationTable) => {
     return locationDoc ? locationDoc._id : null;
   };
 
+  const getColourId = (colourName) => {
+    const colourDoc = colourTable.find(
+      (colour) => colour.colour === colourName
+    );
+    return colourDoc ? colourDoc._id : null;
+  };
+
   return [
     {
       item_name: "TEST_ITEM_1_WALLET",
@@ -18,7 +30,7 @@ const generateTestItems = (userTable, brandTable, locationTable) => {
       description: "Test description for item 1",
       created_at: new Date("2025-01-01T10:00:00Z"),
       location: getLocationId("TEST_LOCATION_1"),
-      colour: "TestBlack",
+      colour: getColourId("Test_colour_1"),
       size: "TestSmall",
       brand: getBrandId("Test_Brand_1"),
       material: "TestMaterial1",
@@ -34,7 +46,7 @@ const generateTestItems = (userTable, brandTable, locationTable) => {
       description: "Test description for item 2",
       created_at: new Date("2025-01-02T10:00:00Z"),
       location: getLocationId("TEST_LOCATION_2"),
-      colour: "TestSilver",
+      colour: getColourId("Test_colour_2"),
       size: "TestMedium",
       brand: getBrandId("Test_Brand_2"),
       material: "TestMaterial2",
@@ -50,7 +62,7 @@ const generateTestItems = (userTable, brandTable, locationTable) => {
       description: "Test description for item 3",
       created_at: new Date("2025-01-03T10:00:00Z"),
       location: getLocationId("TEST_LOCATION_3"),
-      colour: "TestBlue",
+      colour: getColourId("Test_colour_3"),
       size: "TestMedium",
       brand: getBrandId("Test_Brand_3"),
       material: "TestMaterial3",
@@ -66,7 +78,7 @@ const generateTestItems = (userTable, brandTable, locationTable) => {
       description: "Test description for item 4",
       created_at: new Date("2025-01-04T10:00:00Z"),
       location: getLocationId("TEST_LOCATION_4"),
-      colour: "TestRed",
+      colour: getColourId("Test_colour_4"),
       size: "TestLarge",
       brand: getBrandId("Test_Brand_4"),
       material: "TestMaterial4",
@@ -82,7 +94,7 @@ const generateTestItems = (userTable, brandTable, locationTable) => {
       description: "Test description for item 5",
       created_at: new Date("2025-01-05T10:00:00Z"),
       location: getLocationId("TEST_LOCATION_5"),
-      colour: "TestGold",
+      colour: getColourId("Test_colour_5"),
       size: "TestTiny",
       brand: getBrandId("Test_Brand_5"),
       material: "TestMaterial5",
