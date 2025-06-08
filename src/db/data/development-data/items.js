@@ -1,15 +1,49 @@
-const generateDevItems = (userTable) => {
+const generateDevItems = (
+  userTable,
+  brandTable,
+  locationTable,
+  colourTable,
+  categoryTable
+) => {
+  const getBrandId = (brandName) => {
+    const brandDoc = brandTable.find((brand) => {
+      return brand.brand_name === brandName;
+    });
+    return brandDoc ? brandDoc._id : null;
+  };
+
+  const getLocationId = (locationName) => {
+    const locationDoc = locationTable.find((location) => {
+      return location.location_name === locationName;
+    });
+    return locationDoc ? locationDoc._id : null;
+  };
+
+  const getColourId = (colourName) => {
+    const colourDoc = colourTable.find((colour) => {
+      return colour.colour === colourName;
+    });
+    return colourDoc ? colourDoc._id : null;
+  };
+
+  const getCategoryId = (categoryName) => {
+    const categoryDoc = categoryTable.find((category) => {
+      return category.category_name === categoryName;
+    });
+    return categoryDoc ? categoryDoc._id : null;
+  };
+
   return [
     {
       item_name: "Black Wallet",
       author: userTable[0]._id,
-      category: "Accessories",
+      category: getCategoryId("Accessories"),
       description: "Leather wallet containing ID and credit cards",
       created_at: new Date("2025-05-01T10:30:00Z"),
-      location: "Central Library",
-      colour: "Black",
+      location: getLocationId("Manchester"),
+      colour: getColourId("Black"),
       size: "Small",
-      brand: "Fossil",
+      brand: getBrandId("Fossil"),
       material: "Leather",
       img_url:
         "https://cdn.pixabay.com/photo/2020/03/28/13/26/wallet-4977021_1280.jpg",
@@ -20,13 +54,13 @@ const generateDevItems = (userTable) => {
     {
       item_name: "Silver iPhone 13",
       author: userTable[1]._id,
-      category: "Electronics",
+      category: getCategoryId("Electronics"),
       description: "Phone with cracked screen and red case",
       created_at: new Date("2025-04-20T14:45:00Z"),
-      location: "Campus Cafeteria",
-      colour: "Silver",
+      location: getLocationId("Liverpool"),
+      colour: getColourId("Silver"),
       size: "Medium",
-      brand: "Apple",
+      brand: getBrandId("Apple"),
       material: "Metal/Glass",
       img_url:
         "https://cdn.pixabay.com/photo/2021/09/25/17/43/iphone-13-6655520_1280.jpg",
@@ -37,13 +71,13 @@ const generateDevItems = (userTable) => {
     {
       item_name: "Blue Umbrella",
       author: userTable[2]._id,
-      category: "Accessories",
+      category: getCategoryId("Accessories"),
       description: "Compact foldable umbrella with floral pattern",
       created_at: new Date("2025-03-28T09:15:00Z"),
-      location: "Building A Lobby",
-      colour: "Blue",
+      location: getLocationId("Leeds"),
+      colour: getColourId("Blue"),
       size: "Medium",
-      brand: "Totes",
+      brand: getBrandId("Totes"),
       material: "Nylon",
       img_url:
         "https://cdn.pixabay.com/photo/2018/01/16/23/10/umbrella-3087101_1280.jpg",
@@ -54,13 +88,13 @@ const generateDevItems = (userTable) => {
     {
       item_name: "Red Backpack",
       author: userTable[3]._id,
-      category: "Bags",
+      category: getCategoryId("Bags"),
       description: "Red Nike backpack with gym clothes and water bottle",
       created_at: new Date("2025-05-15T08:00:00Z"),
-      location: "Gym",
-      colour: "Red",
+      location: getLocationId("Sheffield"),
+      colour: getColourId("Red"),
       size: "Large",
-      brand: "Nike",
+      brand: getBrandId("Nike"),
       material: "Polyester",
       img_url:
         "https://cdn.pixabay.com/photo/2015/08/10/20/14/handbag-883110_1280.jpg",
@@ -71,14 +105,16 @@ const generateDevItems = (userTable) => {
     {
       item_name: "Gold Ring",
       author: userTable[0]._id,
-      category: "Jewelry",
+      category: getCategoryId("Jewelry"),
       description: "Simple gold band with initials engraved inside",
       created_at: new Date("2025-04-01T13:20:00Z"),
-      location: "Restroom near Cafeteria",
-      colour: "Gold",
+      location: getLocationId("Birmingham"),
+      colour: getColourId("Gold"),
       size: "Small",
-      brand: "Unknown",
+      brand: getBrandId("Other/Unknown"),
       material: "Gold",
+      img_url:
+        "https://cdn.pixabay.com/photo/2018/04/04/18/28/golden-3290604_640.jpg",
       resolved: true,
       found: true,
       lost: false,
@@ -86,15 +122,16 @@ const generateDevItems = (userTable) => {
     {
       item_name: "Grey Hoodie",
       author: userTable[4]._id,
-      category: "Clothing",
+      category: getCategoryId("Clothing"),
       description: "Grey zip-up hoodie left on lecture hall seat",
       created_at: new Date("2025-04-28T12:00:00Z"),
-      location: "Lecture Hall 3",
-      colour: "Grey",
+      location: getLocationId("Newcastle upon Tyne"),
+      colour: getColourId("Grey"),
       size: "Medium",
-      brand: "H&M",
+      brand: getBrandId("H&M"),
       material: "Cotton",
-      img_url: "https://cdn.pixabay.com/photo/2018/04/04/18/28/golden-3290604_640.jpg",
+      img_url:
+        "https://cdn.pixabay.com/photo/2018/04/04/18/28/golden-3290604_640.jpg",
       resolved: false,
       found: true,
       lost: false,
@@ -102,15 +139,16 @@ const generateDevItems = (userTable) => {
     {
       item_name: "Wireless Earbuds",
       author: userTable[5]._id,
-      category: "Electronics",
+      category: getCategoryId("Electronics"),
       description: "Black case containing wireless earbuds",
       created_at: new Date("2025-04-30T09:30:00Z"),
-      location: "Library Study Room 2",
-      colour: "Black",
+      location: getLocationId("Bristol"),
+      colour: getColourId("Black"),
       size: "Small",
-      brand: "Samsung",
+      brand: getBrandId("Samsung"),
       material: "Plastic",
-      img_url: "https://cdn.pixabay.com/photo/2016/03/19/23/03/handsfree-1267605_640.jpg",
+      img_url:
+        "https://cdn.pixabay.com/photo/2016/03/19/23/03/handsfree-1267605_640.jpg",
       resolved: false,
       found: false,
       lost: true,
@@ -118,15 +156,16 @@ const generateDevItems = (userTable) => {
     {
       item_name: "Brown Scarf",
       author: userTable[6]._id,
-      category: "Clothing",
+      category: getCategoryId("Clothing"),
       description: "Knitted wool scarf with tassels",
       created_at: new Date("2025-05-02T17:00:00Z"),
-      location: "Student Union",
-      colour: "Brown",
+      location: getLocationId("Nottingham"),
+      colour: getColourId("Brown"),
       size: "One Size",
-      brand: "Uniqlo",
+      brand: getBrandId("Uniqlo"),
       material: "Wool",
-      img_url: "https://cdn.pixabay.com/photo/2016/01/04/21/12/dog-1121623_640.jpg",
+      img_url:
+        "https://cdn.pixabay.com/photo/2016/01/04/21/12/dog-1121623_640.jpg",
       resolved: true,
       found: true,
       lost: false,
@@ -134,15 +173,16 @@ const generateDevItems = (userTable) => {
     {
       item_name: "Reusable Water Bottle",
       author: userTable[7]._id,
-      category: "Accessories",
+      category: getCategoryId("Accessories"),
       description: "Blue metal bottle with 'Team NC' sticker",
       created_at: new Date("2025-04-18T08:50:00Z"),
-      location: "Main Canteen",
-      colour: "Blue",
+      location: getLocationId("Coventry"),
+      colour: getColourId("Blue"),
       size: "Large",
-      brand: "Hydro Flask",
+      brand: getBrandId("Hydro Flask"),
       material: "Metal",
-      img_url: "https://cdn.pixabay.com/photo/2015/08/21/00/18/water-bottle-898332_640.jpg",
+      img_url:
+        "https://cdn.pixabay.com/photo/2015/08/21/00/18/water-bottle-898332_640.jpg",
       resolved: false,
       found: true,
       lost: false,
@@ -150,15 +190,16 @@ const generateDevItems = (userTable) => {
     {
       item_name: "Set of Keys",
       author: userTable[8]._id,
-      category: "Other",
+      category: getCategoryId("Other"),
       description: "Set of 3 keys with Manchester City keychain",
       created_at: new Date("2025-04-25T13:10:00Z"),
-      location: "Bike Rack Area",
-      colour: "Silver",
+      location: getLocationId("York"),
+      colour: getColourId("Silver"),
       size: "Small",
-      brand: "Yale",
+      brand: getBrandId("Yale"),
       material: "Metal",
-      img_url: "https://cdn.pixabay.com/photo/2017/03/16/08/35/key-2148476_640.jpg",
+      img_url:
+        "https://cdn.pixabay.com/photo/2017/03/16/08/35/key-2148476_640.jpg",
       resolved: false,
       found: false,
       lost: true,
