@@ -1,4 +1,4 @@
-const devBrandList = [
+const prodBrandList = [
   { brand_name: "Other/Unknown" },
   { brand_name: "Apple" },
   { brand_name: "Samsung" },
@@ -55,4 +55,4 @@ const devBrandList = [
   { brand_name: "Totes" },
 ];
 
-module.exports = devBrandList;
+module.exports = prodBrandList;

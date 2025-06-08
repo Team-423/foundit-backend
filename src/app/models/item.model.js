@@ -13,7 +13,8 @@ const itemSchema = new Schema({
     required: true,
   },
   category: {
-    type: String,
+    type: SchemaTypes.ObjectId,
+    ref: "Category",
     required: true,
   },
   description: {
@@ -63,45 +64,53 @@ const itemSchema = new Schema({
 
 const Item = model("Item", itemSchema);
 
-// GET /api/items
+// GET /api/items?
 const selectItems = async (filters = {}) => {
   try {
     await connectDB();
-
-    let query = {};
-
+    const orConditions = [];
+    const exactMatchFields = ["colour", "brand", "location", "category"];
+    const regexFields = ["size", "material"];
+    const mainQuery = {
+      item_name: { $regex: filters.item_name, $options: "i" },
+    }
     if (!filters.item_name || !filters.location || !filters.category) {
       throw {
         status: 400,
         msg: "Missing required fields",
       };
     }
-    const exactMatchFields = ["colour", "brand", "location", "category"];
-    const regexFields = ["item_name", "size", "material"];
 
-    for (const field of exactMatchFields) {
-      if (filters[field]) {
-        query[field] = filters[field];
-      }
-    }
+    // for (const field of exactMatchFields) {
+    //   if (filters[field]) {
+    //     orConditions.push({ [field]: filters[field] });
+    //   }
+    // }
+    // for (const field of regexFields) {
+    //   if (filters[field]) {
+    //     orConditions.push({
+    //       [field]: { $regex: filters[field], $options: "i" },
+    //     });
+    //   }
+    // }
 
-    for (const field of regexFields) {
-      if (filters[field]) {
-        query[field] = { $regex: filters[field], $options: "i" };
-      }
-    }
-    const items = await Item.find(query)
+    const finalQuery = { $and: [mainQuery, { $or: orConditions }] };
+
+    const items = await Item.find(finalQuery)
       .sort({ created_at: -1 })
       .populate("author", "username")
       .populate("brand", "brand_name")
       .populate("location", "location_name")
-      .populate("colour", "colour");
+      .populate("colour", "colour")
+      .populate("category", "category_name");
 
     return items;
   } catch (err) {
     throw err;
   }
 };
+
+
 
 // GET /api/items/:item_id
 const selectItemById = async (item_id) => {
@@ -118,7 +127,9 @@ const selectItemById = async (item_id) => {
       .populate("author", "username")
       .populate("brand", "brand_name")
       .populate("location", "location_name")
-      .populate("colour", "colour");
+      .populate("colour", "colour")
+      .populate("category", "category_name");
+
     if (!itemById) {
       throw {
         status: 404,
@@ -259,4 +270,4 @@ module.exports = {
   removeItemById,
   selectItemByIdToUpdate,
   updateItemResolvedById,
-}; //for Item we cannot use exports., mind the syntax
+};

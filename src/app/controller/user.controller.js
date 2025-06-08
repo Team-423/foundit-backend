@@ -1,6 +1,7 @@
 const {
   selectUserById,
   selectUserByIdToUpdate,
+  selectItemsByUserId,
 } = require("../models/user.model.js");
 
 // GET /api/users/:userId
@@ -22,13 +23,6 @@ exports.getUserById = async (req, res, next) => {
 exports.updateUserById = async (req, res, next) => {
   const { userId } = req.params;
   const { username, email, img_url, points } = req.body;
-
-  // const userInfo = Object.values(req.body);
-  // userInfo.forEach((value) => {
-  //   if (typeof value !== "string" && typeof value !== "number" ) {
-  //     throw { status: 400, msg: "Bad request: invalid format!" };
-  //   }
-  // });
 
   try {
     const fields = {
@@ -52,6 +46,19 @@ exports.updateUserById = async (req, res, next) => {
     );
 
     res.status(200).send({ user: updatedUser });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// GET /api/users/:userId/items
+
+exports.getItemsByUserId = async (req, res, next) => {
+  const { userId } = req.params;
+
+  try {
+    const items = await selectItemsByUserId(userId);
+    res.status(200).send({ items });
   } catch (err) {
     next(err);
   }

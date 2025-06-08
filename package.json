@@ -5,7 +5,9 @@
   "scripts": {
     "seed": "node ./src/db/seeding/seed.js",
     "test": "NODE_ENV=test jest --runInBand",
-    "seed-dev": "NODE_ENV=development node src/db/seeding/seed.js"
+    "seed-dev": "NODE_ENV=development node src/db/seeding/seed.js",
+    "seed-prod": "NODE_ENV=production node src/db/seeding/seed.js"
+    "start": "node listen.js"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +25,7 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "jest-sorted": "^1.0.15",
+    "mongodb-memory-server": "^10.1.4",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.1"
   }
