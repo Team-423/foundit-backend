@@ -111,6 +111,22 @@ const generateTestItems = (
       found: true,
       lost: false,
     },
+    {
+      item_name: "TEST_ITEM_6_RING",
+      author: userTable[0]._id,
+      category: getCategoryId("Test_category_5"),
+      description: "Test description for item 6",
+      created_at: new Date("2025-01-05T10:00:00Z"),
+      location: getLocationId("TEST_LOCATION_5"),
+      colour: getColourId("Test_colour_5"),
+      size: "TestTiny",
+      brand: getBrandId("Test_Brand_2"),
+      material: "TestMaterial1",
+      img_url: "test_item_img_url5",
+      resolved: true,
+      found: true,
+      lost: false,
+    },
   ];
 };
 
