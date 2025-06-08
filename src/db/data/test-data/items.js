@@ -111,6 +111,22 @@ const generateTestItems = (
       found: true,
       lost: false,
     },
+    {
+      item_name: "TEST_ITEM_6_RING",
+      author: userTable[0]._id,
+      category: "TEST_JEWELRY",
+      description: "Test description for item 6",
+      created_at: new Date("2025-01-05T10:00:00Z"),
+      location: "TEST_LOCATION_5",
+      colour: "TestGold",
+      size: "TestTiny",
+      brand: "TestBrand2",
+      material: "TestMaterial1",
+      img_url: "test_item_img_url5",
+      resolved: true,
+      found: true,
+      lost: false,
+    },
   ];
 };
 

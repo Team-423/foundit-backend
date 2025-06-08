@@ -121,7 +121,31 @@ describe("GET /api/items", () => {
           );
         });
     });
+
   });
+  test("200: Responds with 2 items when filtered with just the minimum queries", () => {
+    return request(app)
+      .get(
+        "/api/items?item_name=ring&location=TEST_LOCATION_5&category=TEST_JEWELRY"
+      )
+      .expect(200)
+      .then((items) => {
+        expect(items.body.length).toBe(2);
+        items.body.forEach((item) => {
+          expect(item).toEqual(
+            expect.objectContaining({
+              category: expect.objectContaining({
+                category: "TEST_JEWELRY"
+              }),
+              colour: expect.objectContaining({
+                colour: "TestGold"
+              }),
+            })
+          );
+        });
+      });
+  });
+
   test("404: Responds with no results if item_name has no match", () => {
     return Promise.all([
       Category.find(),
