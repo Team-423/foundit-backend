@@ -16,6 +16,7 @@ const {
 const { getColours } = require("./app/controller/colour.controller.js");
 const { getAllBrands } = require("./app/controller/brand.controller.js");
 const { getAllLocations } = require("./app/controller/location.controller.js");
+const { getQuestionsForItem } = require('./app/controller/itemQuestion.controller.js');
 const app = express();
 
 app.use(express.json());
@@ -27,6 +28,7 @@ app.get("/api/items/brands", getAllBrands);
 app.get("/api/items/locations", getAllLocations);
 app.get("/api/items/colours", getColours);
 app.get("/api/items/:item_id", getItemById);
+app.get('/api/items/:itemId/questions', getQuestionsForItem);
 
 app.patch("/api/items/:item_id", updateItemById);
 app.patch("/api/users/:userId", updateUserById);

@@ -225,3 +225,20 @@
     }
   }
 }
+{
+  "GET /api/items/:itemId/qna": {
+    "description": "Get the list of questions and answers for a specific item.",
+    "queries": [],
+    "request_body": null,
+    "params": {
+      "itemId": "The _id of the item to fetch questions and answers for (MongoDB ObjectId string)."
+    },
+    "example_response": {
+      "questions": [
+        { "question": "What color is it?", "answer": "Blue" },
+        { "question": "Where was it found?", "answer": "Park" },
+        { "question": "What brand?", "answer": "Nike" }
+      ]
+    },
+  }
+}
