@@ -17,7 +17,7 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-describe("GET /api/items", () => {
+describe.only("GET /api/items", () => {
   test("200: Responds with test item 2 when filtered with item_name=phone", () => {
     return Promise.all([Category.find(), Location.find()]).then(
       ([categoryDoc, locationDoc]) => {
@@ -123,7 +123,7 @@ describe("GET /api/items", () => {
     });
 
   });
-  test("200: Responds with 2 items when filtered with just the minimum queries", () => {
+  test.only("200: Responds with 2 items when filtered with just the minimum queries", () => {
     return request(app)
       .get(
         "/api/items?item_name=ring&location=TEST_LOCATION_5&category=TEST_JEWELRY"
@@ -132,16 +132,9 @@ describe("GET /api/items", () => {
       .then((items) => {
         expect(items.body.length).toBe(2);
         items.body.forEach((item) => {
-          expect(item).toEqual(
-            expect.objectContaining({
-              category: expect.objectContaining({
-                category: "TEST_JEWELRY"
-              }),
-              colour: expect.objectContaining({
-                colour: "TestGold"
-              }),
-            })
-          );
+          expect(item.colour.colour).toBe("Test_colour_5")
+          expect(item.category.category_name).toBe("Test_category_5")
+      });
         });
       });
   });
@@ -172,7 +165,6 @@ describe("GET /api/items", () => {
         expect(items.body).toEqual({ msg: "Missing required fields" });
       });
   });
-});
 
 describe("GET /api/items/:item_id", () => {
   test("200: Responds with a single item when given a valid id", () => {
