@@ -24,13 +24,13 @@ async function setupDB() {
     await Brand.deleteMany({});
     await Location.deleteMany({});
     await Colour.deleteMany({});
-    await Category.deleteMany({})
+    await Category.deleteMany({});
 
     const userTable = await User.insertMany(users);
     const brandTable = await Brand.insertMany(brands);
     const locationTable = await Location.insertMany(locations);
     const coloursTable = await Colour.insertMany(colours);
-    const categoryTable = await Category.insertMany(categories)
+    const categoryTable = await Category.insertMany(categories);
 
     const items = await generateItems(
       userTable,
@@ -47,7 +47,9 @@ async function setupDB() {
       .populate("brand", "brand_name")
       .populate("location", "location_name")
       .populate("colour", "colour")
-      .populate("category", "category_name")
+      .populate("category", "category_name");
+
+    console.log("🌱seeding completed.");
   } catch (err) {
     console.error("❌ Seeding error:", err);
     throw err;

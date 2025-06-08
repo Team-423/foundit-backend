@@ -6,6 +6,7 @@
     "seed": "node ./src/db/seeding/seed.js",
     "test": "NODE_ENV=test jest --runInBand",
     "seed-dev": "NODE_ENV=development node src/db/seeding/seed.js",
+    "seed-prod": "NODE_ENV=production node src/db/seeding/seed.js"
     "start": "node listen.js"
   },
   "keywords": [],
