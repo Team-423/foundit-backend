@@ -42,6 +42,8 @@ describe("GET /api/items", () => {
                 brand: expect.any(Object),
                 found: expect.any(Boolean),
                 lost: expect.any(Boolean),
+                questions: expect.any(Array),
+                answers: expect.any(Array)
               });
             });
             expect(items._body[0]).toMatchObject({
@@ -189,6 +191,8 @@ describe("GET /api/items/:item_id", () => {
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
+            questions: expect.any(Array),
+            answers: expect.any(Array)
           });
           expect(typeof item.brand === "string" || item.brand === null);
         });
@@ -262,6 +266,8 @@ describe("PATCH /api/items/:item_id", () => {
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
+            questions: expect.any(Array),
+            answers: expect.any(Array)
           });
         });
     });
@@ -289,6 +295,8 @@ describe("PATCH /api/items/:item_id", () => {
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
+            questions: expect.any(Array),
+            answers: expect.any(Array)
           });
           expect(typeof item.brand === "string" || item.brand === null);
           expect(typeof item.location === "string" || item.location === null);
@@ -492,6 +500,8 @@ describe("PATCH /api/items/:itemId/resolved", () => {
             resolved: true,
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
+            questions: expect.any(Array),
+            answers: expect.any(Array)
           });
         });
     });
@@ -591,6 +601,8 @@ describe("POST /api/items", () => {
             resolved: false,
             found: false,
             lost: true,
+            questions: expect.any(Array),
+            answers: expect.any(Array)
           });
         });
     });
