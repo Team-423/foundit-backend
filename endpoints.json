@@ -265,11 +265,8 @@
           { "location_name": "Liverpool" }
         ]
       }
-    }
-  }
-}
-{
-  "GET /api/items/:itemId/qna": {
+    },
+    "GET /api/items/:itemId/qna": {
     "description": "Get the list of questions and answers for a specific item.",
     "queries": [],
     "request_body": null,
@@ -282,6 +279,7 @@
         { "question": "Where was it found?", "answer": "Park" },
         { "question": "What brand?", "answer": "Nike" }
       ]
-    },
+    }
+  }
   }
 }
