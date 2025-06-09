@@ -19,6 +19,7 @@ const { getAllLocations } = require("./app/controller/location.controller.js");
 const {
   getQandAForItem,
   postQandAForItem,
+  patchAnswersForItem,
 } = require("./app/controller/qanda.controller.js");
 const { getCategories } = require("./app/controller/category.controller.js");
 const app = express();
@@ -38,6 +39,7 @@ app.get("/api/users/:userId/items", getItemsByUserId);
 
 app.patch("/api/items/:item_id", updateItemById);
 app.patch("/api/items/:item_id/resolved", patchItemResolvedById);
+app.patch("/api/items/:item_id/QandA", patchAnswersForItem);
 app.patch("/api/users/:userId", updateUserById);
 
 app.post("/api/items/:item_id/QandA", postQandAForItem);

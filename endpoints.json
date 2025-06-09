@@ -298,5 +298,31 @@
         { "question": "What is the condition of the item?", "answer": "" }
       ]
     }
+  },
+  "PATCH /api/items/:itemId/QandA": {
+    "description": "Update answers for all questions of an item. The answers array must match the number of questions.",
+    "parameters": {
+      "itemId": "The _id of the item to update answers for (MongoDB ObjectId string)."
+    },
+    "requiredFields": {
+      "answers": "array of strings - The answers to be updated, must match the number of questions"
+    },
+    "exampleRequest": {
+      "answers": [
+        "The item is in good condition",
+        "Yes, it's still available",
+        "It was found in the library"
+      ]
+    },
+    "exampleResponse": {
+      "questionAndAnswerPairs": [
+        {
+          "question": "question1",
+          "answer": "The wallet is in good condition"
+        },
+        { "question": "question2", "answer": "Yes, it's available" },
+        { "question": "question3", "answer": "It's black" }
+      ]
+    }
   }
 }

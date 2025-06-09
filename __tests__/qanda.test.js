@@ -65,7 +65,7 @@ describe("POST /api/items/:itemId/QandA", () => {
       .send(newItem)
       .expect(201);
 
-    const newQuestion = "What is the condition?";
+    const newQuestion = "valid testing question";
 
     const res = await request(app)
       .post(`/api/items/${createdItemRes.body.newItem._id}/QandA`)
@@ -84,7 +84,7 @@ describe("POST /api/items/:itemId/QandA", () => {
     const nonExistentId = new mongoose.Types.ObjectId();
     const res = await request(app)
       .post(`/api/items/${nonExistentId}/QandA`)
-      .send({ question: "Is this available?" })
+      .send({ question: "valid testing question" })
       .expect(404);
 
     expect(res.body.msg).toBe("Item not found");
@@ -113,5 +113,56 @@ describe("POST /api/items/:itemId/QandA", () => {
       .expect(400);
 
     expect(res.body.msg).toBe("Question is required");
+  });
+});
+
+describe("PATCH /api/items/:itemId/QandA", () => {
+  test("200: successfully updates answers for existing questions", async () => {
+    const item = await Item.findOne({ item_name: "TEST_ITEM_1_WALLET" });
+    const newAnswers = ["valid answer 1", "valid answer 2", "valid answer 3"];
+
+    const res = await request(app)
+      .patch(`/api/items/${item._id}/QandA`)
+      .send({ answers: newAnswers })
+      .expect(200);
+
+    console.log(res.body);
+    expect(res.body.questionAndAnswerPairs).toBeInstanceOf(Array);
+    expect(res.body.questionAndAnswerPairs.length).toBe(3);
+    expect(res.body.questionAndAnswerPairs[0].answer).toBe(newAnswers[0]);
+    expect(res.body.questionAndAnswerPairs[1].answer).toBe(newAnswers[1]);
+    expect(res.body.questionAndAnswerPairs[2].answer).toBe(newAnswers[2]);
+  });
+
+  test("404: returns not found if item does not exist", async () => {
+    const nonExistentId = new mongoose.Types.ObjectId();
+    const res = await request(app)
+      .patch(`/api/items/${nonExistentId}/QandA`)
+      .send({ answers: ["Answer 1"] })
+      .expect(404);
+
+    expect(res.body.msg).toBe("Item not found");
+  });
+
+  test("400: returns bad request if answers array is missing", async () => {
+    const item = await Item.findOne({ item_name: "TEST_ITEM_1_WALLET" });
+    const res = await request(app)
+      .patch(`/api/items/${item._id}/QandA`)
+      .send({})
+      .expect(400);
+
+    expect(res.body.msg).toBe("Answers array is required");
+  });
+
+  test("400: returns bad request if answers array length doesn't match questions", async () => {
+    const item = await Item.findOne({ item_name: "TEST_ITEM_1_WALLET" });
+    const res = await request(app)
+      .patch(`/api/items/${item._id}/QandA`)
+      .send({ answers: ["Only one answer"] })
+      .expect(400);
+
+    expect(res.body.msg).toBe(
+      "Answers array must match the number of questions"
+    );
   });
 });

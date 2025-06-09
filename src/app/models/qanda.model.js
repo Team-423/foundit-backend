@@ -52,7 +52,6 @@ exports.createQandAForItem = async (item_id, question) => {
       };
     }
 
-    // Add new question and initialize empty answer
     item.questions.push(question);
     item.answers.push("");
 
@@ -66,7 +65,50 @@ exports.createQandAForItem = async (item_id, question) => {
     };
   } catch (error) {
     if (error.status) throw error;
-    console.error("Error in createQandAForItem:", error);
+    throw {
+      status: 500,
+      msg: "Internal server error",
+    };
+  }
+};
+
+//PATCH /api/items/:item_id/QandA
+exports.updateAnswersForItem = async (item_id, answers) => {
+  try {
+    const item = await Item.findById(item_id);
+
+    if (!item) {
+      throw {
+        status: 404,
+        msg: "Item not found",
+      };
+    }
+
+    if (!item.questions || item.questions.length === 0) {
+      throw {
+        status: 404,
+        msg: "No questions found for this item",
+      };
+    }
+
+    if (!Array.isArray(answers) || answers.length !== item.questions.length) {
+      throw {
+        status: 400,
+        msg: "Answers array must match the number of questions",
+      };
+    }
+
+    item.answers = answers;
+    await item.save();
+
+    return {
+      questionAndAnswerPairs: item.questions.map((question, index) => ({
+        question,
+        answer: item.answers[index] || "",
+      })),
+    };
+  } catch (error) {
+    if (error.status) throw error;
     throw {
       status: 500,
       msg: "Internal server error",
