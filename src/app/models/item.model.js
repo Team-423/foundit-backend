@@ -81,7 +81,7 @@ const selectItems = async (filters = {}) => {
     const regexFields = ["size", "material"];
     const mainQuery = {
       item_name: { $regex: filters.item_name, $options: "i" },
-    }
+    };
     if (!filters.item_name || !filters.location || !filters.category) {
       throw {
         status: 400,
@@ -89,18 +89,18 @@ const selectItems = async (filters = {}) => {
       };
     }
 
-    // for (const field of exactMatchFields) {
-    //   if (filters[field]) {
-    //     orConditions.push({ [field]: filters[field] });
-    //   }
-    // }
-    // for (const field of regexFields) {
-    //   if (filters[field]) {
-    //     orConditions.push({
-    //       [field]: { $regex: filters[field], $options: "i" },
-    //     });
-    //   }
-    // }
+    for (const field of exactMatchFields) {
+      if (filters[field]) {
+        orConditions.push({ [field]: filters[field] });
+      }
+    }
+    for (const field of regexFields) {
+      if (filters[field]) {
+        orConditions.push({
+          [field]: { $regex: filters[field], $options: "i" },
+        });
+      }
+    }
 
     const finalQuery = { $and: [mainQuery, { $or: orConditions }] };
 
@@ -117,8 +117,6 @@ const selectItems = async (filters = {}) => {
     throw err;
   }
 };
-
-
 
 // GET /api/items/:item_id
 const selectItemById = async (item_id) => {
@@ -270,6 +268,17 @@ const removeItemById = async (item_id) => {
   }
 };
 
+// GET /api/items/resolved
+const selectResolvedItems = async () => {
+  try {
+  const resolvedItemsList = await Item.find({ resolved: true }).sort({ created_at: -1 });
+  return resolvedItemsList
+  } catch (err) {
+    console.error(err)
+    throw err
+  }
+};
+
 module.exports = {
   Item,
   selectItems,
@@ -278,4 +287,5 @@ module.exports = {
   removeItemById,
   selectItemByIdToUpdate,
   updateItemResolvedById,
+  selectResolvedItems,
 };

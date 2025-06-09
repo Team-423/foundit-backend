@@ -1,3 +1,4 @@
+require("jest-sorted");
 const request = require("supertest");
 const app = require("../src/app.js");
 const mongoose = require("mongoose");
@@ -123,50 +124,57 @@ describe("GET /api/items", () => {
           );
         });
     });
-
   });
   test("200: Responds with 2 items when filtered with just the minimum queries", () => {
-    return request(app)
-      .get(
-        "/api/items?item_name=ring&location=TEST_LOCATION_5&category=TEST_JEWELRY"
-      )
-      .expect(200)
-      .then((items) => {
-        expect(items.body.length).toBe(2);
-        items.body.forEach((item) => {
-          expect(item.colour.colour).toBe("Test_colour_5")
-          expect(item.category.category_name).toBe("Test_category_5")
-      });
-        });
-      });
-  });
-
-  test("404: Responds with no results if item_name has no match", () => {
     return Promise.all([
       Category.find(),
-      Location.findOne({ location_name: "TEST_LOCATION_3" }),
+      Location.findOne({ location_name: "TEST_LOCATION_5" }),
     ]).then(([categoryDoc, locationDoc]) => {
       const locationId = locationDoc._id.toString();
       const categoryId = categoryDoc[2]._id.toString();
 
       return request(app)
         .get(
-          `/api/items?item_name=notAnItem&location=${locationId}&category=${categoryId}`
+          `/api/items?item_name=ring&location=${locationId}&category=${categoryId}`
         )
-        .expect(404)
+        .expect(200)
         .then((items) => {
-          expect(items.body).toEqual({ msg: "No results!" });
+          expect(items.body.length).toBe(2);
+          items.body.forEach((item) => {
+            expect(item.colour.colour).toBe("Test_colour_5");
+            expect(item.category.category_name).toBe("Test_category_5");
+          });
         });
     });
   });
-  test("400: Responds with Missing required fields if name, location or category are missing", () => {
+});
+
+test("404: Responds with no results if item_name has no match", () => {
+  return Promise.all([
+    Category.find(),
+    Location.findOne({ location_name: "TEST_LOCATION_3" }),
+  ]).then(([categoryDoc, locationDoc]) => {
+    const locationId = locationDoc._id.toString();
+    const categoryId = categoryDoc[2]._id.toString();
+
     return request(app)
-      .get("/api/items?item_name=umbrella&category=TEST_ACCESSORY")
-      .expect(400)
+      .get(
+        `/api/items?item_name=notAnItem&location=${locationId}&category=${categoryId}`
+      )
+      .expect(404)
       .then((items) => {
-        expect(items.body).toEqual({ msg: "Missing required fields" });
+        expect(items.body).toEqual({ msg: "No results!" });
       });
   });
+});
+test("400: Responds with Missing required fields if name, location or category are missing", () => {
+  return request(app)
+    .get("/api/items?item_name=umbrella&category=TEST_ACCESSORY")
+    .expect(400)
+    .then((items) => {
+      expect(items.body).toEqual({ msg: "Missing required fields" });
+    });
+});
 
 describe("GET /api/items/:item_id", () => {
   test("200: Responds with a single item when given a valid id", () => {
@@ -657,6 +665,32 @@ describe("DELETE /api/items/:itemId", () => {
       .expect(400)
       .then(({ body }) => {
         expect(body).toEqual({ msg: "Bad request: invalid format!" });
+      });
+  });
+});
+
+describe("GET /api/items/resolved", () => {
+  test("200: Returns an array of all the resolved items in the db", () => {
+    return request(app)
+      .get("/api/items/resolved")
+      .expect(200)
+      .then(({ body }) => {
+        const testResolvedItemsList = body.resolvedItemsList;
+        expect(Array.isArray(testResolvedItemsList)).toBe(true);
+        testResolvedItemsList.forEach((item) => {
+          expect(item).toHaveProperty("item_name");
+          expect(item).toHaveProperty("img_url");
+          expect(item).toHaveProperty("resolved", true);
+        });
+      });
+  });
+  test("200: Returns array of items sorted by most recent", () => {
+    return request(app)
+      .get("/api/items/resolved")
+      .expect(200)
+      .then(({ body }) => {
+        const items = body.resolvedItemsList;
+        expect(items).toBeSortedBy("created_at", { descending: true });
       });
   });
 });

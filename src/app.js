@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { getEndPoints } = require("./app/controller/app.controller.js");
 const {
   getItemById,
@@ -7,6 +8,7 @@ const {
   postItem,
   deleteItemById,
   patchItemResolvedById,
+  getResolvedItems,
 } = require("./app/controller/item.controller.js");
 const {
   getUserById,
@@ -22,20 +24,26 @@ const {
   patchAnswersForItem,
 } = require("./app/controller/qanda.controller.js");
 const { getCategories } = require("./app/controller/category.controller.js");
+
 const app = express();
 
+app.use(cors());
 app.use(express.json());
+
 app.get("/api", getEndPoints);
 app.get("/api/items", getItems);
 app.get("/api/items/categories", getCategories);
 app.get("/api/items/brands", getAllBrands);
 app.get("/api/items/locations", getAllLocations);
 app.get("/api/items/colours", getColours);
+app.get("/api/items/resolved", getResolvedItems);
 app.get("/api/items/:item_id", getItemById);
 app.get("/api/items/:item_id/QandA", getQandAForItem);
 
 app.get("/api/users/:userId", getUserById);
 app.get("/api/users/:userId/items", getItemsByUserId);
+
+app.get("/api/items/:itemId/questions", getQuestionsForItem);
 
 app.patch("/api/items/:item_id", updateItemById);
 app.patch("/api/items/:item_id/resolved", patchItemResolvedById);
