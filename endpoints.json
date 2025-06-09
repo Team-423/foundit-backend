@@ -279,5 +279,24 @@
         { "question": "What brand?", "answer": "Nike" }
       ]
     }
+  },
+  "POST /api/items/:itemId/QandA": {
+    "description": "Add a new question to an item's Q&A list. The answer will be initialized as empty.",
+    "parameters": {
+      "itemId": "The _id of the item to add a question to (MongoDB ObjectId string)."
+    },
+    "requiredFields": {
+      "question": "string - The question to be added"
+    },
+    "exampleRequest": {
+      "question": "Is this item still available?"
+    },
+    "exampleResponse": {
+      "questionAndAnswerPairs": [
+        { "question": "Where was it found?", "answer": "" },
+        { "question": "Is this item still available?", "answer": "" },
+        { "question": "What is the condition of the item?", "answer": "" }
+      ]
+    }
   }
 }

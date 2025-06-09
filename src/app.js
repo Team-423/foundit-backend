@@ -16,7 +16,10 @@ const {
 const { getColours } = require("./app/controller/colour.controller.js");
 const { getAllBrands } = require("./app/controller/brand.controller.js");
 const { getAllLocations } = require("./app/controller/location.controller.js");
-const { getQandAForItem } = require("./app/controller/qanda.controller.js");
+const {
+  getQandAForItem,
+  postQandAForItem,
+} = require("./app/controller/qanda.controller.js");
 const { getCategories } = require("./app/controller/category.controller.js");
 const app = express();
 
@@ -28,15 +31,16 @@ app.get("/api/items/brands", getAllBrands);
 app.get("/api/items/locations", getAllLocations);
 app.get("/api/items/colours", getColours);
 app.get("/api/items/:item_id", getItemById);
-app.get("/api/items/:item_Id/QandA", getQandAForItem);
+app.get("/api/items/:item_id/QandA", getQandAForItem);
 
 app.get("/api/users/:userId", getUserById);
 app.get("/api/users/:userId/items", getItemsByUserId);
 
 app.patch("/api/items/:item_id", updateItemById);
-app.patch("/api/users/:userId", updateUserById);
 app.patch("/api/items/:item_id/resolved", patchItemResolvedById);
+app.patch("/api/users/:userId", updateUserById);
 
+app.post("/api/items/:item_id/QandA", postQandAForItem);
 app.post("/api/items", postItem);
 
 app.delete("/api/items/:item_id", deleteItemById);
