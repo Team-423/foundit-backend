@@ -29,7 +29,6 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api", getEndPoints);
-app.get("/api/users/:userId", getUserById);
 app.get("/api/items", getItems);
 app.get("/api/items/categories", getCategories);
 app.get("/api/items/brands", getAllBrands);
@@ -37,6 +36,7 @@ app.get("/api/items/locations", getAllLocations);
 app.get("/api/items/colours", getColours);
 app.get("/api/items/resolved", getResolvedItems);
 app.get("/api/items/:item_id", getItemById);
+app.get("/api/users/:userId", getUserById);
 app.get("/api/users/:userId/items", getItemsByUserId);
 app.get("/api/items/:itemId/questions", getQuestionsForItem);
 
