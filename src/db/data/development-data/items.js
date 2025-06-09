@@ -50,6 +50,8 @@ const generateDevItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: ["What color is the wallet?", "Are there any cards inside?", "Where exactly was it found?"],
+      answers: ["", "", ""]
     },
     {
       item_name: "Silver iPhone 13",
@@ -67,6 +69,8 @@ const generateDevItems = (
       resolved: true,
       found: true,
       lost: false,
+      questions: ["What color is the case?", "Is the phone locked?", "What's the condition of the screen?"],
+      answers: ["Red", "Yes", "Cracked"]
     },
     {
       item_name: "Blue Umbrella",
@@ -84,6 +88,8 @@ const generateDevItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: ["What pattern is on the umbrella?", "Is it automatic or manual?", "What's the condition?"],
+      answers: ["", "", ""]
     },
     {
       item_name: "Red Backpack",
@@ -101,6 +107,8 @@ const generateDevItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: ["What's inside the backpack?", "Is there a laptop?", "What's the condition?"],
+      answers: ["", "", ""]
     },
     {
       item_name: "Gold Ring",
@@ -118,6 +126,8 @@ const generateDevItems = (
       resolved: true,
       found: true,
       lost: false,
+      questions: ["What are the initials?", "What's the size?", "Is it real gold?"],
+      answers: ["J.S.", "Size 6", "Yes, 14k"]
     },
     {
       item_name: "Grey Hoodie",
@@ -135,6 +145,8 @@ const generateDevItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: ["What size is it?", "Is it clean?", "Which lecture hall?"],
+      answers: ["", "", ""]
     },
     {
       item_name: "Wireless Earbuds",
@@ -152,6 +164,8 @@ const generateDevItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: ["What brand are they?", "Do they work?", "Is the case included?"],
+      answers: ["", "", ""]
     },
     {
       item_name: "Brown Scarf",
@@ -169,6 +183,8 @@ const generateDevItems = (
       resolved: true,
       found: true,
       lost: false,
+      questions: ["What's the length?", "Is it clean?", "What's the condition?"],
+      answers: ["180cm", "Yes", "Like new"]
     },
     {
       item_name: "Reusable Water Bottle",
@@ -186,6 +202,8 @@ const generateDevItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: ["What's the capacity?", "Is it clean?", "What's the condition?"],
+      answers: ["", "", ""]
     },
     {
       item_name: "Set of Keys",
@@ -203,6 +221,8 @@ const generateDevItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: ["How many keys?", "What's on the keychain?", "Where exactly was it found?"],
+      answers: ["", "", ""]
     },
   ];
 };

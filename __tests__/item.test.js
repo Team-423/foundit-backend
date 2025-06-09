@@ -43,6 +43,8 @@ describe("GET /api/items", () => {
                 brand: expect.any(Object),
                 found: expect.any(Boolean),
                 lost: expect.any(Boolean),
+                questions: expect.any(Array),
+                answers: expect.any(Array)
               });
             });
             expect(items._body[0]).toMatchObject({
@@ -124,18 +126,26 @@ describe("GET /api/items", () => {
     });
   });
   test("200: Responds with 2 items when filtered with just the minimum queries", () => {
-    return request(app)
-      .get(
-        "/api/items?item_name=ring&location=TEST_LOCATION_5&category=TEST_JEWELRY"
-      )
-      .expect(200)
-      .then((items) => {
-        expect(items.body.length).toBe(2);
-        items.body.forEach((item) => {
-          expect(item.colour.colour).toBe("Test_colour_5");
-          expect(item.category.category_name).toBe("Test_category_5");
+    return Promise.all([
+      Category.find(),
+      Location.findOne({ location_name: "TEST_LOCATION_5" }),
+    ]).then(([categoryDoc, locationDoc]) => {
+      const locationId = locationDoc._id.toString();
+      const categoryId = categoryDoc[2]._id.toString();
+
+      return request(app)
+        .get(
+          `/api/items?item_name=ring&location=${locationId}&category=${categoryId}`
+        )
+        .expect(200)
+        .then((items) => {
+          expect(items.body.length).toBe(2);
+          items.body.forEach((item) => {
+            expect(item.colour.colour).toBe("Test_colour_5");
+            expect(item.category.category_name).toBe("Test_category_5");
+          });
         });
-      });
+    });
   });
 });
 
@@ -189,6 +199,8 @@ describe("GET /api/items/:item_id", () => {
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
+            questions: expect.any(Array),
+            answers: expect.any(Array)
           });
           expect(typeof item.brand === "string" || item.brand === null);
         });
@@ -262,6 +274,8 @@ describe("PATCH /api/items/:item_id", () => {
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
+            questions: expect.any(Array),
+            answers: expect.any(Array)
           });
         });
     });
@@ -289,6 +303,8 @@ describe("PATCH /api/items/:item_id", () => {
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
+            questions: expect.any(Array),
+            answers: expect.any(Array)
           });
           expect(typeof item.brand === "string" || item.brand === null);
           expect(typeof item.location === "string" || item.location === null);
@@ -492,6 +508,8 @@ describe("PATCH /api/items/:itemId/resolved", () => {
             resolved: true,
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
+            questions: expect.any(Array),
+            answers: expect.any(Array)
           });
         });
     });
@@ -591,6 +609,8 @@ describe("POST /api/items", () => {
             resolved: false,
             found: false,
             lost: true,
+            questions: expect.any(Array),
+            answers: expect.any(Array)
           });
         });
     });
