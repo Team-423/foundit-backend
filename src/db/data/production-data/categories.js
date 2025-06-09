@@ -6,7 +6,6 @@ const prodCategoryList = [
   { category_name: "Electronics" },
   { category_name: "Jewelry" },
   { category_name: "Keys" },
-  { category_name: "Outdoor Gear" },
   { category_name: "Books" },
   { category_name: "Documents & IDs" },
   { category_name: "Eyewear" },
