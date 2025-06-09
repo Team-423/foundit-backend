@@ -15,7 +15,7 @@ const selectAllBrands = async () => {
     const brands = await Brand.find();
     return brands;
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };
 
