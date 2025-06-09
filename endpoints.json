@@ -257,22 +257,6 @@
     ]
   },
 
-  "GET /api/items/:itemId/questions": {
-    "description": "Get the list of questions and answers for a specific item.",
-    "queries": [],
-    "request_body": null,
-    "params": {
-      "itemId": "The _id of the item to fetch questions and answers for (MongoDB ObjectId string)."
-    },
-    "example_response": {
-      "questions": [
-        { "question": "What color is it?", "answer": "Blue" },
-        { "question": "Where was it found?", "answer": "Park" },
-        { "question": "What brand?", "answer": "Nike" }
-      ]
-    }
-  },
-
   "PATCH /api/items/:item_id": {
     "description": "Updates item info for one or more properties for the selected item_id, returns the updated item object",
     "exampleRequest": {
@@ -389,5 +373,64 @@
   "DELETE /api/items/:itemId": {
     "description": "Deletes an item by Id",
     "exampleRequest": "/api/items/683f805f894c689cbb55b2e6"
+},
+
+  "GET /api/items/:itemId/QandA": {
+    "description": "Get the list of questions and answers for a specific item.",
+    "parameters": {
+      "itemId": "The _id of the item to fetch questions and answers for (MongoDB ObjectId string)."
+    },
+    "exampleResponse": {
+      "questions": [
+        { "question": "What color is it?", "answer": "Blue" },
+        { "question": "Where was it found?", "answer": "Park" },
+        { "question": "What brand?", "answer": "Nike" }
+      ]
+    }
+  },
+  "POST /api/items/:itemId/QandA": {
+    "description": "Add a new question to an item's Q&A list. The answer will be initialized as empty.",
+    "parameters": {
+      "itemId": "The _id of the item to add a question to (MongoDB ObjectId string)."
+    },
+    "requiredFields": {
+      "question": "string - The question to be added"
+    },
+    "exampleRequest": {
+      "question": "Is this item still available?"
+    },
+    "exampleResponse": {
+      "questionAndAnswerPairs": [
+        { "question": "Where was it found?", "answer": "" },
+        { "question": "Is this item still available?", "answer": "" },
+        { "question": "What is the condition of the item?", "answer": "" }
+      ]
+    }
+  },
+  "PATCH /api/items/:itemId/QandA": {
+    "description": "Update answers for all questions of an item. The answers array must match the number of questions.",
+    "parameters": {
+      "itemId": "The _id of the item to update answers for (MongoDB ObjectId string)."
+    },
+    "requiredFields": {
+      "answers": "array of strings - The answers to be updated, must match the number of questions"
+    },
+    "exampleRequest": {
+      "answers": [
+        "The item is in good condition",
+        "Yes, it's still available",
+        "It was found in the library"
+      ]
+    },
+    "exampleResponse": {
+      "questionAndAnswerPairs": [
+        {
+          "question": "question1",
+          "answer": "The wallet is in good condition"
+        },
+        { "question": "question2", "answer": "Yes, it's available" },
+        { "question": "question3", "answer": "It's black" }
+      ]
+    }
   }
 }

@@ -69,6 +69,14 @@ const itemSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  questions: {
+    type: [String],
+    default: [],
+  },
+  answers: {
+    type: [String],
+    default: [],
+  }
 });
 
 const Item = model("Item", itemSchema);
@@ -90,18 +98,18 @@ const selectItems = async (filters = {}) => {
       };
     }
 
-    // for (const field of exactMatchFields) {
-    //   if (filters[field]) {
-    //     orConditions.push({ [field]: filters[field] });
-    //   }
-    // }
-    // for (const field of regexFields) {
-    //   if (filters[field]) {
-    //     orConditions.push({
-    //       [field]: { $regex: filters[field], $options: "i" },
-    //     });
-    //   }
-    // }
+    for (const field of exactMatchFields) {
+      if (filters[field]) {
+        orConditions.push({ [field]: filters[field] });
+      }
+    }
+    for (const field of regexFields) {
+      if (filters[field]) {
+        orConditions.push({
+          [field]: { $regex: filters[field], $options: "i" },
+        });
+      }
+    }
 
     const finalQuery = { $and: [mainQuery, { $or: orConditions }] };
 

@@ -48,6 +48,8 @@ const generateTestItems = (
       lost: true,
       address: "1 Test Street, London",
       coordinates: { lat: 51.5074, lng: -0.1278 },
+      questions: ["question1", "question2", "question3"],
+      answers: ["", "", ""],
     },
     {
       item_name: "TEST_ITEM_2_PHONE",
@@ -66,6 +68,8 @@ const generateTestItems = (
       lost: false,
       address: "2 Test Street, Birmingham",
       coordinates: { lat: 52.4862, lng: -1.8904 },
+      questions: ["question1", "question2", "question3"],
+      answers: ["answer1", "answer2", "answer3"],
     },
     {
       item_name: "TEST_ITEM_3_UMBRELLA",
@@ -84,6 +88,8 @@ const generateTestItems = (
       lost: false,
       address: "3 Test Street, Manchester",
       coordinates: { lat: 53.4808, lng: -2.2426 },
+      questions: ["question1", "question2", "question3"],
+      answers: ["", "", ""],
     },
     {
       item_name: "TEST_ITEM_4_BACKPACK",
@@ -102,6 +108,8 @@ const generateTestItems = (
       lost: true,
       address: "4 Test Street, Glasgow",
       coordinates: { lat: 55.8642, lng: -4.2518 },
+      questions: ["question1", "question2", "question3"],
+      answers: ["", "", ""],
     },
     {
       item_name: "TEST_ITEM_5_RING",
@@ -120,6 +128,8 @@ const generateTestItems = (
       lost: false,
       address: "5 Test Street, Coventry",
       coordinates: { lat: 52.4068, lng: -1.5197 },
+      questions: ["question1", "question2", "question3"],
+      answers: ["answer1", "answer2", "answer3"],
     },
     {
       item_name: "TEST_ITEM_6_RING",
@@ -138,6 +148,8 @@ const generateTestItems = (
       lost: false,
       address: "6 Test Street, Southampton",
       coordinates: { lat: 52.4068, lng: -1.5197 },
+      questions: ["question1", "question2", "question3"],
+      answers: ["answer1", "answer2", "answer3"],
     },
   ];
 };

@@ -52,6 +52,12 @@ const generateProdItems = (
       lost: true,
       address: "Piccadilly Gardens, Manchester M1 1RG, UK",
       coordinates: { lat: 53.4808, lng: -2.2426 },
+      questions: [
+        "What color is the wallet?",
+        "Are there any cards inside?",
+        "Where exactly was it found?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Silver iPhone 13",
@@ -71,6 +77,12 @@ const generateProdItems = (
       lost: false,
       address: "Liverpool ONE, 5 Wall St, Liverpool L1 8JQ, UK",
       coordinates: { lat: 53.4045, lng: -2.9856 },
+      questions: [
+        "What color is the case?",
+        "Is the phone locked?",
+        "What's the condition of the screen?",
+      ],
+      answers: ["Red", "Yes", "Cracked"],
     },
     {
       item_name: "Blue Umbrella",
@@ -90,6 +102,12 @@ const generateProdItems = (
       lost: false,
       address: "Trinity Leeds, Albion St, Leeds LS1 5AT, UK",
       coordinates: { lat: 53.7965, lng: -1.5478 },
+      questions: [
+        "What pattern is on the umbrella?",
+        "Is it automatic or manual?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Red Backpack",
@@ -109,6 +127,12 @@ const generateProdItems = (
       lost: true,
       address: "Meadowhall, Sheffield S9 1EP, UK",
       coordinates: { lat: 53.4125, lng: -1.4346 },
+      questions: [
+        "What's inside the backpack?",
+        "Is there a laptop?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Gold Ring",
@@ -128,6 +152,12 @@ const generateProdItems = (
       lost: false,
       address: "Bullring Shopping Centre, Birmingham B5 4BU, UK",
       coordinates: { lat: 52.478, lng: -1.8946 },
+      questions: [
+        "What are the initials?",
+        "What's the size?",
+        "Is it real gold?",
+      ],
+      answers: ["J.S.", "Size 6", "Yes, 14k"],
     },
     {
       item_name: "Grey Hoodie",
@@ -147,6 +177,8 @@ const generateProdItems = (
       lost: false,
       address: "Northumbria University, Newcastle upon Tyne NE1 8ST, UK",
       coordinates: { lat: 54.9778, lng: -1.6129 },
+      questions: ["What size is it?", "Is it clean?", "Which lecture hall?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Wireless Earbuds",
@@ -166,6 +198,12 @@ const generateProdItems = (
       lost: true,
       address: "Cabot Circus, Bristol BS1 3BX, UK",
       coordinates: { lat: 51.4596, lng: -2.5841 },
+      questions: [
+        "What brand are they?",
+        "Do they work?",
+        "Is the case included?",
+      ],
+      answers: ["", "", ""]
     },
     {
       item_name: "Brown Scarf",
@@ -185,6 +223,12 @@ const generateProdItems = (
       lost: false,
       address: "Victoria Centre, Nottingham NG1 3QN, UK",
       coordinates: { lat: 52.9556, lng: -1.146 },
+      questions: [
+        "What's the length?",
+        "Is it clean?",
+        "What's the condition?",
+      ],
+      answers: ["180cm", "Yes", "Like new"],
     },
     {
       item_name: "Reusable Water Bottle",
@@ -204,6 +248,12 @@ const generateProdItems = (
       lost: false,
       address: "Broadgate, Coventry CV1 1NF, UK",
       coordinates: { lat: 52.4081, lng: -1.5106 },
+      questions: [
+        "What's the capacity?",
+        "Is it clean?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Set of Keys",
@@ -223,6 +273,12 @@ const generateProdItems = (
       lost: true,
       address: "York Railway Station, Station Rd, York YO24 1AB, UK",
       coordinates: { lat: 53.9576, lng: -1.093 },
+      questions: [
+        "How many keys?",
+        "What's on the keychain?",
+        "Where exactly was it found?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Sunglasses Case",
@@ -243,6 +299,8 @@ const generateProdItems = (
       lost: false,
       address: "Manchester Arndale, Manchester M4 3AQ, UK",
       coordinates: { lat: 53.485, lng: -2.24 },
+      questions: ["What brand is it?", "Is it empty?", "What's the condition?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Charging Cable",
@@ -263,6 +321,12 @@ const generateProdItems = (
       lost: false,
       address: "Leeds Kirkgate Market, Vicar Ln, Leeds LS2 7HY, UK",
       coordinates: { lat: 53.7972, lng: -1.5395 },
+      questions: [
+        "What type of cable is it?",
+        "Is it working?",
+        "What's the length?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Baseball Cap",
@@ -283,6 +347,8 @@ const generateProdItems = (
       lost: true,
       address: "Albert Dock, Liverpool L3 4AF, UK",
       coordinates: { lat: 53.4001, lng: -2.9935 },
+      questions: ["What's the size?", "Is it clean?", "What's the condition?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Denim Jacket",
@@ -303,6 +369,8 @@ const generateProdItems = (
       lost: true,
       address: "Friars Walk, Newport NP20 1EA, UK",
       coordinates: { lat: 51.5851, lng: -2.9977 },
+      questions: ["What size is it?", "Is it clean?", "What's the condition?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Water Bottle",
@@ -323,6 +391,12 @@ const generateProdItems = (
       lost: false,
       address: "The Broadway, Bradford BD1 1JR, UK",
       coordinates: { lat: 53.792, lng: -1.75 },
+      questions: [
+        "What's the capacity?",
+        "Is it clean?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Wristband",
@@ -343,6 +417,8 @@ const generateProdItems = (
       lost: false,
       address: "Midsummer Place, Central Milton Keynes MK9 3GB, UK",
       coordinates: { lat: 52.0435, lng: -0.7605 },
+      questions: ["What size is it?", "Is it clean?", "What's the condition?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Children's Teddy Bear",
@@ -363,6 +439,8 @@ const generateProdItems = (
       lost: true,
       address: "Coventry Transport Museum, Coventry CV1 1JD, UK",
       coordinates: { lat: 52.4106, lng: -1.51 },
+      questions: ["What size is it?", "Is it clean?", "What's the condition?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Paperback Novel",
@@ -383,6 +461,12 @@ const generateProdItems = (
       lost: false,
       address: "Commercial Rd, Portsmouth PO1 1HG, UK",
       coordinates: { lat: 50.7982, lng: -1.0913 },
+      questions: [
+        "What's the title?",
+        "Is it damaged?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Work ID Card",
@@ -402,6 +486,12 @@ const generateProdItems = (
       lost: false,
       address: "Buchanan Galleries, Glasgow G1 2FF, UK",
       coordinates: { lat: 55.8627, lng: -4.2521 },
+      questions: [
+        "What's the name on the card?",
+        "Is it valid?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Small Key",
@@ -422,6 +512,12 @@ const generateProdItems = (
       lost: true,
       address: "Highcross Leicester, Leicester LE1 4AN, UK",
       coordinates: { lat: 52.6376, lng: -1.1398 },
+      questions: [
+        "What type of key is it?",
+        "Is it clean?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
   ];
 };
