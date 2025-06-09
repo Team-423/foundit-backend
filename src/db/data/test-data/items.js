@@ -47,7 +47,7 @@ const generateTestItems = (
       found: false,
       lost: true,
       questions: ["question1", "question2", "question3"],
-      answers: ["", "", ""]
+      answers: ["", "", ""],
     },
     {
       item_name: "TEST_ITEM_2_PHONE",
@@ -65,7 +65,7 @@ const generateTestItems = (
       found: true,
       lost: false,
       questions: ["question1", "question2", "question3"],
-      answers: ["answer1", "answer2", "answer3"]
+      answers: ["answer1", "answer2", "answer3"],
     },
     {
       item_name: "TEST_ITEM_3_UMBRELLA",
@@ -83,7 +83,7 @@ const generateTestItems = (
       found: true,
       lost: false,
       questions: ["question1", "question2", "question3"],
-      answers: ["", "", ""]
+      answers: ["", "", ""],
     },
     {
       item_name: "TEST_ITEM_4_BACKPACK",
@@ -101,7 +101,7 @@ const generateTestItems = (
       found: false,
       lost: true,
       questions: ["question1", "question2", "question3"],
-      answers: ["", "", ""]
+      answers: ["", "", ""],
     },
     {
       item_name: "TEST_ITEM_5_RING",
@@ -119,7 +119,7 @@ const generateTestItems = (
       found: true,
       lost: false,
       questions: ["question1", "question2", "question3"],
-      answers: ["answer1", "answer2", "answer3"]
+      answers: ["answer1", "answer2", "answer3"],
     },
     {
       item_name: "TEST_ITEM_6_RING",
@@ -137,7 +137,7 @@ const generateTestItems = (
       found: true,
       lost: false,
       questions: ["question1", "question2", "question3"],
-      answers: ["answer1", "answer2", "answer3"]
+      answers: ["answer1", "answer2", "answer3"],
     },
   ];
 };
