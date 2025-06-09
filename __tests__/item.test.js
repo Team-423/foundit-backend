@@ -17,7 +17,7 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-describe.only("GET /api/items", () => {
+describe("GET /api/items", () => {
   test("200: Responds with test item 2 when filtered with item_name=phone", () => {
     return Promise.all([Category.find(), Location.find()]).then(
       ([categoryDoc, locationDoc]) => {
@@ -123,7 +123,7 @@ describe.only("GET /api/items", () => {
     });
 
   });
-  test.only("200: Responds with 2 items when filtered with just the minimum queries", () => {
+  test("200: Responds with 2 items when filtered with just the minimum queries", () => {
     return request(app)
       .get(
         "/api/items?item_name=ring&location=TEST_LOCATION_5&category=TEST_JEWELRY"
