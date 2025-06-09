@@ -4,7 +4,8 @@ const {
   selectItemByIdToUpdate,
   insertItem,
   removeItemById,
-  updateItemResolvedById
+  updateItemResolvedById,
+  selectResolvedItems,
 } = require("../models/item.model");
 
 // GET /api/items/
@@ -14,12 +15,12 @@ exports.getItems = async (req, res, next) => {
     if (items.length === 0) {
       throw {
         status: 404,
-        msg: "No results!"
-      }
+        msg: "No results!",
+      };
     }
     res.status(200).send(items);
   } catch (err) {
-    next(err)
+    next(err);
   }
 };
 
@@ -116,6 +117,16 @@ exports.deleteItemById = async (req, res, next) => {
     }
 
     return res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+};
+
+// GET /api/items/resolved
+exports.getResolvedItems = async (req, res, next) => {
+  try {
+    const resolvedItemsList = await selectResolvedItems();
+    res.status(200).send({ resolvedItemsList });
   } catch (err) {
     next(err);
   }
