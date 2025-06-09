@@ -39,11 +39,8 @@ app.get("/api/items/colours", getColours);
 app.get("/api/items/resolved", getResolvedItems);
 app.get("/api/items/:item_id", getItemById);
 app.get("/api/items/:item_id/QandA", getQandAForItem);
-
 app.get("/api/users/:userId", getUserById);
 app.get("/api/users/:userId/items", getItemsByUserId);
-
-app.get("/api/items/:itemId/questions", getQuestionsForItem);
 
 app.patch("/api/items/:item_id", updateItemById);
 app.patch("/api/items/:item_id/resolved", patchItemResolvedById);

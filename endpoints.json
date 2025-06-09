@@ -2,6 +2,7 @@
   "GET /api": {
     "description": "serves up a json representation of all the available endpoints of the api"
   },
+
   "GET /api/items": {
     "description": "serves up an array of all items",
     "Queries": {
@@ -53,20 +54,150 @@
       }
     ]
   },
+
   "GET /api/items/categories": {
-    "description": "serves up an array of all available item categories",
+    "description": "Serves up an array of all available item categories from the database.",
     "exampleResponse": {
       "categories": [
-        { "category_name": "Accessories" },
-        { "category_name": "Bags" },
-        { "category_name": "Clothing" },
-        { "category_name": "Electronics" },
-        { "category_name": "Jewelry" },
-        { "category_name": "Keys" },
-        { "category_name": "Other" }
+        {
+          "_id": "6846c316099450ee580178de",
+          "category_name": "Other",
+          "__v": 0
+        },
+        {
+          "_id": "6846c316099450ee580178df",
+          "category_name": "Clothing",
+          "__v": 0
+        },
+        {
+          "_id": "6846c316099450ee580178e0",
+          "category_name": "Electronics",
+          "__v": 0
+        },
+        {
+          "_id": "6846c316099450ee580178e1",
+          "category_name": "Keys",
+          "__v": 0
+        },
+        {
+          "_id": "6846c316099450ee580178e2",
+          "category_name": "Jewelry",
+          "__v": 0
+        }
       ]
     }
   },
+
+  "GET /api/items/brands": {
+    "description": "Responds with an array containing all the listed brands from the database.",
+    "exampleResponse": [
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf87",
+        "brand_name": "Apple"
+      },
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf88",
+        "brand_name": "Samsung"
+      },
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf89",
+        "brand_name": "Sony"
+      }
+    ]
+  },
+
+  "GET /api/items/locations": {
+    "description": "Responds with an array containing all the listed locations from the database.",
+    "exampleResponse": {
+      "locations": [
+        {
+          "_id": "6846bec388e2ee16ef0f91a0",
+          "location_name": "Other",
+          "__v": 0
+        },
+        {
+          "_id": "6846bec388e2ee16ef0f91a1",
+          "location_name": "London",
+          "__v": 0
+        },
+        {
+          "_id": "6846bec388e2ee16ef0f91a2",
+          "location_name": "Coventry",
+          "__v": 0
+        },
+        {
+          "_id": "6846bec388e2ee16ef0f91a3",
+          "location_name": "Birmingham",
+          "__v": 0
+        },
+        {
+          "_id": "6846bec388e2ee16ef0f91a4",
+          "location_name": "Glasgow",
+          "__v": 0
+        }
+      ]
+    }
+  },
+
+  "GET /api/items/colours": {
+    "description": "Returns an array that lists all available colours users can select from when posting or filtering items.",
+    "exampleResponse": {
+      "colours": [
+        {
+          "_id": "6846bda7aa3bedbd85f91c6c'",
+          "colour": "Other",
+          "__v": 0
+        },
+        {
+          "_id": "6846bda7aa3bedbd85f91c6d",
+          "colour": "Black",
+          "__v": 0
+        },
+        {
+          "_id": "6846bda7aa3bedbd85f91c6e",
+          "colour": "White",
+          "__v": 0
+        },
+        {
+          "_id": "6846bda7aa3bedbd85f91c6f",
+          "colour": "Red",
+          "__v": 0
+        },
+        {
+          "_id": "6846bda7aa3bedbd85f91c70",
+          "colour": "Blue",
+          "__v": 0
+        }
+      ]
+    }
+  },
+
+  "GET /api/items/resolved": {
+    "description": "Returns a an array that displays all the items where their resolved status is set to 'true'.",
+    "exampleResponse": {
+      "resolved_items": [
+        {
+          "_id": "6846b9d970a9bb67eb1e90e6",
+          "item_name": "Black Wallet",
+          "author": "6846b9d970a9bb67eb1e90c4",
+          "category": "6846b9d970a9bb67eb1e90e0",
+          "description": "Leather wallet containing ID and credit cards",
+          "created_at": "2025-01-05T10:00:00.000Z",
+          "location": "6846b9d970a9bb67eb1e90d4",
+          "colour": "6846b9d970a9bb67eb1e90da",
+          "size": "Small",
+          "brand": "6846b9d970a9bb67eb1e90ce",
+          "material": "Leather",
+          "img_url": "https://cdn.pixabay.com/photo/2020/03/28/13/26/wallet-4977021_1280.jpg",
+          "resolved": true,
+          "found": true,
+          "lost": false,
+          "__v": 0
+        }
+      ]
+    }
+  },
+
   "GET /api/items/:item_id": {
     "description": "Serves a single item object that corresponds to the queried item_id",
     "exampleResponse": {
@@ -87,6 +218,45 @@
       "__v": 0
     }
   },
+
+  "GET api/users/:userId": {
+    "description": "Responds with a single user object for the given userID",
+    "exampleResponse": {
+      "user": {
+        "_id": "665f3f501234abcd5678ef90",
+        "username": "johndoe",
+        "email": "johndoe@example.com",
+        "points": 120
+      }
+    }
+  },
+
+  "GET /api/users/:userId/items": {
+    "description": "Returns all items for the specified userId",
+    "parameters": {
+      "userId": "string (MongoDB ObjectId format)"
+    },
+    "exampleResponse": [
+      {
+        "_id": "683f0f142a5885e53c257c8a",
+        "item_name": "Black Wallet",
+        "author": { "_id": "683f0f142a5885e53c257c85", "username": "johndoe" },
+        "category": "Accessories",
+        "description": "Leather wallet containing ID and credit cards",
+        "created_at": "2025-05-01T10:30:00.000Z",
+        "location": "Central Library",
+        "colour": "Black",
+        "size": "Small",
+        "brand": "Fossil",
+        "material": "Leather",
+        "resolved": false,
+        "found": false,
+        "lost": true,
+        "__v": 0
+      }
+    ]
+  },
+
   "PATCH /api/items/:item_id": {
     "description": "Updates item info for one or more properties for the selected item_id, returns the updated item object",
     "exampleRequest": {
@@ -111,6 +281,26 @@
       "material": "Metal and Glass"
     }
   },
+
+  "PATCH /api/users/:userId": {
+    "description": "Updates one or more fields of a user specified by userId. Supports partial updates.",
+    "exampleRequest": {
+      "username": "newUsername",
+      "email": "newemail@example.com",
+      "img_url": "http://example.com/avatar.png",
+      "points": 200
+    },
+    "exampleResponse": {
+      "user": {
+        "_id": "665f3f501234abcd5678ef90",
+        "username": "newUsername",
+        "email": "newemail@example.com",
+        "img_url": "http://example.com/avatar.png",
+        "points": 200
+      }
+    }
+  },
+
   "PATCH /api/items/:item_id/resolved": {
     "description": "Updates item resolved status to true for the selected item_id, returns the updated item object",
     "exampleRequest": {
@@ -134,21 +324,7 @@
       "__v": 0
     }
   },
-  "GET api/users/:userId": {
-    "description": "Responds with a single user object for the given userID",
-    "exampleResponse": {
-      "user": {
-        "_id": "665f3f501234abcd5678ef90",
-        "username": "johndoe",
-        "email": "johndoe@example.com",
-        "points": 120
-      }
-    }
-  },
-  "DELETE /api/items/:itemId": {
-    "description": "Deletes an item by Id",
-    "exampleRequest": "/api/items/683f805f894c689cbb55b2e6"
-  },
+
   "POST /api/items": {
     "description": "Posts a new item and saves it to the database. Request body must include required item details and a valid author id",
     "requiredFields": {
@@ -193,80 +369,12 @@
       "__v": 0
     }
   },
-  "PATCH /api/users/:userId": {
-    "description": "Updates one or more fields of a user specified by userId. Supports partial updates.",
-    "exampleRequest": {
-      "username": "newUsername",
-      "email": "newemail@example.com",
-      "img_url": "http://example.com/avatar.png",
-      "points": 200
-    },
-    "exampleResponse": {
-      "user": {
-        "_id": "665f3f501234abcd5678ef90",
-        "username": "newUsername",
-        "email": "newemail@example.com",
-        "img_url": "http://example.com/avatar.png",
-        "points": 200
-      }
-    }
-  },
-  "GET /api/users/:userId/items": {
-    "description": "Returns all items for the specified userId",
-    "parameters": {
-      "userId": "string (MongoDB ObjectId format)"
-    },
-    "exampleResponse": [
-      {
-        "_id": "683f0f142a5885e53c257c8a",
-        "item_name": "Black Wallet",
-        "author": { "_id": "683f0f142a5885e53c257c85", "username": "johndoe" },
-        "category": "Accessories",
-        "description": "Leather wallet containing ID and credit cards",
-        "created_at": "2025-05-01T10:30:00.000Z",
-        "location": "Central Library",
-        "colour": "Black",
-        "size": "Small",
-        "brand": "Fossil",
-        "material": "Leather",
-        "resolved": false,
-        "found": false,
-        "lost": true,
-        "__v": 0
-      }
-    ]
-  },
-  "GET /api/items/brands": {
-    "description": "Responds with an array containing all the listed brands from the database.",
-    "exampleResponse": [
-      {
-        "_id": "665f8bd0c2b69d2b7ad8cf87",
-        "brand_name": "Apple"
-      },
-      {
-        "_id": "665f8bd0c2b69d2b7ad8cf88",
-        "brand_name": "Samsung"
-      },
-      {
-        "_id": "665f8bd0c2b69d2b7ad8cf89",
-        "brand_name": "Sony"
-      }
-    ]
-  },
-  "GET /api/items/locations": {
-    "description": "Responds with an array containing all the listed locations from the database.",
-    "exampleResponse": {
-      "locations": [
-        { "location_name": "Other" },
-        { "location_name": "London" },
-        { "location_name": "Birmingham" },
-        { "location_name": "Manchester" },
-        { "location_name": "Coventry" },
-        { "location_name": "Glasgow" },
-        { "location_name": "Liverpool" }
-      ]
-    }
-  },
+
+  "DELETE /api/items/:itemId": {
+    "description": "Deletes an item by Id",
+    "exampleRequest": "/api/items/683f805f894c689cbb55b2e6"
+},
+
   "GET /api/items/:itemId/QandA": {
     "description": "Get the list of questions and answers for a specific item.",
     "parameters": {
