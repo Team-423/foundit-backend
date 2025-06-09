@@ -121,22 +121,28 @@ describe("GET /api/items", () => {
           );
         });
     });
-
   });
   test("200: Responds with 2 items when filtered with just the minimum queries", () => {
-    return request(app)
-      .get(
-        "/api/items?item_name=ring&location=TEST_LOCATION_5&category=TEST_JEWELRY"
-      )
-      .expect(200)
-      .then((items) => {
-        expect(items.body.length).toBe(2);
-        items.body.forEach((item) => {
-          expect(item.colour.colour).toBe("Test_colour_5")
-          expect(item.category.category_name).toBe("Test_category_5")
-      });
+    return Promise.all([
+      Category.find(),
+      Location.findOne({ location_name: "TEST_LOCATION_5" }),
+    ]).then(([categoryDoc, locationDoc]) => {
+      const locationId = locationDoc._id.toString();
+      const categoryId = categoryDoc[2]._id.toString();
+
+      return request(app)
+        .get(
+          `/api/items?item_name=ring&location=${locationId}&category=${categoryId}`
+        )
+        .expect(200)
+        .then((items) => {
+          expect(items.body.length).toBe(2);
+          items.body.forEach((item) => {
+            expect(item.colour.colour).toBe("Test_colour_5");
+            expect(item.category.category_name).toBe("Test_category_5");
+          });
         });
-      });
+    });
   });
 
   test("404: Responds with no results if item_name has no match", () => {
@@ -165,6 +171,7 @@ describe("GET /api/items", () => {
         expect(items.body).toEqual({ msg: "Missing required fields" });
       });
   });
+});
 
 describe("GET /api/items/:item_id", () => {
   test("200: Responds with a single item when given a valid id", () => {

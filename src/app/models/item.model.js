@@ -81,18 +81,18 @@ const selectItems = async (filters = {}) => {
       };
     }
 
-    // for (const field of exactMatchFields) {
-    //   if (filters[field]) {
-    //     orConditions.push({ [field]: filters[field] });
-    //   }
-    // }
-    // for (const field of regexFields) {
-    //   if (filters[field]) {
-    //     orConditions.push({
-    //       [field]: { $regex: filters[field], $options: "i" },
-    //     });
-    //   }
-    // }
+    for (const field of exactMatchFields) {
+      if (filters[field]) {
+        orConditions.push({ [field]: filters[field] });
+      }
+    }
+    for (const field of regexFields) {
+      if (filters[field]) {
+        orConditions.push({
+          [field]: { $regex: filters[field], $options: "i" },
+        });
+      }
+    }
 
     const finalQuery = { $and: [mainQuery, { $or: orConditions }] };
 
