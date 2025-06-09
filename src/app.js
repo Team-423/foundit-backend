@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { getEndPoints } = require("./app/controller/app.controller.js");
 const {
   getItemById,
@@ -18,9 +19,12 @@ const { getAllBrands } = require("./app/controller/brand.controller.js");
 const { getAllLocations } = require("./app/controller/location.controller.js");
 const { getQuestionsForItem } = require('./app/controller/itemQuestion.controller.js');
 const { getCategories } = require("./app/controller/category.controller.js");
+
 const app = express();
 
+app.use(cors());
 app.use(express.json());
+
 app.get("/api", getEndPoints);
 app.get("/api/users/:userId", getUserById);
 app.get("/api/items", getItems);
