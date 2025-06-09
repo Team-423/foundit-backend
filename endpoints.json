@@ -234,52 +234,95 @@
         "lost": true,
         "__v": 0
       }
-    ],
-    "GET /api/items/brands": {
-      "description": "Responds with an array containing all the listed brands from the database.",
-      "exampleResponse": [
-        {
-          "_id": "665f8bd0c2b69d2b7ad8cf87",
-          "brand_name": "Apple"
-        },
-        {
-          "_id": "665f8bd0c2b69d2b7ad8cf88",
-          "brand_name": "Samsung"
-        },
-        {
-          "_id": "665f8bd0c2b69d2b7ad8cf89",
-          "brand_name": "Sony"
-        }
-      ]
-    },
-    "GET /api/items/locations": {
-      "description": "Responds with an array containing all the listed locations from the database.",
-      "exampleResponse": {
-        "locations": [
-          { "location_name": "Other" },
-          { "location_name": "London" },
-          { "location_name": "Birmingham" },
-          { "location_name": "Manchester" },
-          { "location_name": "Coventry" },
-          { "location_name": "Glasgow" },
-          { "location_name": "Liverpool" }
-        ]
+    ]
+  },
+  "GET /api/items/brands": {
+    "description": "Responds with an array containing all the listed brands from the database.",
+    "exampleResponse": [
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf87",
+        "brand_name": "Apple"
+      },
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf88",
+        "brand_name": "Samsung"
+      },
+      {
+        "_id": "665f8bd0c2b69d2b7ad8cf89",
+        "brand_name": "Sony"
       }
-    },
-    "GET /api/items/:itemId/qna": {
+    ]
+  },
+  "GET /api/items/locations": {
+    "description": "Responds with an array containing all the listed locations from the database.",
+    "exampleResponse": {
+      "locations": [
+        { "location_name": "Other" },
+        { "location_name": "London" },
+        { "location_name": "Birmingham" },
+        { "location_name": "Manchester" },
+        { "location_name": "Coventry" },
+        { "location_name": "Glasgow" },
+        { "location_name": "Liverpool" }
+      ]
+    }
+  },
+  "GET /api/items/:itemId/QandA": {
     "description": "Get the list of questions and answers for a specific item.",
-    "queries": [],
-    "request_body": null,
-    "params": {
+    "parameters": {
       "itemId": "The _id of the item to fetch questions and answers for (MongoDB ObjectId string)."
     },
-    "example_response": {
+    "exampleResponse": {
       "questions": [
         { "question": "What color is it?", "answer": "Blue" },
         { "question": "Where was it found?", "answer": "Park" },
         { "question": "What brand?", "answer": "Nike" }
       ]
     }
-  }
+  },
+  "POST /api/items/:itemId/QandA": {
+    "description": "Add a new question to an item's Q&A list. The answer will be initialized as empty.",
+    "parameters": {
+      "itemId": "The _id of the item to add a question to (MongoDB ObjectId string)."
+    },
+    "requiredFields": {
+      "question": "string - The question to be added"
+    },
+    "exampleRequest": {
+      "question": "Is this item still available?"
+    },
+    "exampleResponse": {
+      "questionAndAnswerPairs": [
+        { "question": "Where was it found?", "answer": "" },
+        { "question": "Is this item still available?", "answer": "" },
+        { "question": "What is the condition of the item?", "answer": "" }
+      ]
+    }
+  },
+  "PATCH /api/items/:itemId/QandA": {
+    "description": "Update answers for all questions of an item. The answers array must match the number of questions.",
+    "parameters": {
+      "itemId": "The _id of the item to update answers for (MongoDB ObjectId string)."
+    },
+    "requiredFields": {
+      "answers": "array of strings - The answers to be updated, must match the number of questions"
+    },
+    "exampleRequest": {
+      "answers": [
+        "The item is in good condition",
+        "Yes, it's still available",
+        "It was found in the library"
+      ]
+    },
+    "exampleResponse": {
+      "questionAndAnswerPairs": [
+        {
+          "question": "question1",
+          "answer": "The wallet is in good condition"
+        },
+        { "question": "question2", "answer": "Yes, it's available" },
+        { "question": "question3", "answer": "It's black" }
+      ]
+    }
   }
 }

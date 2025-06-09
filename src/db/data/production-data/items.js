@@ -50,6 +50,12 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: [
+        "What color is the wallet?",
+        "Are there any cards inside?",
+        "Where exactly was it found?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Silver iPhone 13",
@@ -67,6 +73,12 @@ const generateProdItems = (
       resolved: true,
       found: true,
       lost: false,
+      questions: [
+        "What color is the case?",
+        "Is the phone locked?",
+        "What's the condition of the screen?",
+      ],
+      answers: ["Red", "Yes", "Cracked"],
     },
     {
       item_name: "Blue Umbrella",
@@ -84,6 +96,12 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: [
+        "What pattern is on the umbrella?",
+        "Is it automatic or manual?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Red Backpack",
@@ -101,6 +119,12 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: [
+        "What's inside the backpack?",
+        "Is there a laptop?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Gold Ring",
@@ -118,6 +142,12 @@ const generateProdItems = (
       resolved: true,
       found: true,
       lost: false,
+      questions: [
+        "What are the initials?",
+        "What's the size?",
+        "Is it real gold?",
+      ],
+      answers: ["J.S.", "Size 6", "Yes, 14k"],
     },
     {
       item_name: "Grey Hoodie",
@@ -135,6 +165,8 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: ["What size is it?", "Is it clean?", "Which lecture hall?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Wireless Earbuds",
@@ -152,6 +184,12 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: [
+        "What brand are they?",
+        "Do they work?",
+        "Is the case included?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Brown Scarf",
@@ -169,6 +207,12 @@ const generateProdItems = (
       resolved: true,
       found: true,
       lost: false,
+      questions: [
+        "What's the length?",
+        "Is it clean?",
+        "What's the condition?",
+      ],
+      answers: ["180cm", "Yes", "Like new"],
     },
     {
       item_name: "Reusable Water Bottle",
@@ -186,6 +230,12 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: [
+        "What's the capacity?",
+        "Is it clean?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Set of Keys",
@@ -203,6 +253,12 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: [
+        "How many keys?",
+        "What's on the keychain?",
+        "Where exactly was it found?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Sunglasses Case",
@@ -221,6 +277,8 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: ["What brand is it?", "Is it empty?", "What's the condition?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Charging Cable",
@@ -239,6 +297,12 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: [
+        "What type of cable is it?",
+        "Is it working?",
+        "What's the length?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Baseball Cap",
@@ -257,6 +321,8 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: ["What's the size?", "Is it clean?", "What's the condition?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Denim Jacket",
@@ -275,6 +341,8 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: ["What size is it?", "Is it clean?", "What's the condition?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Water Bottle",
@@ -293,6 +361,12 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: [
+        "What's the capacity?",
+        "Is it clean?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Wristband",
@@ -311,6 +385,8 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: ["What size is it?", "Is it clean?", "What's the condition?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Children's Teddy Bear",
@@ -329,6 +405,8 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: ["What size is it?", "Is it clean?", "What's the condition?"],
+      answers: ["", "", ""],
     },
     {
       item_name: "Paperback Novel",
@@ -347,6 +425,12 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: [
+        "What's the title?",
+        "Is it damaged?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Work ID Card",
@@ -364,6 +448,12 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
+      questions: [
+        "What's the name on the card?",
+        "Is it valid?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
     {
       item_name: "Small Key",
@@ -382,6 +472,12 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
+      questions: [
+        "What type of key is it?",
+        "Is it clean?",
+        "What's the condition?",
+      ],
+      answers: ["", "", ""],
     },
   ];
 };

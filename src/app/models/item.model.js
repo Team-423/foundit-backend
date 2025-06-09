@@ -60,6 +60,14 @@ const itemSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  questions: {
+    type: [String],
+    default: [],
+  },
+  answers: {
+    type: [String],
+    default: [],
+  }
 });
 
 const Item = model("Item", itemSchema);
