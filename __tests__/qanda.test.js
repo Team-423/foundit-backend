@@ -126,7 +126,6 @@ describe("PATCH /api/items/:itemId/QandA", () => {
       .send({ answers: newAnswers })
       .expect(200);
 
-    console.log(res.body);
     expect(res.body.questionAndAnswerPairs).toBeInstanceOf(Array);
     expect(res.body.questionAndAnswerPairs.length).toBe(3);
     expect(res.body.questionAndAnswerPairs[0].answer).toBe(newAnswers[0]);
