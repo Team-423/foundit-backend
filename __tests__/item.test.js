@@ -43,20 +43,27 @@ describe("GET /api/items", () => {
                 brand: expect.any(Object),
                 found: expect.any(Boolean),
                 lost: expect.any(Boolean),
+                address: expect.any(String),
+                coordinates: {
+                  lat: expect.any(Number),
+                  lng: expect.any(Number),
+                },
                 questions: expect.any(Array),
                 answers: expect.any(Array)
               });
             });
+
             expect(items._body[0]).toMatchObject({
               item_name: "TEST_ITEM_2_PHONE",
-              category: expect.any(Object),
               description: "Test description for item 2",
-              location: expect.any(Object),
-              colour: expect.any(Object),
               size: "TestMedium",
-              brand: expect.any(Object),
               material: "TestMaterial2",
               img_url: "test_item_img_url2",
+              address: "2 Test Street, Birmingham",
+              coordinates: {
+                lat: 52.4862,
+                lng: -1.8904,
+              },
             });
           });
       }
@@ -89,6 +96,11 @@ describe("GET /api/items", () => {
             resolved: false,
             found: true,
             lost: false,
+            address: expect.any(String),
+            coordinates: {
+              lat: expect.any(Number),
+              lng: expect.any(Number),
+            },
           });
         });
     });
@@ -120,6 +132,12 @@ describe("GET /api/items", () => {
               resolved: false,
               found: true,
               lost: false,
+              address: expect.any(String),
+              coordinates: {
+                _id: expect.any(String),
+                lat: expect.any(Number),
+                lng: expect.any(Number),
+              },
             })
           );
         });
@@ -199,6 +217,11 @@ describe("GET /api/items/:item_id", () => {
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
+            address: expect.any(String),
+            coordinates: {
+              lat: expect.any(Number),
+              lng: expect.any(Number),
+            },
             questions: expect.any(Array),
             answers: expect.any(Array)
           });
@@ -208,7 +231,7 @@ describe("GET /api/items/:item_id", () => {
   });
   test("404: When ID is valid but item doesn't exist", () => {
     const nonExistentId = new mongoose.Types.ObjectId().toString();
-    // will log: "new ObjectId('683f62a3190bb5bc3512af25')" if toString() not applied
+
     return request(app)
       .get(`/api/items/${nonExistentId}`)
       .expect(404)
@@ -252,6 +275,11 @@ describe("PATCH /api/items/:item_id", () => {
         size: "small",
         material: "Metal and Glass",
         brand: brandId,
+        address: "Updated address",
+        coordinates: {
+          lat: 51.5,
+          lng: -0.1,
+        },
       };
 
       return request(app)
@@ -274,6 +302,11 @@ describe("PATCH /api/items/:item_id", () => {
             resolved: expect.any(Boolean),
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
+            address: "Updated address",
+            coordinates: {
+              lat: 51.5,
+              lng: -0.1,
+            },
             questions: expect.any(Array),
             answers: expect.any(Array)
           });
@@ -559,7 +592,7 @@ describe("PATCH /api/items/:itemId/resolved", () => {
 });
 
 describe("POST /api/items", () => {
-  test("201: Post a new item and responds with newly created item", () => {
+  test("201: Post a new item and responds with newly created item including address and coordinates", () => {
     return Promise.all([
       User.find(),
       Brand.find(),
@@ -576,17 +609,22 @@ describe("POST /api/items", () => {
       const testItem = {
         item_name: "test_item",
         author: testUser._id,
-        category: testCategory,
+        category: testCategory._id,
         description: "test_description",
         created_at: "2025-05-01T10:30:00.000Z",
         location: testLocation._id,
-        colour: testColour,
+        colour: testColour._id,
         size: "test_size",
         brand: testBrand._id,
         material: "test_material",
         resolved: false,
         found: false,
         lost: true,
+        address: "100 Test Street, Manchester",
+        coordinates: {
+          lat: 53.4808,
+          lng: -2.2426,
+        },
       };
 
       return request(app)
@@ -609,36 +647,41 @@ describe("POST /api/items", () => {
             resolved: false,
             found: false,
             lost: true,
+            address: "100 Test Street, Manchester",
+            coordinates: {
+              lat: 53.4808,
+              lng: -2.2426,
+            },
             questions: expect.any(Array),
             answers: expect.any(Array)
           });
         });
     });
   });
-  test("400: Item posted is missing two required fields - 'category' & 'location'", () => {
-    return User.find().then((users) => {
-      const testUser = users[0];
-      const incompleteTestItem = {
-        item_name: "test item",
-        author: testUser._id,
-        description: "test description",
-        created_at: "2025-05-01T10:30:00.000Z",
-        colour: "test color",
-        size: "test size",
-        brand: "test brand",
-        material: "Leather",
-        resolved: false,
-        found: false,
-        lost: true,
-      };
-      return request(app)
-        .post("/api/items")
-        .send(incompleteTestItem)
-        .expect(400)
-        .then(({ body }) => {
-          expect(body).toEqual({ msg: "Missing required fields!" });
-        });
-    });
+});
+test("400: Item posted is missing two required fields - 'category' & 'location'", () => {
+  return User.find().then((users) => {
+    const testUser = users[0];
+    const incompleteTestItem = {
+      item_name: "test item",
+      author: testUser._id,
+      description: "test description",
+      created_at: "2025-05-01T10:30:00.000Z",
+      colour: "test color",
+      size: "test size",
+      brand: "test brand",
+      material: "Leather",
+      resolved: false,
+      found: false,
+      lost: true,
+    };
+    return request(app)
+      .post("/api/items")
+      .send(incompleteTestItem)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body).toEqual({ msg: "Missing required fields!" });
+      });
   });
 });
 
@@ -689,8 +732,10 @@ describe("GET /api/items/resolved", () => {
       .get("/api/items/resolved")
       .expect(200)
       .then(({ body }) => {
-        const items = body.resolvedItemsList;
-        expect(items).toBeSortedBy("created_at", { descending: true });
+        const testResolvedItemsList = body.resolvedItemsList;
+        expect(testResolvedItemsList).toBeSortedBy("created_at", {
+          descending: true,
+        });
       });
   });
 });

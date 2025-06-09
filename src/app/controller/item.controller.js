@@ -38,7 +38,6 @@ exports.getItemById = async (req, res, next) => {
 
 // PATCH /api/items/:item_id
 exports.updateItemById = async (req, res, next) => {
-  // rename to patchItemById for consistency in controller?
   const { item_id } = req.params;
   const {
     item_name,
@@ -49,14 +48,18 @@ exports.updateItemById = async (req, res, next) => {
     size,
     brand,
     material,
+    address,
+    coordinates,
   } = req.body;
 
-  const itemInfo = Object.values(req.body);
-  itemInfo.forEach((value) => {
-    if (typeof value !== "string") {
+  const validNonStringKeys = ["coordinates"];
+
+  const itemInfo = Object.entries(req.body);
+  for (const [key, value] of itemInfo) {
+    if (!validNonStringKeys.includes(key) && typeof value !== "string") {
       return res.status(400).send({ msg: "Bad request: invalid format!" });
     }
-  });
+  }
 
   try {
     const updatedItem = await selectItemByIdToUpdate(
@@ -68,7 +71,9 @@ exports.updateItemById = async (req, res, next) => {
       colour,
       size,
       brand,
-      material
+      material,
+      address,
+      coordinates
     );
     res.status(200).send({ updatedItem });
   } catch (err) {

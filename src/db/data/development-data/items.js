@@ -50,6 +50,8 @@ const generateDevItems = (
       resolved: false,
       found: false,
       lost: true,
+      address: "Piccadilly Gardens, Manchester M1 1RG",
+      coordinates: { lat: 53.4808, lng: -2.2426 },
       questions: ["What color is the wallet?", "Are there any cards inside?", "Where exactly was it found?"],
       answers: ["", "", ""]
     },
@@ -69,6 +71,8 @@ const generateDevItems = (
       resolved: true,
       found: true,
       lost: false,
+      address: "Albert Dock, Liverpool L3 4AA",
+      coordinates: { lat: 53.3997, lng: -2.9916 },
       questions: ["What color is the case?", "Is the phone locked?", "What's the condition of the screen?"],
       answers: ["Red", "Yes", "Cracked"]
     },
@@ -88,6 +92,8 @@ const generateDevItems = (
       resolved: false,
       found: true,
       lost: false,
+      address: "Trinity Leeds, Leeds LS1 5AT",
+      coordinates: { lat: 53.7962, lng: -1.5476 },
       questions: ["What pattern is on the umbrella?", "Is it automatic or manual?", "What's the condition?"],
       answers: ["", "", ""]
     },
@@ -107,6 +113,8 @@ const generateDevItems = (
       resolved: false,
       found: false,
       lost: true,
+      address: "Sheffield Train Station, Sheffield S1 2BP",
+      coordinates: { lat: 53.3781, lng: -1.4617 },
       questions: ["What's inside the backpack?", "Is there a laptop?", "What's the condition?"],
       answers: ["", "", ""]
     },
@@ -126,6 +134,8 @@ const generateDevItems = (
       resolved: true,
       found: true,
       lost: false,
+      address: "Bullring Shopping Centre, Birmingham B5 4BU",
+      coordinates: { lat: 52.477, lng: -1.8936 },
       questions: ["What are the initials?", "What's the size?", "Is it real gold?"],
       answers: ["J.S.", "Size 6", "Yes, 14k"]
     },
@@ -145,6 +155,8 @@ const generateDevItems = (
       resolved: false,
       found: true,
       lost: false,
+      address: "Newcastle University, Newcastle NE1 7RU",
+      coordinates: { lat: 54.9784, lng: -1.6174 },
       questions: ["What size is it?", "Is it clean?", "Which lecture hall?"],
       answers: ["", "", ""]
     },
@@ -164,6 +176,8 @@ const generateDevItems = (
       resolved: false,
       found: false,
       lost: true,
+      address: "Cabot Circus, Bristol BS1 3BX",
+      coordinates: { lat: 51.4584, lng: -2.5846 },
       questions: ["What brand are they?", "Do they work?", "Is the case included?"],
       answers: ["", "", ""]
     },
@@ -183,6 +197,7 @@ const generateDevItems = (
       resolved: true,
       found: true,
       lost: false,
+      address: "Old Market Square, Nottingham NG1 2BY",
       questions: ["What's the length?", "Is it clean?", "What's the condition?"],
       answers: ["180cm", "Yes", "Like new"]
     },
@@ -202,6 +217,8 @@ const generateDevItems = (
       resolved: false,
       found: true,
       lost: false,
+      address: "Coventry Cathedral, Coventry CV1 5AB",
+      coordinates: { lat: 52.4081, lng: -1.5076 },
       questions: ["What's the capacity?", "Is it clean?", "What's the condition?"],
       answers: ["", "", ""]
     },
@@ -221,6 +238,8 @@ const generateDevItems = (
       resolved: false,
       found: false,
       lost: true,
+      address: "York Minster, York YO1 7HH",
+      coordinates: { lat: 53.9626, lng: -1.0816 },
       questions: ["How many keys?", "What's on the keychain?", "Where exactly was it found?"],
       answers: ["", "", ""]
     },
