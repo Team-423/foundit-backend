@@ -48,6 +48,15 @@ const itemSchema = new Schema({
   img_url: {
     type: String,
   },
+  address: {
+    type: String,
+  },
+  coordinates: {
+    type: {
+      lat: { type: Number },
+      lng: { type: Number },
+    },
+  },
   resolved: {
     type: Boolean,
     default: false,
@@ -150,7 +159,9 @@ const selectItemByIdToUpdate = async (
   colour,
   size,
   brand,
-  material
+  material,
+  address,
+  coordinates
 ) => {
   const query = { _id: item_id };
   const update = {
@@ -163,6 +174,8 @@ const selectItemByIdToUpdate = async (
       size,
       brand,
       material,
+      address,
+      coordinates,
     },
   };
   const options = { new: true };
@@ -219,8 +232,17 @@ const updateItemResolvedById = async (item_id, resolved) => {
 
 // POST /api/items
 const insertItem = async (postedItem) => {
-  const { item_name, author, description, category, location, found, lost } =
-    postedItem;
+  const {
+    item_name,
+    author,
+    description,
+    category,
+    location,
+    found,
+    lost,
+    address,
+    coordinates,
+  } = postedItem;
 
   if (
     !item_name ||
@@ -263,11 +285,13 @@ const removeItemById = async (item_id) => {
 // GET /api/items/resolved
 const selectResolvedItems = async () => {
   try {
-  const resolvedItemsList = await Item.find({ resolved: true }).sort({ created_at: -1 });
-  return resolvedItemsList
+    const resolvedItemsList = await Item.find({ resolved: true }).sort({
+      created_at: -1,
+    });
+    return resolvedItemsList;
   } catch (err) {
-    console.error(err)
-    throw err
+    console.error(err);
+    throw err;
   }
 };
 

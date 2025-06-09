@@ -46,6 +46,8 @@ const generateTestItems = (
       resolved: false,
       found: false,
       lost: true,
+      address: "1 Test Street, London",
+      coordinates: { lat: 51.5074, lng: -0.1278 },
     },
     {
       item_name: "TEST_ITEM_2_PHONE",
@@ -62,6 +64,8 @@ const generateTestItems = (
       resolved: true,
       found: true,
       lost: false,
+      address: "2 Test Street, Birmingham",
+      coordinates: { lat: 52.4862, lng: -1.8904 },
     },
     {
       item_name: "TEST_ITEM_3_UMBRELLA",
@@ -78,6 +82,8 @@ const generateTestItems = (
       resolved: false,
       found: true,
       lost: false,
+      address: "3 Test Street, Manchester",
+      coordinates: { lat: 53.4808, lng: -2.2426 },
     },
     {
       item_name: "TEST_ITEM_4_BACKPACK",
@@ -94,6 +100,8 @@ const generateTestItems = (
       resolved: false,
       found: false,
       lost: true,
+      address: "4 Test Street, Glasgow",
+      coordinates: { lat: 55.8642, lng: -4.2518 },
     },
     {
       item_name: "TEST_ITEM_5_RING",
@@ -110,6 +118,8 @@ const generateTestItems = (
       resolved: true,
       found: true,
       lost: false,
+      address: "5 Test Street, Coventry",
+      coordinates: { lat: 52.4068, lng: -1.5197 },
     },
     {
       item_name: "TEST_ITEM_6_RING",
@@ -126,6 +136,8 @@ const generateTestItems = (
       resolved: true,
       found: true,
       lost: false,
+      address: "6 Test Street, Southampton",
+      coordinates: { lat: 52.4068, lng: -1.5197 },
     },
   ];
 };

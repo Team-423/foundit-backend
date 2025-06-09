@@ -1,39 +1,4 @@
-const generateProdItems = (
-  userTable,
-  brandTable,
-  locationTable,
-  colourTable,
-  categoryTable
-) => {
-  const getBrandId = (brandName) => {
-    const brandDoc = brandTable.find((brand) => {
-      return brand.brand_name === brandName;
-    });
-    return brandDoc ? brandDoc._id : null;
-  };
-
-  const getLocationId = (locationName) => {
-    const locationDoc = locationTable.find((location) => {
-      return location.location_name === locationName;
-    });
-    return locationDoc ? locationDoc._id : null;
-  };
-
-  const getColourId = (colourName) => {
-    const colourDoc = colourTable.find((colour) => {
-      return colour.colour === colourName;
-    });
-    return colourDoc ? colourDoc._id : null;
-  };
-
-  const getCategoryId = (categoryName) => {
-    const categoryDoc = categoryTable.find((category) => {
-      return category.category_name === categoryName;
-    });
-    return categoryDoc ? categoryDoc._id : null;
-  };
-
-  return [
+[
     {
       item_name: "Black Wallet",
       author: userTable[0]._id,
@@ -50,8 +15,6 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
-      address: "Piccadilly Gardens, Manchester M1 1RG, UK",
-      coordinates: { lat: 53.4808, lng: -2.2426 },
     },
     {
       item_name: "Silver iPhone 13",
@@ -69,8 +32,6 @@ const generateProdItems = (
       resolved: true,
       found: true,
       lost: false,
-      address: "Liverpool ONE, 5 Wall St, Liverpool L1 8JQ, UK",
-      coordinates: { lat: 53.4045, lng: -2.9856 },
     },
     {
       item_name: "Blue Umbrella",
@@ -88,8 +49,6 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
-      address: "Trinity Leeds, Albion St, Leeds LS1 5AT, UK",
-      coordinates: { lat: 53.7965, lng: -1.5478 },
     },
     {
       item_name: "Red Backpack",
@@ -107,8 +66,6 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
-      address: "Meadowhall, Sheffield S9 1EP, UK",
-      coordinates: { lat: 53.4125, lng: -1.4346 },
     },
     {
       item_name: "Gold Ring",
@@ -126,8 +83,6 @@ const generateProdItems = (
       resolved: true,
       found: true,
       lost: false,
-      address: "Bullring Shopping Centre, Birmingham B5 4BU, UK",
-      coordinates: { lat: 52.478, lng: -1.8946 },
     },
     {
       item_name: "Grey Hoodie",
@@ -145,8 +100,6 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
-      address: "Northumbria University, Newcastle upon Tyne NE1 8ST, UK",
-      coordinates: { lat: 54.9778, lng: -1.6129 },
     },
     {
       item_name: "Wireless Earbuds",
@@ -164,8 +117,6 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
-      address: "Cabot Circus, Bristol BS1 3BX, UK",
-      coordinates: { lat: 51.4596, lng: -2.5841 },
     },
     {
       item_name: "Brown Scarf",
@@ -183,8 +134,6 @@ const generateProdItems = (
       resolved: true,
       found: true,
       lost: false,
-      address: "Victoria Centre, Nottingham NG1 3QN, UK",
-      coordinates: { lat: 52.9556, lng: -1.146 },
     },
     {
       item_name: "Reusable Water Bottle",
@@ -202,8 +151,6 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
-      address: "Broadgate, Coventry CV1 1NF, UK",
-      coordinates: { lat: 52.4081, lng: -1.5106 },
     },
     {
       item_name: "Set of Keys",
@@ -221,8 +168,6 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
-      address: "York Railway Station, Station Rd, York YO24 1AB, UK",
-      coordinates: { lat: 53.9576, lng: -1.093 },
     },
     {
       item_name: "Sunglasses Case",
@@ -241,8 +186,6 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
-      address: "Manchester Arndale, Manchester M4 3AQ, UK",
-      coordinates: { lat: 53.485, lng: -2.24 },
     },
     {
       item_name: "Charging Cable",
@@ -261,8 +204,6 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
-      address: "Leeds Kirkgate Market, Vicar Ln, Leeds LS2 7HY, UK",
-      coordinates: { lat: 53.7972, lng: -1.5395 },
     },
     {
       item_name: "Baseball Cap",
@@ -281,8 +222,6 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
-      address: "Albert Dock, Liverpool L3 4AF, UK",
-      coordinates: { lat: 53.4001, lng: -2.9935 },
     },
     {
       item_name: "Denim Jacket",
@@ -301,8 +240,6 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
-      address: "Friars Walk, Newport NP20 1EA, UK",
-      coordinates: { lat: 51.5851, lng: -2.9977 },
     },
     {
       item_name: "Water Bottle",
@@ -321,8 +258,6 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
-      address: "The Broadway, Bradford BD1 1JR, UK",
-      coordinates: { lat: 53.792, lng: -1.75 },
     },
     {
       item_name: "Wristband",
@@ -341,8 +276,6 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
-      address: "Midsummer Place, Central Milton Keynes MK9 3GB, UK",
-      coordinates: { lat: 52.0435, lng: -0.7605 },
     },
     {
       item_name: "Children's Teddy Bear",
@@ -361,8 +294,6 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
-      address: "Coventry Transport Museum, Coventry CV1 1JD, UK",
-      coordinates: { lat: 52.4106, lng: -1.51 },
     },
     {
       item_name: "Paperback Novel",
@@ -381,8 +312,6 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
-      address: "Commercial Rd, Portsmouth PO1 1HG, UK",
-      coordinates: { lat: 50.7982, lng: -1.0913 },
     },
     {
       item_name: "Work ID Card",
@@ -400,8 +329,6 @@ const generateProdItems = (
       resolved: false,
       found: true,
       lost: false,
-      address: "Buchanan Galleries, Glasgow G1 2FF, UK",
-      coordinates: { lat: 55.8627, lng: -4.2521 },
     },
     {
       item_name: "Small Key",
@@ -420,10 +347,5 @@ const generateProdItems = (
       resolved: false,
       found: false,
       lost: true,
-      address: "Highcross Leicester, Leicester LE1 4AN, UK",
-      coordinates: { lat: 52.6376, lng: -1.1398 },
     },
-  ];
-};
-
-module.exports = generateProdItems;
+  ]
