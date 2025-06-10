@@ -27,8 +27,14 @@ const { getCategories } = require("./app/controller/category.controller.js");
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+
+const corsOptions = {
+  origin: "https://glittering-madeleine-f055b9.netlify.app/",
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+};
+
+app.use(cors(corsOptions));
 
 app.get("/api", getEndPoints);
 app.get("/api/items", getItems);
