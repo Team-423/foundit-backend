@@ -8,7 +8,10 @@ const { PORT = 9090 } = process.env;
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["https://lostandfound.netlify.app", "http://localhost:3000"],
+    origin: [
+      "https://glittering-madeleine-f055b9.netlify.app",
+      "http://localhost:3000",
+    ],
     methods: ["GET", "POST"],
   },
 });
