@@ -1,3 +1,8 @@
+const createGetBrandId = require("../utils/createGetBrandId");
+const createGetLocationId = require("../utils/createGetLocationId");
+const createGetColourId = require("../utils/createGetColourId");
+const createGetCategoryId = require("../utils/createGetCategoryId");
+
 const generateTestItems = (
   userTable,
   brandTable,
@@ -5,30 +10,10 @@ const generateTestItems = (
   colourTable,
   categoryTable
 ) => {
-  const getBrandId = (brandName) => {
-    const brandDoc = brandTable.find((brand) => brand.brand_name === brandName);
-    return brandDoc ? brandDoc._id : null;
-  };
-  const getLocationId = (locationName) => {
-    const locationDoc = locationTable.find(
-      (location) => location.location_name === locationName
-    );
-    return locationDoc ? locationDoc._id : null;
-  };
-
-  const getColourId = (colourName) => {
-    const colourDoc = colourTable.find(
-      (colour) => colour.colour === colourName
-    );
-    return colourDoc ? colourDoc._id : null;
-  };
-
-  const getCategoryId = (categoryName) => {
-    const categoryDoc = categoryTable.find((category) => {
-      return category.category_name === categoryName;
-    });
-    return categoryDoc ? categoryDoc._id : null;
-  };
+  const getBrandId = createGetBrandId(brandTable);
+  const getLocationId = createGetLocationId(locationTable);
+  const getColourId = createGetColourId(colourTable);
+  const getCategoryId = createGetCategoryId(categoryTable);
 
   return [
     {

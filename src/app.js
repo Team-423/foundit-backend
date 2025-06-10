@@ -47,8 +47,8 @@ app.patch("/api/items/:item_id/resolved", patchItemResolvedById);
 app.patch("/api/items/:item_id/QandA", patchAnswersForItem);
 app.patch("/api/users/:userId", updateUserById);
 
-app.post("/api/items/:item_id/QandA", postQandAForItem);
 app.post("/api/items", postItem);
+app.post("/api/items/:item_id/QandA", postQandAForItem);
 
 app.delete("/api/items/:item_id", deleteItemById);
 
