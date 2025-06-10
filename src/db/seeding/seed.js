@@ -20,14 +20,22 @@ const categories = require(`../data/${ENV}-data/categories.js`);
 async function setupDB() {
   await connectDB();
 
-  try {
-    await Item.deleteMany({});
-    await User.deleteMany({});
-    await Brand.deleteMany({});
-    await Location.deleteMany({});
-    await Colour.deleteMany({});
+  const shouldWipe = process.env.WIPE_DB === "true" || ENV === "test";
 
-    await Category.deleteMany({});
+  try {
+    if (shouldWipe) {
+      await Promise.all([
+        Item.deleteMany({}),
+        User.deleteMany({}),
+        Brand.deleteMany({}),
+        Location.deleteMany({}),
+        Colour.deleteMany({}),
+        Category.deleteMany({}),
+      ]);
+      console.log("🧨 Existing data wiped.");
+    } else {
+      console.log("✨ Existing data preserved.");
+    }
 
     const userTable = await User.insertMany(users);
     const brandTable = await Brand.insertMany(brands);
@@ -45,14 +53,7 @@ async function setupDB() {
 
     await Item.insertMany(items);
 
-    const seededItems = await Item.find()
-      .populate("author", "username")
-      .populate("brand", "brand_name")
-      .populate("location", "location_name")
-      .populate("colour", "colour")
-      .populate("category", "category_name");
-
-    console.log("🌱seeding completed.");
+    console.log("🌱 Seeding completed.");
   } catch (err) {
     console.error("❌ Seeding error:", err);
     throw err;
