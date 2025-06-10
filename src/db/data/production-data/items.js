@@ -1,8 +1,3 @@
-const createGetBrandId = require("../utils/createGetBrandId");
-const createGetLocationId = require("../utils/createGetLocationId");
-const createGetColourId = require("../utils/createGetColourId");
-const createGetCategoryId = require("../utils/createGetCategoryId");
-
 const generateProdItems = (
   userTable,
   brandTable,
@@ -10,10 +5,33 @@ const generateProdItems = (
   colourTable,
   categoryTable
 ) => {
-  const getBrandId = createGetBrandId(brandTable);
-  const getLocationId = createGetLocationId(locationTable);
-  const getColourId = createGetColourId(colourTable);
-  const getCategoryId = createGetCategoryId(categoryTable);
+  const getBrandId = (brandName) => {
+    const brandDoc = brandTable.find((brand) => {
+      return brand.brand_name === brandName;
+    });
+    return brandDoc ? brandDoc._id : null;
+  };
+
+  const getLocationId = (locationName) => {
+    const locationDoc = locationTable.find((location) => {
+      return location.location_name === locationName;
+    });
+    return locationDoc ? locationDoc._id : null;
+  };
+
+  const getColourId = (colourName) => {
+    const colourDoc = colourTable.find((colour) => {
+      return colour.colour === colourName;
+    });
+    return colourDoc ? colourDoc._id : null;
+  };
+
+  const getCategoryId = (categoryName) => {
+    const categoryDoc = categoryTable.find((category) => {
+      return category.category_name === categoryName;
+    });
+    return categoryDoc ? categoryDoc._id : null;
+  };
 
   return [
     {
@@ -185,7 +203,7 @@ const generateProdItems = (
         "Do they work?",
         "Is the case included?",
       ],
-      answers: ["", "", ""],
+      answers: ["", "", ""]
     },
     {
       item_name: "Brown Scarf",

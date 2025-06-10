@@ -76,7 +76,7 @@ const itemSchema = new Schema({
   answers: {
     type: [String],
     default: [],
-  },
+  }
 });
 
 const Item = model("Item", itemSchema);
@@ -129,6 +129,8 @@ const selectItems = async (filters = {}) => {
 
 // GET /api/items/:item_id
 const selectItemById = async (item_id) => {
+  // rename to updateItemById?
+  // "select" implies a read-only operation, not an update
   if (!mongoose.Types.ObjectId.isValid(item_id)) {
     throw {
       status: 400,
@@ -237,10 +239,38 @@ const updateItemResolvedById = async (item_id, resolved) => {
 };
 
 // POST /api/items
-const insertItem = async (resolvedItem) => {
-  // Assumes all IDs have already been resolved in controller
-  const itemDoc = await Item.create(resolvedItem);
-  return itemDoc;
+const insertItem = async (postedItem) => {
+  const {
+    item_name,
+    author,
+    description,
+    category,
+    location,
+    found,
+    lost,
+    address,
+    coordinates,
+  } = postedItem;
+
+  if (
+    !item_name ||
+    !author ||
+    !description ||
+    !category ||
+    !location ||
+    typeof found !== "boolean" ||
+    typeof lost !== "boolean"
+  ) {
+    throw {
+      status: 400,
+      msg: "Missing required fields!",
+    };
+  }
+  try {
+    return Item.create(postedItem);
+  } catch (err) {
+    throw err;
+  }
 };
 
 // DELETE /api/items/:item_id

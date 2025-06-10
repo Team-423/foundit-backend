@@ -3,12 +3,7 @@ const mongoose = require("mongoose");
 const app = require("../src/app.js");
 const setupDB = require("../src/db/seeding/seed.js");
 const { model } = require("mongoose");
-const { User } = require("../src/app/models/user.model.js");
-const { Brand } = require("../src/app/models/brand.model.js");
-const { Colour } = require("../src/app/models/colour.model.js");
-const { Category } = require("../src/app/models/category.model.js");
-const { Item } = require("../src/app/models/item.model.js");
-const { Location } = require("../src/app/models/location.model.js");
+const Item = model("Item");
 
 let testItemId;
 
@@ -54,43 +49,20 @@ describe("GET /api/items/:itemId/QandA", () => {
 
 describe("POST /api/items/:itemId/QandA", () => {
   test("201: successfully adds questions to a newly created item", async () => {
-    const [users, brands, locations, colours, categories] = await Promise.all([
-      User.find(),
-      Brand.find(),
-      Location.find(),
-      Colour.find(),
-      Category.find(),
-    ]);
-
-    const testUser = users[0];
-    const testBrand = brands[0];
-    const testLocation = locations[0];
-    const testColour = colours[0];
-    const testCategory = categories[0];
-
-    const testItem = {
-      item_name: "test_item",
-      author: testUser.username,
-      category: testCategory.category_name,
-      description: "test_description",
-      location: testLocation.location_name,
-      colour: testColour.colour,
-      size: "test_size",
-      brand: testBrand.brand_name,
-      material: "test_material",
-      resolved: false,
-      found: false,
-      lost: true,
-      address: "100 Test Street, Manchester",
-      coordinates: {
-        lat: 53.4808,
-        lng: -2.2426,
-      },
+    // First create a new item using the API
+    const newItem = {
+      item_name: "TEST_NEW_ITEM",
+      author: new mongoose.Types.ObjectId(),
+      category: new mongoose.Types.ObjectId(),
+      description: "Test item for Q&A",
+      location: new mongoose.Types.ObjectId(),
+      found: true,
+      lost: false,
     };
 
     const createdItemRes = await request(app)
       .post("/api/items")
-      .send(testItem)
+      .send(newItem)
       .expect(201);
 
     const newQuestion = "valid testing question";
@@ -101,7 +73,7 @@ describe("POST /api/items/:itemId/QandA", () => {
       .expect(201);
 
     expect(res.body.questionAndAnswerPairs).toBeInstanceOf(Array);
-    expect(res.body.questionAndAnswerPairs.length).toBe(1);
+    expect(res.body.questionAndAnswerPairs.length).toBe(1); // Should have one question
     expect(res.body.questionAndAnswerPairs[0]).toEqual({
       question: newQuestion,
       answer: "",
@@ -119,22 +91,13 @@ describe("POST /api/items/:itemId/QandA", () => {
   });
 
   test("400: returns bad request if question is missing", async () => {
-    const [user, category, location, brand, colour] = await Promise.all([
-      User.findOne(),
-      Category.findOne(),
-      Location.findOne(),
-      Brand.findOne(),
-      Colour.findOne(),
-    ]);
-
+    // First create a new item using the API
     const newItem = {
       item_name: "TEST_NEW_ITEM_2",
-      author: user.username,
-      category: category.category_name,
-      location: location.location_name,
-      brand: brand.brand_name,
-      colour: colour.colour,
+      author: new mongoose.Types.ObjectId(),
+      category: new mongoose.Types.ObjectId(),
       description: "Test item for Q&A validation",
+      location: new mongoose.Types.ObjectId(),
       found: true,
       lost: false,
     };
@@ -145,7 +108,7 @@ describe("POST /api/items/:itemId/QandA", () => {
       .expect(201);
 
     const res = await request(app)
-      .post(`/api/items/${createdItemRes.body.newItem._id}/QandA`)
+      .post(`/api/items/${createdItemRes.body._id}/QandA`)
       .send({})
       .expect(400);
 
