@@ -23,6 +23,7 @@ const prodColourList = [
   { colour: "Olive" },
   { colour: "Multicolour" },
   { colour: "Transparent" },
+  { colour: "Camo" },
   { colour: "Other" },
 ];
 
