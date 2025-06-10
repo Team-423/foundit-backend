@@ -1,3 +1,9 @@
+const getUserId = require("../utils/getUserId");
+const getCategoryId = require("../utils/getCategoryId");
+const getLocationId = require("../utils/getLocationId");
+const getBrandId = require("../utils/getBrandId");
+const getColourId = require("../utils/getColourId");
+
 const {
   selectItemById,
   selectItems,
@@ -102,10 +108,57 @@ exports.patchItemResolvedById = async (req, res, next) => {
 
 // POST /api/items
 exports.postItem = async (req, res, next) => {
-  const postedItem = req.body;
-
   try {
-    const newItem = await insertItem(postedItem);
+    const postedItem = req.body;
+
+    const requiredFields = [
+      "item_name",
+      "author",
+      "category",
+      "description",
+      "location",
+    ];
+    for (const field of requiredFields) {
+      if (!postedItem[field]) {
+        return res
+          .status(400)
+          .send({ msg: `Missing required field: ${field}!` });
+      }
+    }
+
+    const [authorId, categoryId, locationId, brandId, colourId] =
+      await Promise.all([
+        getUserId(postedItem.author),
+        getCategoryId(postedItem.category),
+        getLocationId(postedItem.location),
+        getBrandId(postedItem.brand),
+        getColourId(postedItem.colour),
+      ]);
+
+    const unresolved = {};
+    if (!authorId) unresolved.author = postedItem.author;
+    if (!categoryId) unresolved.category = postedItem.category;
+    if (!locationId) unresolved.location = postedItem.location;
+    if (!brandId) unresolved.brand = postedItem.brand;
+    if (!colourId) unresolved.colour = postedItem.colour;
+
+    if (Object.keys(unresolved).length > 0) {
+      return res.status(400).send({
+        msg: "Failed to resolve one or more reference fields",
+        missingFields: unresolved,
+      });
+    }
+
+    const resolvedItem = {
+      ...postedItem,
+      author: authorId,
+      category: categoryId,
+      location: locationId,
+      brand: brandId,
+      colour: colourId,
+    };
+
+    const newItem = await insertItem(resolvedItem);
     res.status(201).send({ newItem });
   } catch (err) {
     next(err);

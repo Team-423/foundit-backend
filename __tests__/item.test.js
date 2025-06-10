@@ -49,7 +49,7 @@ describe("GET /api/items", () => {
                   lng: expect.any(Number),
                 },
                 questions: expect.any(Array),
-                answers: expect.any(Array)
+                answers: expect.any(Array),
               });
             });
 
@@ -223,7 +223,7 @@ describe("GET /api/items/:item_id", () => {
               lng: expect.any(Number),
             },
             questions: expect.any(Array),
-            answers: expect.any(Array)
+            answers: expect.any(Array),
           });
           expect(typeof item.brand === "string" || item.brand === null);
         });
@@ -308,7 +308,7 @@ describe("PATCH /api/items/:item_id", () => {
               lng: -0.1,
             },
             questions: expect.any(Array),
-            answers: expect.any(Array)
+            answers: expect.any(Array),
           });
         });
     });
@@ -337,7 +337,7 @@ describe("PATCH /api/items/:item_id", () => {
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
             questions: expect.any(Array),
-            answers: expect.any(Array)
+            answers: expect.any(Array),
           });
           expect(typeof item.brand === "string" || item.brand === null);
           expect(typeof item.location === "string" || item.location === null);
@@ -542,7 +542,7 @@ describe("PATCH /api/items/:itemId/resolved", () => {
             found: expect.any(Boolean),
             lost: expect.any(Boolean),
             questions: expect.any(Array),
-            answers: expect.any(Array)
+            answers: expect.any(Array),
           });
         });
     });
@@ -608,14 +608,13 @@ describe("POST /api/items", () => {
 
       const testItem = {
         item_name: "test_item",
-        author: testUser._id,
-        category: testCategory._id,
+        author: testUser.username,
+        category: testCategory.category_name,
         description: "test_description",
-        created_at: "2025-05-01T10:30:00.000Z",
-        location: testLocation._id,
-        colour: testColour._id,
+        location: testLocation.location_name,
+        colour: testColour.colour,
         size: "test_size",
-        brand: testBrand._id,
+        brand: testBrand.brand_name,
         material: "test_material",
         resolved: false,
         found: false,
@@ -653,7 +652,7 @@ describe("POST /api/items", () => {
               lng: -2.2426,
             },
             questions: expect.any(Array),
-            answers: expect.any(Array)
+            answers: expect.any(Array),
           });
         });
     });
@@ -680,7 +679,7 @@ test("400: Item posted is missing two required fields - 'category' & 'location'"
       .send(incompleteTestItem)
       .expect(400)
       .then(({ body }) => {
-        expect(body).toEqual({ msg: "Missing required fields!" });
+        expect(body).toEqual({ msg: `Missing required field: category!` });
       });
   });
 });
