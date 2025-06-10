@@ -57,7 +57,7 @@ exports.updateItemById = async (req, res, next) => {
     address,
     coordinates,
   } = req.body;
-
+  console.log("BODY RECEIVED:", req.body);
   const validNonStringKeys = ["coordinates"];
 
   const itemInfo = Object.entries(req.body);
