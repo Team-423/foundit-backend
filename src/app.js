@@ -14,6 +14,7 @@ const {
   getUserById,
   updateUserById,
   getItemsByUserId,
+  incrementPoints
 } = require("./app/controller/user.controller.js");
 const { getColours } = require("./app/controller/colour.controller.js");
 const { getAllBrands } = require("./app/controller/brand.controller.js");
@@ -58,6 +59,7 @@ app.patch("/api/items/:item_id/resolved", patchItemResolvedById);
 app.patch("/api/items/:item_id/QandA", patchAnswersForItem);
 app.patch("/api/items/:item_id/QandA/questions", patchQuestionsForItem);
 app.patch("/api/users/:userId", updateUserById);
+app.patch("/api/users/:userId/points", incrementPoints);
 
 app.post("/api/items", postItem);
 app.post("/api/items/:item_id/QandA", postQandAForItem);
