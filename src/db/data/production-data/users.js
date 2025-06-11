@@ -189,6 +189,18 @@ const prodUsers = [
     points: 135,
     img_url: "https://picsum.photos/128/128?random=120",
   },
+  {
+    username: "alice",
+    email: "alice@example.com",
+    points: 135,
+    img_url: "https://picsum.photos/128/128?random=121",
+  },
+  {
+    username: "bob",
+    email: "bob@example.com",
+    points: 135,
+    img_url: "https://picsum.photos/128/128?random=122",
+  },
 ];
 
 module.exports = prodUsers;
