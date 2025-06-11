@@ -29,7 +29,7 @@ const generateProdItems = (
       material: "Leather",
       img_url:
         "https://cdn.pixabay.com/photo/2020/03/28/13/26/wallet-4977021_1280.jpg",
-      resolved: false,
+      resolved: true,
       found: false,
       lost: true,
       address: "Piccadilly Gardens, Manchester M1 1RG, UK",
@@ -154,7 +154,7 @@ const generateProdItems = (
       material: "Cotton",
       img_url:
         "https://cdn.pixabay.com/photo/2018/04/04/18/28/golden-3290604_640.jpg",
-      resolved: false,
+      resolved: true,
       found: true,
       lost: false,
       address: "Northumbria University, Newcastle upon Tyne NE1 8ST, UK",
@@ -225,7 +225,7 @@ const generateProdItems = (
       material: "Metal",
       img_url:
         "https://cdn.pixabay.com/photo/2015/08/21/00/18/water-bottle-898332_640.jpg",
-      resolved: false,
+      resolved: true,
       found: true,
       lost: false,
       address: "Broadgate, Coventry CV1 1NF, UK",
@@ -276,7 +276,7 @@ const generateProdItems = (
       material: "Plastic",
       img_url:
         "https://cdn.pixabay.com/photo/2014/10/27/18/29/pencil-cases-505328_1280.jpg",
-      resolved: false,
+      resolved: true,
       found: true,
       lost: false,
       address: "Manchester Arndale, Manchester M4 3AQ, UK",
@@ -324,7 +324,7 @@ const generateProdItems = (
       material: "Cotton",
       img_url:
         "https://cdn.pixabay.com/photo/2021/07/05/22/14/cap-6390191_1280.png",
-      resolved: false,
+      resolved: true,
       found: false,
       lost: true,
       address: "Albert Dock, Liverpool L3 4AF, UK",
@@ -368,7 +368,7 @@ const generateProdItems = (
       material: "Metal",
       img_url:
         "https://m.media-amazon.com/images/W/MEDIAX_1215821-T1/images/I/614xBXi-8pL.__AC_SX300_SY300_QL70_ML2_.jpg",
-      resolved: false,
+      resolved: true,
       found: true,
       lost: false,
       address: "The Broadway, Bradford BD1 1JR, UK",
@@ -416,7 +416,7 @@ const generateProdItems = (
       material: "Fabric",
       img_url:
         "https://m.media-amazon.com/images/W/MEDIAX_1215821-T1/images/I/71knW6nhbVL._AC_SL1166_.jpg",
-      resolved: false,
+      resolved: true,
       found: false,
       lost: true,
       address: "Coventry Transport Museum, Coventry CV1 1JD, UK",
@@ -463,7 +463,7 @@ const generateProdItems = (
       material: "Plastic",
       img_url:
         "https://www.idcardsandaccessories.co.uk/wp-content/uploads/2017/01/ID-Super-Saver-Packs-Cards.png",
-      resolved: false,
+      resolved: true,
       found: true,
       lost: false,
       address: "Buchanan Galleries, Glasgow G1 2FF, UK",
@@ -515,7 +515,7 @@ const generateProdItems = (
       material: "Cotton",
       img_url:
         "https://cdn.pixabay.com/photo/2025/04/24/05/23/woman-9554470_1280.jpg",
-      resolved: false,
+      resolved: true,
       found: true,
       lost: false,
       address: "Manchester Piccadilly, Manchester M1 2BN, UK",
@@ -557,7 +557,7 @@ const generateProdItems = (
       material: "Wool",
       img_url:
         "https://shop.mango.com/assets/rcs/pics/static/T8/fotos/S/87070453_06.jpg?imwidth=1024&imdensity=1&ts=1732187684095",
-      resolved: false,
+      resolved: true,
       found: true,
       lost: false,
       address: "Deansgate, Manchester M3 2BW, UK",
@@ -599,7 +599,7 @@ const generateProdItems = (
       material: "Cotton",
       img_url:
         "https://www.firelabel.co.uk/Assets/User/AutoUpload/AWDis%20Just%20Hoods/Model%20Images/jh014.jpg",
-      resolved: false,
+      resolved: true,
       found: true,
       lost: false,
       address: "St Ann's Square, Manchester M2 7HQ, UK",
@@ -641,7 +641,7 @@ const generateProdItems = (
       material: "Linen",
       img_url:
         "https://blakelyclothing.com/cdn/shop/products/2011WbeigeD-1.jpg?v=1676370765",
-      resolved: false,
+      resolved: true,
       found: true,
       lost: false,
       address: "King Street, Manchester M2 4LQ, UK",
@@ -683,7 +683,7 @@ const generateProdItems = (
       material: "Cotton",
       img_url:
         "https://communityclothing.co.uk/cdn/shop/files/Female_Hooded-Sweatshirt_Apple-Green_Thigh-Up-Front-3.jpg?v=1709136121",
-      resolved: false,
+      resolved: true,
       found: true,
       lost: false,
       address: "Arndale Centre, Manchester M4 3AQ, UK",
@@ -726,7 +726,7 @@ const generateProdItems = (
       material: "Metal",
       img_url:
         "https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      resolved: false,
+      resolved: true,
       found: true,
       lost: false,
       address: "City Square, Leeds LS1 2ES, UK",
@@ -776,7 +776,7 @@ const generateProdItems = (
       material: "Canvas",
       img_url:
         "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      resolved: false,
+      resolved: true,
       found: false,
       lost: true,
       address: "Church Street, Liverpool L1 1DA, UK",

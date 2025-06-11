@@ -197,7 +197,7 @@ const prodUsers = [
   },
   {
     username: "bob",
-    email: "bob@example.com",
+    email: "team.423.locked@gmail.com",
     points: 135,
     img_url: "https://picsum.photos/128/128?random=122",
   },
