@@ -24,6 +24,7 @@ const {
   patchAnswersForItem,
 } = require("./app/controller/qanda.controller.js");
 const { getCategories } = require("./app/controller/category.controller.js");
+const { searchLimiter } = require("./app/rateLimiter/rateLimiter.js");
 
 const app = express();
 
@@ -40,7 +41,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get("/api", getEndPoints);
-app.get("/api/items", getItems);
+app.get("/api/items", getItems, searchLimiter);
 app.get("/api/items/categories", getCategories);
 app.get("/api/items/brands", getAllBrands);
 app.get("/api/items/locations", getAllLocations);
