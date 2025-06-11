@@ -101,9 +101,33 @@ const selectItemsByUserId = async (userId) => {
   }
 };
 
+//PATCH /api/users/:userId/points
+const incrementUserPoints = async (userId, pointsToAdd = 10) => {
+   if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw {
+      status: 400,
+      msg: "Bad request: invalid user ID!",
+    };
+  }
+  try {
+    const updatedUser = User.findByIdAndUpdate(
+      userId,
+       { $inc: { points: pointsToAdd } }, // $inc is increment 
+      { new: true }  //updates the points 
+    );
+     if (!updatedUser) {
+    throw { status: 404, msg: "User not found!" };
+  }
+  return updatedUser
+  } catch (err) {
+    throw err
+  }
+}
+
 module.exports = {
   User,
   selectUserById,
   selectUserByIdToUpdate,
   selectItemsByUserId,
+  incrementUserPoints
 };

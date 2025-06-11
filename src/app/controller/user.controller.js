@@ -2,6 +2,7 @@ const {
   selectUserById,
   selectUserByIdToUpdate,
   selectItemsByUserId,
+  incrementUserPoints
 } = require("../models/user.model.js");
 
 // GET /api/users/:userId
@@ -63,3 +64,23 @@ exports.getItemsByUserId = async (req, res, next) => {
     next(err);
   }
 };
+
+//PATCH /api/users/:userId/points
+exports.incrementPoints = async (req, res, next) => {
+  const { userId } = req.params;
+  const { pointsToAdd } = req.body;
+
+    try {
+    if (typeof pointsToAdd !== "number") {
+      return res.status(400).send({ msg: "pointsToAdd must be a number" });
+    }
+    const updatedUser = await incrementUserPoints(userId, pointsToAdd);
+    if (!updatedUser) {
+      return res.status(404).send({ msg: "User not found" });
+    }
+    res.status(200).send({ user: updatedUser });
+  } catch (err) {
+    next(err);
+  }
+}
+

@@ -259,3 +259,22 @@ describe("GET /api/users/:userId/items", () => {
       });
   });
 });
+
+describe("GET /api/users/:userId/points", () => {
+  test.only("200: Increments points correctly", async () => {
+  const user = await User.create({
+    username: "point_tester",
+    email: "pt@example.com",
+    points: 100
+  });
+
+  const patchBody = { points: 110 }; 
+
+  const res = await request(app)
+    .patch(`/api/users/${user._id}`)
+    .send(patchBody)
+    .expect(200);
+
+  expect(res.body.user.points).toBe(110);
+});
+})
