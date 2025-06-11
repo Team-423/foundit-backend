@@ -1,4 +1,3 @@
-// This must be FIRST
 jest.mock("resend", () => {
   const mockSend = jest.fn();
   return {
