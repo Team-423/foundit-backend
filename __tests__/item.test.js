@@ -573,7 +573,7 @@ describe("PATCH /api/items/:itemId/resolved", () => {
       .send(patchBody)
       .expect(400)
       .then((response) => {
-        expect(response.body.msg).toBe("Bad request: invalid ID format!");
+        expect(response.body.msg).toBe("Bad request: invalid format!");
       });
   });
   test("404: Responds with error message when item_id is valid but does not exist in the database", () => {
@@ -796,4 +796,3 @@ describe("PATCH /api/items/:itemId/resolved (points increment)", () => {
     expect(userAfter.points).toBe(initialPoints);
   });
 });
-
