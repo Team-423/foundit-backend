@@ -273,6 +273,20 @@ const selectResolvedItems = async () => {
   }
 };
 
+// marked resolved 
+const markItemAsResolved = async (itemId) => {
+  if (!mongoose.Types.ObjectId.isValid(itemId)) {
+    throw { status: 400, msg: "Invalid item ID" };
+  }
+  // Find item and set resolved to true
+  const updatedItem = await Item.findByIdAndUpdate(
+    itemId,
+    { $set: { resolved: true } },
+    { new: true }
+  );
+  return updatedItem;
+};
+
 module.exports = {
   Item,
   selectItems,
@@ -282,4 +296,5 @@ module.exports = {
   selectItemByIdToUpdate,
   updateItemResolvedById,
   selectResolvedItems,
+   markItemAsResolved
 };

@@ -738,3 +738,62 @@ describe("GET /api/items/resolved", () => {
       });
   });
 });
+// PATCH api/items/:itemId/resolved
+describe("PATCH /api/items/:itemId/resolved (points increment)", () => {
+  test("200: Marking item as resolved increases author's points by 10", async () => {
+    // Find a user and one of their items
+    const user = await User.findOne();
+    const item = await Item.create({
+      item_name: "Should increase points",
+      author: user._id,
+      category: (await Category.findOne())._id,
+      description: "Testing points",
+      location: (await Location.findOne())._id,
+      found: false,
+      lost: true,
+      resolved: false,
+    });
+
+    // Get initial points
+    const userBefore = await User.findById(user._id);
+    const initialPoints = userBefore.points || 0;
+
+    // Mark item as resolved
+    await request(app)
+      .patch(`/api/items/${item._id}/resolved`)
+      .send({ resolved: true })
+      .expect(200);
+
+    // Refetch user
+    const userAfter = await User.findById(user._id);
+    expect(userAfter.points).toBe(initialPoints + 10);
+  });
+
+  test("Does NOT increment points if resolved is set to false", async () => {
+    const user = await User.findOne();
+    const item = await Item.create({
+      item_name: "Should not increase points",
+      author: user._id,
+      category: (await Category.findOne())._id,
+      description: "Not resolved",
+      location: (await Location.findOne())._id,
+      found: false,
+      lost: true,
+      resolved: false,
+    });
+
+    const userBefore = await User.findById(user._id);
+    const initialPoints = userBefore.points || 0;
+
+    // Mark item as NOT resolved
+    await request(app)
+      .patch(`/api/items/${item._id}/resolved`)
+      .send({ resolved: false })
+      .expect(200);
+
+    // Refetch user
+    const userAfter = await User.findById(user._id);
+    expect(userAfter.points).toBe(initialPoints);
+  });
+});
+

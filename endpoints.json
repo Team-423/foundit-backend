@@ -432,5 +432,23 @@
         { "question": "question3", "answer": "It's black" }
       ]
     }
+  },
+  "PATCH /api/users/:userId/points": {
+  "description": "Increments a user's points by a specified amount. Intended for internal use, but can be used to manually adjust user points if needed.",
+  "parameters": {
+    "userId": "string (MongoDB ObjectId format)"
+  },
+  "exampleRequest": {
+    "pointsToAdd": 10
+  },
+  "exampleResponse": {
+    "user": {
+      "_id": "665f3f501234abcd5678ef90",
+      "username": "johndoe",
+      "email": "johndoe@example.com",
+      "points": 130
+    }
   }
+}
+
 }

@@ -110,7 +110,7 @@ const incrementUserPoints = async (userId, pointsToAdd = 10) => {
     };
   }
   try {
-    const updatedUser = User.findByIdAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       userId,
        { $inc: { points: pointsToAdd } }, // $inc is increment 
       { new: true }  //updates the points 
