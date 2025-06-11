@@ -100,13 +100,21 @@ exports.patchItemResolvedById = async (req, res, next) => {
       .status(400)
       .send({ msg: "Bad request: 'resolved' must be a boolean value!" });
   }
-
   try {
+    const item = await selectItemById(item_id);
+    if (!item) return res.status(404).send({ msg: "Item not found!" });
+
+    const wasResolved = item.resolved; 
+    
     const updatedItem = await updateItemResolvedById(item_id, resolved);
 
-    if (resolved === true) {
-      await incrementUserPoints(updatedItem.author, 10)
+  
+    if (!wasResolved && resolved === true) {
+    
+      const authorId = updatedItem.author._id ? updatedItem.author._id : updatedItem.author;
+      await incrementUserPoints(authorId.toString(), 10);
     }
+
     res.status(200).send({ updatedItem });
   } catch (err) {
     next(err);
