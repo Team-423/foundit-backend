@@ -17,7 +17,7 @@ const generateProdItems = (
 
   return [
     {
-      item_name: "Black Wallet",
+      item_name: "Wallet",
       author: userTable[0]._id,
       category: getCategoryId("Accessories"),
       description: "Leather wallet containing ID and credit cards",
@@ -25,24 +25,24 @@ const generateProdItems = (
       location: getLocationId("Manchester"),
       colour: getColourId("Black"),
       size: "Small",
-      brand: getBrandId("Fossil"),
+      brand: getBrandId("Calvin Klein"),
       material: "Leather",
       img_url:
-        "https://cdn.pixabay.com/photo/2020/03/28/13/26/wallet-4977021_1280.jpg",
+        "https://images1.vinted.net/t/02_01cb3_dsJDwvbYXiwLZfynAK43wUxK/f800/1749636963.jpeg?s=a4384c7d32fa7d2afa262d2ee9df37df237fda1d",
       resolved: true,
       found: false,
       lost: true,
       address: "Piccadilly Gardens, Manchester M1 1RG, UK",
       coordinates: { lat: 53.4808, lng: -2.2426 },
       questions: [
-        "What color is the wallet?",
+        "Id name?",
         "Are there any cards inside?",
         "Where exactly was it found?",
       ],
       answers: ["", "", ""],
     },
     {
-      item_name: "Silver iPhone 13",
+      item_name: "iPhone 13",
       author: userTable[1]._id,
       category: getCategoryId("Electronics"),
       description: "Phone with cracked screen and red case",
@@ -53,7 +53,7 @@ const generateProdItems = (
       brand: getBrandId("Apple"),
       material: "Metal/Glass",
       img_url:
-        "https://cdn.pixabay.com/photo/2021/09/25/17/43/iphone-13-6655520_1280.jpg",
+        "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRVTs21Rew8E44UatqrYdkxcI7bLHEq9sS06zwuI_z3yGbjfbCrKYNX4FfN4hXpckgs8zwSrAOu",
       resolved: true,
       found: true,
       lost: false,
@@ -67,7 +67,7 @@ const generateProdItems = (
       answers: ["Red", "Yes", "Cracked"],
     },
     {
-      item_name: "Blue Umbrella",
+      item_name: "Umbrella",
       author: userTable[2]._id,
       category: getCategoryId("Accessories"),
       description: "Compact foldable umbrella with floral pattern",
@@ -78,7 +78,7 @@ const generateProdItems = (
       brand: getBrandId("Totes"),
       material: "Nylon",
       img_url:
-        "https://cdn.pixabay.com/photo/2018/01/16/23/10/umbrella-3087101_1280.jpg",
+        "https://images1.vinted.net/t/04_012a3_jdWJTrHzUVrSALUCb4mhmoxs/f800/1748971129.jpeg?s=9e623efd1b43f17f7229d54cd790baebd52737db",
       resolved: false,
       found: true,
       lost: false,
@@ -92,18 +92,18 @@ const generateProdItems = (
       answers: ["", "", ""],
     },
     {
-      item_name: "Red Backpack",
+      item_name: "Backpack",
       author: userTable[3]._id,
       category: getCategoryId("Bags"),
-      description: "Red Nike backpack with gym clothes and water bottle",
+      description: "Red backpack with gym clothes and water bottle",
       created_at: new Date("2025-05-15T08:00:00Z"),
       location: getLocationId("Sheffield"),
       colour: getColourId("Red"),
       size: "Large",
-      brand: getBrandId("Nike"),
+      brand: getBrandId("Berghaus"),
       material: "Polyester",
       img_url:
-        "https://cdn.pixabay.com/photo/2015/08/10/20/14/handbag-883110_1280.jpg",
+        "https://images1.vinted.net/t/02_020ec_iuHViPDB8wmn18NoKq5CUyZf/f800/1749634481.jpeg?s=c6298e106c8bb01f26119b8df85f2cc9b18c9a26",
       resolved: false,
       found: false,
       lost: true,
@@ -128,7 +128,7 @@ const generateProdItems = (
       brand: getBrandId("Other/Unknown"),
       material: "Gold",
       img_url:
-        "https://cdn.pixabay.com/photo/2018/04/04/18/28/golden-3290604_640.jpg",
+        "https://images1.vinted.net/t/04_00b74_KQHEovBgNcmaS8ymDUTTPdZ5/f800/1749622824.jpeg?s=cafed0fb33e775e3b91b4e8b70fc5f5b3090b582",
       resolved: true,
       found: true,
       lost: false,
@@ -142,10 +142,10 @@ const generateProdItems = (
       answers: ["J.S.", "Size 6", "Yes, 14k"],
     },
     {
-      item_name: "Grey Hoodie",
+      item_name: "Hoodie",
       author: userTable[4]._id,
       category: getCategoryId("Clothing"),
-      description: "Grey zip-up hoodie left on lecture hall seat",
+      description: "Grey string hoodie left on lecture hall seat",
       created_at: new Date("2025-04-28T12:00:00Z"),
       location: getLocationId("Newcastle upon Tyne"),
       colour: getColourId("Grey"),
@@ -153,7 +153,7 @@ const generateProdItems = (
       brand: getBrandId("H&M"),
       material: "Cotton",
       img_url:
-        "https://cdn.pixabay.com/photo/2018/04/04/18/28/golden-3290604_640.jpg",
+        "https://images1.vinted.net/t/04_01c4e_spngoitCP6SwsqBAasjGrnfh/f800/1749569811.jpeg?s=7b06b70bedf3d056c55d6655b0a1459a7ef4963b",
       resolved: true,
       found: true,
       lost: false,
@@ -163,7 +163,7 @@ const generateProdItems = (
       answers: ["", "", ""],
     },
     {
-      item_name: "Wireless Earbuds",
+      item_name: "Earbuds",
       author: userTable[5]._id,
       category: getCategoryId("Electronics"),
       description: "Black case containing wireless earbuds",
@@ -174,7 +174,7 @@ const generateProdItems = (
       brand: getBrandId("Samsung"),
       material: "Plastic",
       img_url:
-        "https://cdn.pixabay.com/photo/2016/03/19/23/03/handsfree-1267605_640.jpg",
+        "https://images1.vinted.net/t/02_01857_4nDUgE25MJQ5d4fenKzkYJ5X/f800/1749637418.jpeg?s=186fc3378cbd7fa5729fa9c2bf2f9ff0a19720cd",
       resolved: false,
       found: false,
       lost: true,
@@ -188,7 +188,7 @@ const generateProdItems = (
       answers: ["", "", ""],
     },
     {
-      item_name: "Brown Scarf",
+      item_name: "Scarf",
       author: userTable[6]._id,
       category: getCategoryId("Clothing"),
       description: "Knitted wool scarf with tassels",
@@ -199,7 +199,7 @@ const generateProdItems = (
       brand: getBrandId("Uniqlo"),
       material: "Wool",
       img_url:
-        "https://cdn.pixabay.com/photo/2016/01/04/21/12/dog-1121623_640.jpg",
+        "https://images1.vinted.net/t/03_022a0_BfmUTWX8RZVtssiG4SpDvuRK/f800/1749384980.jpeg?s=3f04eb918af25bc7f59969bafd168ab4f0d9ff6d",
       resolved: true,
       found: true,
       lost: false,
@@ -213,7 +213,7 @@ const generateProdItems = (
       answers: ["180cm", "Yes", "Like new"],
     },
     {
-      item_name: "Reusable Water Bottle",
+      item_name: "Water Bottle",
       author: userTable[7]._id,
       category: getCategoryId("Accessories"),
       description: "Blue metal bottle with 'Team NC' sticker",
@@ -224,7 +224,7 @@ const generateProdItems = (
       brand: getBrandId("Hydro Flask"),
       material: "Metal",
       img_url:
-        "https://cdn.pixabay.com/photo/2015/08/21/00/18/water-bottle-898332_640.jpg",
+        "https://images1.vinted.net/t/03_013b1_v4Pai3f2cGjNiDWjrfeN4V5v/f800/1749583988.jpeg?s=2adebb6b1ac1a2417e23e81a23f8e510a342a95f",
       resolved: true,
       found: true,
       lost: false,
@@ -248,8 +248,7 @@ const generateProdItems = (
       size: "Small",
       brand: getBrandId("Yale"),
       material: "Metal",
-      img_url:
-        "https://cdn.pixabay.com/photo/2017/03/16/08/35/key-2148476_640.jpg",
+      img_url: "https://www.lakelandlocks.co.uk/images/lost-keys.jpg",
       resolved: false,
       found: false,
       lost: true,
@@ -275,7 +274,7 @@ const generateProdItems = (
       brand: getBrandId("Oakley"),
       material: "Plastic",
       img_url:
-        "https://cdn.pixabay.com/photo/2014/10/27/18/29/pencil-cases-505328_1280.jpg",
+        "https://images1.vinted.net/t/03_02645_bBLqbdZnh8SPJvvuwESp3BPe/f800/1749328516.jpeg?s=1edd32e561bee8c81fe7e794e06270a482761028",
       resolved: true,
       found: true,
       lost: false,
@@ -297,7 +296,7 @@ const generateProdItems = (
       brand: getBrandId("Apple"),
       material: "Plastic",
       img_url:
-        "https://cdn.pixabay.com/photo/2017/05/24/21/33/lightning-2341641_1280.jpg",
+        "https://images1.vinted.net/t/04_00a06_Y7TdHWePWoPD6cEDor57Br4X/f800/1749589817.jpeg?s=0cd9169aea44aebe0037b8a6ba44689b7c0f5823",
       resolved: false,
       found: true,
       lost: false,
@@ -315,15 +314,15 @@ const generateProdItems = (
       author: userTable[7]._id,
       category: getCategoryId("Clothing"),
       description:
-        "Adjustable cap with a faded red colour and an unreadable logo on the front.",
+        "Adjustable cap with a faded brown colour and an unreadable logo on the front.",
       created_at: new Date("2025-05-14T09:10:00Z"),
       location: getLocationId("Liverpool"),
-      colour: getColourId("Red"),
+      colour: getColourId("Brown"),
       size: "Medium",
       brand: getBrandId("Other/Unknown"),
       material: "Cotton",
       img_url:
-        "https://cdn.pixabay.com/photo/2021/07/05/22/14/cap-6390191_1280.png",
+        "https://images1.vinted.net/t/02_014e3_G7r1t4CbT1JhJTrsqSNENBjL/f800/1749639271.jpeg?s=25e29f8b58a9c1a01a2c441436e5ab91242e36d2",
       resolved: true,
       found: false,
       lost: true,
@@ -345,7 +344,7 @@ const generateProdItems = (
       brand: getBrandId("The North Face"),
       material: "Denim",
       img_url:
-        "https://cdn.pixabay.com/photo/2017/08/01/15/00/blue-2566082_1280.jpg",
+        "https://images1.vinted.net/t/01_01b55_232gg9sdkhDVtMDKKk7APyEH/f800/1746284689.jpeg?s=555870e313443ade961b557f3fb917269af33369",
       resolved: false,
       found: false,
       lost: true,
@@ -367,7 +366,7 @@ const generateProdItems = (
       brand: getBrandId("Hydro Flask"),
       material: "Metal",
       img_url:
-        "https://m.media-amazon.com/images/W/MEDIAX_1215821-T1/images/I/614xBXi-8pL.__AC_SX300_SY300_QL70_ML2_.jpg",
+        "https://images1.vinted.net/t/02_01a5f_eQQkCLgLjgo2t9HtQj7PfWrv/f800/1749482230.jpeg?s=ce90b6318173ece12aafdca69ed2a359b4035630",
       resolved: true,
       found: true,
       lost: false,
@@ -390,10 +389,10 @@ const generateProdItems = (
       location: getLocationId("Milton Keynes"),
       colour: getColourId("Yellow"),
       size: "Small",
-      brand: getBrandId("Other/Unknown"),
+      brand: getBrandId("Nike"),
       material: "Silicone",
       img_url:
-        "https://schoolmeritstickers.com/wp-content/uploads/2022/04/1836.jpg.webp",
+        "https://images1.vinted.net/t/01_0103a_v2LNLtFseG1WjtptoRodPQgc/f800/1747926657.jpeg?s=210eb25655bbba235fd78e3915d4556c47cb2768",
       resolved: false,
       found: true,
       lost: false,
@@ -403,7 +402,7 @@ const generateProdItems = (
       answers: ["", "", ""],
     },
     {
-      item_name: "Children's Teddy Bear",
+      item_name: "Teddy Bear",
       author: userTable[16]._id,
       category: getCategoryId("Toys & Games"),
       description:
@@ -415,7 +414,7 @@ const generateProdItems = (
       brand: getBrandId("Other/Unknown"),
       material: "Fabric",
       img_url:
-        "https://m.media-amazon.com/images/W/MEDIAX_1215821-T1/images/I/71knW6nhbVL._AC_SL1166_.jpg",
+        "https://images1.vinted.net/t/02_01bc6_Ua8p8fjTusr5amiLiQhJwG24/f800/1749588845.jpeg?s=5922537db93d3a8f283a0927c79a4b38fc2d7974",
       resolved: true,
       found: false,
       lost: true,
@@ -437,7 +436,7 @@ const generateProdItems = (
       brand: getBrandId("Other/Unknown"),
       material: "Paper",
       img_url:
-        "https://s3-eu-west-1.amazonaws.com/files.mixam.com/blog/b0632f36-98aa-4752-8cf6-5421f33f9900.png",
+        "https://images1.vinted.net/t/04_010a7_rjX8d3fehttAFcPMrNnLrXSh/f800/1749642709.jpeg?s=68c3efa7c0589cfe1e39350cbf59c5f746605a8b",
       resolved: false,
       found: true,
       lost: false,
@@ -451,18 +450,18 @@ const generateProdItems = (
       answers: ["", "", ""],
     },
     {
-      item_name: "Work ID Card",
+      item_name: "ID Card Case",
       author: userTable[23]._id,
       category: getCategoryId("Documents & IDs"),
-      description: "Photo of a woman named 'Sally Maine'.",
+      description: "Photo of a woman'.",
       created_at: new Date("2025-05-20T12:15:00Z"),
       location: getLocationId("Glasgow"),
-      colour: getColourId("White"),
+      colour: getColourId("Black"),
       size: "Small",
       brand: getBrandId("Other/Unknown"),
       material: "Plastic",
       img_url:
-        "https://www.idcardsandaccessories.co.uk/wp-content/uploads/2017/01/ID-Super-Saver-Packs-Cards.png",
+        "https://images1.vinted.net/t/04_021cf_mazSaG9wEqVJhBMSr1atBSek/f800/1748952125.jpeg?s=256914eadb77b43b38e77c84766ffdb6046961fa",
       resolved: true,
       found: true,
       lost: false,
@@ -476,19 +475,19 @@ const generateProdItems = (
       answers: ["", "", ""],
     },
     {
-      item_name: "Small Key",
+      item_name: "Keys",
       author: userTable[14]._id,
       category: getCategoryId("Keys"),
       description:
         "A single, small brass key with a worn head. No discernible markings.",
       created_at: new Date("2025-05-21T15:00:00Z"),
       location: getLocationId("Leicester"),
-      colour: getColourId("Gold"),
+      colour: getColourId("Silver"),
       size: "Small",
       brand: getBrandId("Yale"),
       material: "Metal",
       img_url:
-        "https://media.kasperskydaily.com/wp-content/uploads/sites/92/2015/12/06023556/golden-key-featured.jpg",
+        "https://thelockspecialist.co.uk/wp-content/uploads/2025/01/lost-keys-1024x683.jpg",
       resolved: false,
       found: false,
       lost: true,
@@ -514,7 +513,7 @@ const generateProdItems = (
       brand: getBrandId("Calvin Klein"),
       material: "Cotton",
       img_url:
-        "https://cdn.pixabay.com/photo/2025/04/24/05/23/woman-9554470_1280.jpg",
+        "https://images1.vinted.net/t/03_01922_wVe8DB6565V52VKi3is3rvqX/f800/1734791989.jpeg?s=776e5680308cf7c27611e1ddfb4c929a6b5a17f7",
       resolved: true,
       found: true,
       lost: false,
@@ -535,7 +534,7 @@ const generateProdItems = (
       brand: getBrandId("Columbia"),
       material: "Polyester",
       img_url:
-        "https://img.ltwebstatic.com/images3_spmp/2024/03/04/d3/17095394974f918e5f040778eb70d6d66e6695fb9e_thumbnail_405x.jpg",
+        "https://images1.vinted.net/t/03_005cc_Kb6UanEnzPSNkQBrT3SfMxvu/f800/1749298979.jpeg?s=ae817215cae84f5557fef20f8b344917804a08d2",
       resolved: false,
       found: true,
       lost: false,
@@ -556,7 +555,7 @@ const generateProdItems = (
       brand: getBrandId("H&M"),
       material: "Wool",
       img_url:
-        "https://shop.mango.com/assets/rcs/pics/static/T8/fotos/S/87070453_06.jpg?imwidth=1024&imdensity=1&ts=1732187684095",
+        "https://images1.vinted.net/t/01_00163_fXo8GDN1X4NkrWr3XF1VnUmJ/f800/1749549379.jpeg?s=3b33b4a49e2df1d5a17232c96449562617d00984",
       resolved: true,
       found: true,
       lost: false,
@@ -577,7 +576,7 @@ const generateProdItems = (
       brand: getBrandId("Columbia"),
       material: "Polyester",
       img_url:
-        "https://ml.thcdn.com/productimg/381/533/15033667-1255133056417637.jpg",
+        "https://images1.vinted.net/t/03_024c9_uUCG3fVigTbSStrekRnkKbGp/f800/1749143230.jpeg?s=8c3527db883be9cfec87a35dec7a841a1e7dea7a",
       resolved: false,
       found: true,
       lost: false,
@@ -590,7 +589,7 @@ const generateProdItems = (
       item_name: "Hoodie",
       author: userTable[14]._id,
       category: getCategoryId("Clothing"),
-      description: "Camo cargo Hoodie, multiple pockets, size M.",
+      description: "Grey striped graphic hoodie",
       created_at: new Date("2025-05-26T13:30:00Z"),
       location: getLocationId("Manchester"),
       colour: getColourId("Camo"),
@@ -598,7 +597,7 @@ const generateProdItems = (
       brand: getBrandId("H&M"),
       material: "Cotton",
       img_url:
-        "https://www.firelabel.co.uk/Assets/User/AutoUpload/AWDis%20Just%20Hoods/Model%20Images/jh014.jpg",
+        "https://images1.vinted.net/t/02_0052b_X88LTZprvK9jE1ipMjxNCUQH/f800/1749641996.jpeg?s=b695a6f8b394ca2f215889bb9f7882a547029056",
       resolved: true,
       found: true,
       lost: false,
@@ -619,7 +618,7 @@ const generateProdItems = (
       brand: getBrandId("Calvin Klein"),
       material: "Wool",
       img_url:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6JpaOGNATX2e9WwV6Jb9e1bMkyHrNoyv2A&s",
+        "https://images1.vinted.net/t/03_01160_WodnveUCHzM7meDzbvAqbUH4/f800/1749599133.jpeg?s=fd0b04dfce04ce771b39d46a2595fe09c4311661",
       resolved: false,
       found: true,
       lost: false,
@@ -640,7 +639,7 @@ const generateProdItems = (
       brand: getBrandId("H&M"),
       material: "Linen",
       img_url:
-        "https://blakelyclothing.com/cdn/shop/products/2011WbeigeD-1.jpg?v=1676370765",
+        "https://images1.vinted.net/t/04_0102e_gGMuU78NuwhL4Xqfx6MqeXVn/f800/1749631605.jpeg?s=8242d84f54f643643988a67d4b260520515165b1",
       resolved: true,
       found: true,
       lost: false,
@@ -661,7 +660,7 @@ const generateProdItems = (
       brand: getBrandId("Columbia"),
       material: "Polyester",
       img_url:
-        "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcR8hNWXG6pl5cs9VDCl_WZXT3rxPE4mxmOlJBxnldwbaQUMM21AOWKA83KmPKSzIJzaQyUBGmQ&usqp=CAc",
+        "https://images1.vinted.net/t/01_00bc6_3kUiSS1KoKvmXXo3we1UPFz3/f800/1749634511.jpeg?s=2423e58ebae6aa6656621e8e5732ad7fc8e9af56",
       resolved: false,
       found: true,
       lost: false,
@@ -682,7 +681,7 @@ const generateProdItems = (
       brand: getBrandId("Calvin Klein"),
       material: "Cotton",
       img_url:
-        "https://communityclothing.co.uk/cdn/shop/files/Female_Hooded-Sweatshirt_Apple-Green_Thigh-Up-Front-3.jpg?v=1709136121",
+        "https://images1.vinted.net/t/04_0116f_LD7DfeJzc4JiGkvr3e8jaWew/f800/1749565959.jpeg?s=11f7201095ab692818d6380b2b0e5cb6aae00966",
       resolved: true,
       found: true,
       lost: false,
@@ -703,7 +702,7 @@ const generateProdItems = (
       brand: getBrandId("H&M"),
       material: "Cotton",
       img_url:
-        "https://www.houseofblanks.com/cdn/shop/files/HOB_ForestHoodie_553.jpg?v=1699496967&width=1946",
+        "https://images1.vinted.net/t/04_004ba_DReCjiMRjQfQXLvNGTcPApAd/f800/1749582357.jpeg?s=d05bf77f760af9f0b4e5b21ec9de0eb7ad70fb98",
       resolved: false,
       found: true,
       lost: false,
@@ -725,7 +724,7 @@ const generateProdItems = (
       brand: getBrandId("Hydro Flask"),
       material: "Metal",
       img_url:
-        "https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images1.vinted.net/t/02_012bd_5uuqUroqaLJcchaD9FG9e4rq/f800/1749630877.jpeg?s=7acc1b59fa556370ee122ad7ec3e43527b0dac95",
       resolved: true,
       found: true,
       lost: false,
@@ -750,7 +749,7 @@ const generateProdItems = (
       brand: getBrandId("Apple"),
       material: "Plastic",
       img_url:
-        "https://images.unsplash.com/photo-1636093973933-dcdc3a3dffbe?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images1.vinted.net/t/02_00265_oM5yDjJ4JE5cJ4GYup9GfNY5/f800/1749570515.jpeg?s=7f1711dc11246387d69f022a027f8583480298e6",
       resolved: false,
       found: true,
       lost: false,
@@ -801,7 +800,7 @@ const generateProdItems = (
       brand: getBrandId("Prada"),
       material: "Polyester",
       img_url:
-        "https://images.unsplash.com/photo-1459704399103-46407a2d85d1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images1.vinted.net/t/02_01385_FLCjBg6EFCYeJFw5nqS25Zf6/f800/1749394035.jpeg?s=4a974c6d79be53d21330aeb82e7ea740f54f54ff",
       resolved: false,
       found: false,
       lost: true,

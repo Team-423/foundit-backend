@@ -52,6 +52,7 @@ const prodBrandList = [
   { brand_name: "Oakley" },
   { brand_name: "Yale" },
   { brand_name: "Hydro Flask" },
+  { brand_name: "Berghaus" },
   { brand_name: "Totes" },
 ];
 
