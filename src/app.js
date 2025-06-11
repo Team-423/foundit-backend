@@ -22,6 +22,7 @@ const {
   getQandAForItem,
   postQandAForItem,
   patchAnswersForItem,
+  patchQuestionsForItem,
 } = require("./app/controller/qanda.controller.js");
 const { getCategories } = require("./app/controller/category.controller.js");
 
@@ -54,6 +55,7 @@ app.get("/api/users/:userId/items", getItemsByUserId);
 app.patch("/api/items/:item_id", updateItemById);
 app.patch("/api/items/:item_id/resolved", patchItemResolvedById);
 app.patch("/api/items/:item_id/QandA", patchAnswersForItem);
+app.patch("/api/items/:item_id/QandA/questions", patchQuestionsForItem);
 app.patch("/api/users/:userId", updateUserById);
 
 app.post("/api/items", postItem);
