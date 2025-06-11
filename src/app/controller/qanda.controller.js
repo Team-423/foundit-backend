@@ -3,6 +3,7 @@ const {
   findQandAByItemId,
   createQandAForItem,
   updateAnswersForItem,
+  updateQuestionsForItem,
 } = require("../models/qanda.model.js");
 
 //GET /api/items/:item_id/QandA
@@ -50,6 +51,29 @@ exports.patchAnswersForItem = async (req, res, next) => {
     }
 
     const questionAndAnswerPairs = await updateAnswersForItem(item_id, answers);
+    res.status(200).send(questionAndAnswerPairs);
+  } catch (err) {
+    if (err.status) {
+      return res.status(err.status).send({ msg: err.msg });
+    }
+    next(err);
+  }
+};
+
+//PATCH /api/items/:item_id/QandA/questions
+exports.patchQuestionsForItem = async (req, res, next) => {
+  try {
+    const { item_id } = req.params;
+    const { questions } = req.body;
+
+    if (!questions) {
+      return res.status(400).send({ msg: "Questions array is required" });
+    }
+
+    const questionAndAnswerPairs = await updateQuestionsForItem(
+      item_id,
+      questions
+    );
     res.status(200).send(questionAndAnswerPairs);
   } catch (err) {
     if (err.status) {
