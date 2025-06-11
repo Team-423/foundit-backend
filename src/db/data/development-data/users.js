@@ -69,6 +69,18 @@ const devUsers = [
     img_url:
       "https://i0.wp.com/shanemcdonald.ie/wp-content/uploads/2017/02/Twitter-Egg.png?resize=500%2C500&ssl=1",
   },
+  {
+    username: "alice",
+    email: "alice@example.com",
+    points: 135,
+    img_url: "https://picsum.photos/128/128?random=121",
+  },
+  {
+    username: "bob",
+    email: "team.423.locked@gmail.com",
+    points: 135,
+    img_url: "https://picsum.photos/128/128?random=122",
+  },
 ];
 
 module.exports = devUsers;
