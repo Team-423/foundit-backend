@@ -1,7 +1,7 @@
 const devUsers = [
   {
     username: "maria.watson",
-    email: "maria.watson@example.com",
+    email: "team.423.locked@gmail.com",
     points: 110,
     img_url:
       "https://i0.wp.com/shanemcdonald.ie/wp-content/uploads/2017/02/Twitter-Egg.png?resize=500%2C500&ssl=1",

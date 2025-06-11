@@ -202,3 +202,43 @@ describe("PATCH /api/items/:itemId/QandA", () => {
     );
   });
 });
+
+describe("PATCH /api/items/:itemId/QandA/questions", () => {
+  test("200: successfully updates questions for existing answers", async () => {
+    const item = await Item.findOne({ item_name: "TEST_ITEM_1_WALLET" });
+    const newQuestions = ["new question 1", "new question 2", "new question 3"];
+
+    const res = await request(app)
+      .patch(`/api/items/${item._id}/QandA/questions`)
+      .send({ questions: newQuestions })
+      .expect(200);
+
+    expect(res.body.questionAndAnswerPairs).toBeInstanceOf(Array);
+    expect(res.body.questionAndAnswerPairs.length).toBe(3);
+
+    // Check each question matches exactly with the request body
+    res.body.questionAndAnswerPairs.forEach((pair, index) => {
+      expect(pair.question).toEqual(newQuestions[index]);
+    });
+  });
+
+  test("404: returns not found if item does not exist", async () => {
+    const nonExistentId = new mongoose.Types.ObjectId();
+    const res = await request(app)
+      .patch(`/api/items/${nonExistentId}/QandA/questions`)
+      .send({ questions: ["Question 1"] })
+      .expect(404);
+
+    expect(res.body.msg).toBe("Item not found");
+  });
+
+  test("400: returns bad request if questions array is missing", async () => {
+    const item = await Item.findOne({ item_name: "TEST_ITEM_1_WALLET" });
+    const res = await request(app)
+      .patch(`/api/items/${item._id}/QandA/questions`)
+      .send({})
+      .expect(400);
+
+    expect(res.body.msg).toBe("Questions array is required");
+  });
+});
