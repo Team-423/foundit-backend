@@ -12,7 +12,10 @@ const {
   removeItemById,
   updateItemResolvedById,
   selectResolvedItems,
+
 } = require("../models/item.model");
+
+const { incrementUserPoints } = require("../models/user.model.js");
 
 // GET /api/items/
 exports.getItems = async (req, res, next) => {
@@ -100,6 +103,10 @@ exports.patchItemResolvedById = async (req, res, next) => {
 
   try {
     const updatedItem = await updateItemResolvedById(item_id, resolved);
+
+    if (resolved === true) {
+      await incrementUserPoints(updatedItem.author, 10)
+    }
     res.status(200).send({ updatedItem });
   } catch (err) {
     next(err);
@@ -188,4 +195,7 @@ exports.getResolvedItems = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+
+
 };
+ 
