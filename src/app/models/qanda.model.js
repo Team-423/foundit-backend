@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Item } = require("./item.model.js");
 
-////GET /api/items/:item_id/QandA
+// GET /api/items/:item_id/QandA
 exports.findQandAByItemId = async (item_id) => {
   try {
     const item = await Item.findById(item_id);
@@ -40,7 +40,7 @@ exports.findQandAByItemId = async (item_id) => {
   }
 };
 
-//POST /api/items/:item_id/QandA
+// POST /api/items/:item_id/QandA
 exports.createQandAForItem = async (item_id, question) => {
   try {
     const item = await Item.findById(item_id);
@@ -72,7 +72,7 @@ exports.createQandAForItem = async (item_id, question) => {
   }
 };
 
-//PATCH /api/items/:item_id/QandA
+// PATCH /api/items/:item_id/QandA
 exports.updateAnswersForItem = async (item_id, answers) => {
   try {
     const item = await Item.findById(item_id);
@@ -116,7 +116,7 @@ exports.updateAnswersForItem = async (item_id, answers) => {
   }
 };
 
-//PATCH /api/items/:item_id/QandA/questions
+// PATCH /api/items/:item_id/QandA/questions
 exports.updateQuestionsForItem = async (item_id, questions) => {
   try {
     const item = await Item.findById(item_id);

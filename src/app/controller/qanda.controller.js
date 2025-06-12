@@ -9,7 +9,7 @@ const { Item } = require("../models/item.model.js");
 const { User } = require("../models/user.model.js");
 const { sendClaimNotification } = require("../../services/email.service.js");
 
-//GET /api/items/:item_id/QandA
+// GET /api/items/:item_id/QandA
 exports.getQandAForItem = async (req, res, next) => {
   try {
     const { item_id } = req.params;
@@ -23,7 +23,7 @@ exports.getQandAForItem = async (req, res, next) => {
   }
 };
 
-//POST /api/items/:item_id/QandA
+// POST /api/items/:item_id/QandA
 exports.postQandAForItem = async (req, res, next) => {
   try {
     const { item_id } = req.params;
@@ -43,7 +43,7 @@ exports.postQandAForItem = async (req, res, next) => {
   }
 };
 
-//PATCH /api/items/:item_id/QandA
+// PATCH /api/items/:item_id/QandA
 exports.patchAnswersForItem = async (req, res, next) => {
   try {
     const { item_id } = req.params;
@@ -66,6 +66,7 @@ exports.patchAnswersForItem = async (req, res, next) => {
           claimantName: claimant.username,
           itemName: item.item_name,
           item_id,
+          questionAndAnswerPairs: questionAndAnswerPairs.questionAndAnswerPairs,
         });
       } catch (emailError) {
         console.error("Failed to send claim email:", emailError);
@@ -81,7 +82,7 @@ exports.patchAnswersForItem = async (req, res, next) => {
   }
 };
 
-//PATCH /api/items/:item_id/QandA/questions
+// PATCH /api/items/:item_id/QandA/questions
 exports.patchQuestionsForItem = async (req, res, next) => {
   try {
     const { item_id } = req.params;
