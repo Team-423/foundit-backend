@@ -2,10 +2,15 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const sendClaimNotification = async ({ to, claimantName, itemName }) => {
+export const sendClaimNotification = async ({
+  to,
+  claimantName,
+  itemName,
+  item_id,
+}) => {
   try {
     const { data, error } = await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: "FoundIt <onboarding@resend.dev>",
       to: "team.423.locked@gmail.com",
       subject: "Someone claimed your item!",
       html: `
@@ -19,7 +24,7 @@ export const sendClaimNotification = async ({ to, claimantName, itemName }) => {
       
       <p>
         Head over to the app to review the claim:<br>
-        <a href="https://see-it-post-it-foundit.netlify.app/" 
+        <a href="https://see-it-post-it-foundit.netlify.app/items/${item_id}" 
            style="display: inline-block; margin-top: 10px; background-color: #168aad; color: #fff; padding: 10px 16px; border-radius: 6px; text-decoration: none;">
           Review Claim
         </a>
@@ -38,7 +43,6 @@ export const sendClaimNotification = async ({ to, claimantName, itemName }) => {
     if (error) {
       throw new Error("Email failed to send");
     }
-
     return data;
   } catch (err) {
     throw err;

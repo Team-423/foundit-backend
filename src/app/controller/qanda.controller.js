@@ -60,11 +60,16 @@ exports.patchAnswersForItem = async (req, res, next) => {
     const claimant = await User.findById(claimant_id);
 
     if (item?.author?.email && claimant?.username) {
-      await sendClaimNotification({
-        to: item.author.email,
-        claimantName: claimant.username,
-        itemName: item.item_name,
-      });
+      try {
+        await sendClaimNotification({
+          to: item.author.email,
+          claimantName: claimant.username,
+          itemName: item.item_name,
+          item_id,
+        });
+      } catch (emailError) {
+        console.error("Failed to send claim email:", emailError);
+      }
     }
 
     res.status(200).send(questionAndAnswerPairs);
